@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop · Nurture &amp; Next</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon-32.png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+  .chead { padding-block: clamp(32px, 4vw, 56px) 24px; }
+  .chead h1 { margin-top: 10px; }
+  .chead p { margin-top: 10px; max-width: 34em; }
+  .pband { display: grid; gap: 24px; align-items: center; padding: clamp(24px, 4vw, 48px); margin-bottom: 8px; }
+  @media (min-width: 750px) { .pband { grid-template-columns: 180px 1fr auto; gap: 40px; } }
+  .pband__art { width: 140px; }
+  @media (min-width: 750px) { .pband__art { width: 180px; } }
+  .filters { position: sticky; top: var(--header-h); z-index: 6; background: var(--cream); border-bottom: 1px solid var(--line); }
+  .filters__in { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; padding-block: 12px; }
+  .fgroup { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; max-width: 100%; }
+  .fgroup button { flex: none; display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: 36px; font-size: var(--fs-small); transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease); }
+  .fgroup button:hover { border-color: var(--charcoal); }
+  .fgroup button.is-on { background: var(--charcoal); border-color: var(--charcoal); color: var(--white); }
+  .filters select { margin-left: auto; height: 36px; padding: 0 30px 0 12px; border: 1px solid var(--line-2); background: var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23262729'/%3E%3C/svg%3E") no-repeat right 10px center / 10px; -webkit-appearance: none; appearance: none; font-size: var(--fs-small); border-radius: 0; }
+  .count { margin: 20px 0; font-size: var(--fs-small); color: var(--ink-3); }
+  .tile { display: flex; flex-direction: column; justify-content: space-between; aspect-ratio: 4/5; padding: 22px; }
+  .tile .t-h3 { margin-top: 12px; }
+  .tile__ac { display: flex; gap: 8px; margin: 18px 0; }
+  .tile__ac i { flex: 1; height: 70px; display: grid; place-items: center; font: 500 var(--fs-label)/1.2 var(--sans); letter-spacing: .06em; text-transform: uppercase; text-align: center; padding: 6px; }
+</style>
+</head>
+<body data-page="collection">
+<main>
+  <section class="wrap chead" data-build="native" data-build-label="Collection banner: title, description (per collection)" data-note="1">
+    <p class="crumbs"><a href="index.html">Home</a> / <span data-f="crumb">Shop all</span></p>
+    <h1 class="t-h1" data-f="title">Shop all</h1>
+    <p class="t-lead" data-f="desc"></p>
+  </section>
+
+  <div class="wrap" data-f="band"></div>
+
+  <div class="filters" data-build="native" data-build-label="Product grid: horizontal filter bar, sticky. Filters: garment (product type), print (metafield), via Search &amp; Discovery" data-note="2">
+    <div class="wrap filters__in">
+      <div class="fgroup" data-group="g" aria-label="Garment">
+        <button type="button" data-v="">All</button><button type="button" data-v="sleepsuit">Sleepsuits</button><button type="button" data-v="pj">PJ sets</button><button type="button" data-v="socks">Grip socks</button>
+      </div>
+      <div class="fgroup" data-group="print" aria-label="Print">
+        <button type="button" data-v="moon"><i class="pdot" data-print="moon"></i>Under One Moon</button><button type="button" data-v="atlas"><i class="pdot" data-print="atlas"></i>Dream Atlas</button><button type="button" data-v="hush"><i class="pdot" data-print="hush"></i>Hush Hush</button>
+      </div>
+      <select data-f="sort" aria-label="Sort"><option value="">Featured</option><option value="low">Price, low to high</option><option value="high">Price, high to low</option></select>
+    </div>
+  </div>
+
+  <section class="wrap" style="padding-bottom:var(--sec)" data-build="native" data-build-label="Product grid: 4 columns, 2 on phones. One product per print, sibling swatches, quick add with size picker" data-note="3">
+    <p class="count" data-f="count"></p>
+    <div class="grid grid--4" data-f="grid"></div>
+  </section>
+</main>
+<script src="assets/logos.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function () {
+  var f = function (k) { return document.querySelector('[data-f="' + k + '"]'); };
+  var q = new URLSearchParams(location.search);
+  var st = { g: q.get('g') || '', print: q.get('print') || '', sort: '' };
+  var G = { '': ['Shop all', 'AeroCool sleepwear in three prints, and grip socks for little feet on the move.'], sleepsuit: ['Sleepsuits', 'One-piece AeroCool sleepsuits for 0–12 months, with a two-way zip and fold-over cuffs.'], pj: ['PJ sets', 'Two-piece AeroCool PJ sets for 12 months to 4 years.'], socks: ['Grip socks', 'Soft socks with grippy soles, for little feet on the move.'] };
+  var tiles = {
+    ac: '<a class="tile bg-stone" href="aerocool.html" data-build="native" data-build-label="Promo tile in grid (Stiletto: image with text block / custom liquid)" data-note="4"><span class="t-label muted">AeroCool</span><div><p class="t-h3">Warm when it’s cool. Cool when it’s warm.</p><div class="tile__ac"><i style="background:var(--mustard)">Absorbs heat</i><i style="background:var(--sage)">Gives it back</i></div><span class="tlink">How it works</span></div></a>',
+    bd: '<a class="tile bg-charcoal" href="bundles.html" data-note="5"><span class="bdc__save" style="color:var(--charcoal)">Save 7%</span><div><p class="t-h3">Any two sleepwear pieces, or two plus socks.</p><span class="tlink" style="margin-top:16px">Build a bundle</span></div></a>'
+  };
+  function render() {
+    var title = st.print ? NN.PRINTS[st.print].name : G[st.g][0];
+    f('title').textContent = title; f('crumb').textContent = title; document.title = title + ' · Nurture & Next';
+    f('desc').textContent = st.print ? 'The ' + NN.PRINTS[st.print].name + ' print, in the AeroCool sleepsuit and PJ set.' : G[st.g][1];
+    f('band').innerHTML = st.print ? '<div class="pband pfield" data-print="' + st.print + '"><div class="pband__art">' + NN.ART[st.print] + '</div><div><span class="t-label" style="opacity:.75">Story ' + NN.PRINTS[st.print].n + ' of 3</span><p class="t-h2" style="margin-top:8px">' + NN.PRINTS[st.print].line + '</p></div><a class="btn ' + (st.print === 'moon' ? 'btn--light' : '') + '" href="print-story.html?s=' + st.print + '">Read the story</a></div>' : '';
+    document.querySelectorAll('[data-group]').forEach(function (grp) { var k = grp.getAttribute('data-group'); grp.querySelectorAll('button').forEach(function (b) { b.classList.toggle('is-on', b.getAttribute('data-v') === st[k]); }); });
+    var ids = NN.ORDER.filter(function (id) { var p = NN.P[id]; return (!st.g || p.g === st.g) && (!st.print || p.print === st.print); });
+    if (st.sort) ids.sort(function (a, b) { return (NN.P[a].price - NN.P[b].price) * (st.sort === 'low' ? 1 : -1); });
+    f('count').textContent = ids.length + (ids.length === 1 ? ' product' : ' products');
+    var html = ids.map(NN.pc);
+    if (!st.g && !st.print && !st.sort) { html.splice(3, 0, tiles.ac); html.splice(7, 0, tiles.bd); }
+    f('grid').innerHTML = html.join('') || '<p class="muted">Nothing here yet.</p>';
+    var p = new URLSearchParams(); if (st.g) p.set('g', st.g); if (st.print) p.set('print', st.print);
+    try { history.replaceState(null, '', p.toString() ? '?' + p : location.pathname); } catch (e) {}
+    if (window.PROTO) PROTO.refresh();
+  }
+  document.querySelectorAll('[data-group]').forEach(function (grp) {
+    grp.addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; var k = grp.getAttribute('data-group'), v = b.getAttribute('data-v'); st[k] = st[k] === v && k === 'print' ? '' : v; if (k === 'g' && v === 'socks') st.print = ''; if (k === 'print' && st.print && st.g === 'socks') st.g = ''; render(); });
+  });
+  f('sort').addEventListener('change', function (e) { st.sort = e.target.value; render(); });
+  render();
+})();
+window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};
+</script>
+<script src="assets/proto.js"></script>
+</body>
+</html>

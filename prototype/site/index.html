@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nurture &amp; Next · Temperature-responsive sleepwear</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon-32.png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+  .hero { position: relative; display: flex; align-items: flex-end; min-height: min(88vh, 760px); color: var(--white); overflow: hidden; }
+  .hero picture, .hero picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(25, 20, 15, .66), rgba(25, 20, 15, .1) 55%); }
+  .hero__b { position: relative; z-index: 1; width: 100%; padding-block: 40px 48px; }
+  .hero__b .t-display { max-width: 11em; }
+  .hero__b p { max-width: 30em; margin: 16px 0 28px; color: rgba(255, 255, 255, .88); font-size: var(--fs-lead); }
+  @media (min-width: 990px) { .hero { align-items: center; } .hero::after { background: linear-gradient(90deg, rgba(25, 20, 15, .62), rgba(25, 20, 15, .1) 60%); } .hero__b { padding-block: 64px; } }
+  .bdcs { display: grid; gap: var(--gap); }
+  @media (min-width: 990px) { .bdcs { grid-template-columns: 1fr 1fr; } }
+  .bdcs .bdc { grid-template-columns: 1fr; }
+  .bdcs .bdc__img { aspect-ratio: 16/9; min-height: 0; }
+  @media (min-width: 750px) and (max-width: 989px) { .bdcs .bdc { grid-template-columns: 1fr 1fr; } .bdcs .bdc__img { aspect-ratio: auto; } }
+  .covs { display: grid; gap: var(--gap); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 749px) { .covs { grid-auto-flow: column; grid-auto-columns: 70%; grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); } .covs > * { scroll-snap-align: start; } }
+  .founder .ed__img { aspect-ratio: 4/5; }
+  @media (min-width: 990px) { .founder .ed__img { aspect-ratio: 5/6; } }
+</style>
+</head>
+<body data-page="home">
+<main>
+  <!-- Hero -->
+  <section class="hero" data-build="native" data-build-label="Image hero: separate mobile image, heading, text, 2 buttons" data-build-pos="tr" data-note="3">
+    <picture><source media="(max-width: 989px)" srcset="assets/img/hero-reading-m.webp"><img src="assets/img/hero-reading.webp" alt="A mother reading a bedtime story to her toddler" fetchpriority="high"></picture>
+    <div class="wrap hero__b">
+      <h1 class="t-display">Sleep without the guessing.</h1>
+      <p>Temperature-responsive sleepwear for 0 months to 4 years, in three prints with a bedtime story behind each.</p>
+      <div class="btns"><a class="btn btn--light" href="collection.html">Shop sleepwear</a><a class="btn btn--line-light" href="#aerocool">How AeroCool works</a></div>
+    </div>
+  </section>
+
+  <!-- Shop their bedtime -->
+  <section class="sec" data-tabs data-build="native" data-build-label="Featured collection slider: 3 collection tabs. Print cards = product card with print colour (small CSS)" data-note="4">
+    <div class="wrap">
+      <div class="shead rv"><div><span class="t-label">Shop their bedtime</span><h2 class="t-h2">Three prints, each with its own story</h2></div><a class="tlink" href="collection.html">Shop all</a></div>
+      <div class="tabs" role="tablist">
+        <button class="is-on" type="button" role="tab" data-tab="sleepsuit">Sleepsuits <span>0–12M</span></button>
+        <button type="button" role="tab" data-tab="pj">PJ sets <span>12M–4Y</span></button>
+        <button type="button" role="tab" data-tab="socks">Grip socks</button>
+      </div>
+      <div class="rail rail--3" data-panel="sleepsuit" data-printcards="sleepsuit-moon, sleepsuit-atlas, sleepsuit-hush"></div>
+      <div class="rail rail--3" data-panel="pj" data-printcards="pj-moon, pj-atlas, pj-hush" hidden></div>
+      <div class="grid grid--3" data-panel="socks" hidden>
+        <div data-cards="cloud-hopper" style="display:contents"></div><div data-cards="little-wild-trio" style="display:contents"></div>
+        <a class="bdc" href="bundles.html" style="grid-template-columns:1fr;align-content:end;background:var(--charcoal);color:var(--cream)"><div class="bdc__b"><span class="bdc__save">Save 7%</span><p class="t-h3">Add socks to two sleepwear pieces with Bedtime &amp; Beyond.</p><span class="tlink">Build the bundle →</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How AeroCool works -->
+  <section class="sec bg-stone" id="aerocool" data-build="custom" data-build-label="Custom section: two-state AeroCool diagram (SVG + toggle). Copy pending test results" data-note="5">
+    <div class="wrap">
+      <div class="ac" data-state="warm">
+        <div class="ac__vis rv" aria-hidden="true">
+          <svg viewBox="0 0 500 400">
+            <rect class="ac__room" x="0" y="0" width="500" height="168" fill="#fbf1d6"/>
+            <text x="28" y="40" font-family="DM Sans" font-size="13" letter-spacing="1.2" fill="#262729">THE ROOM</text>
+            <g class="ac__flow ac__flow--in"><circle cx="440" cy="62" r="18" fill="#e0c16e"/><path d="M440 30v-8M440 102v-8M408 62h-8M480 62h-8M418 40l-6-6M462 40l6-6" stroke="#e0c16e" stroke-width="3" stroke-linecap="round" style="animation:none;stroke-dasharray:none"/></g>
+            <g class="ac__flow ac__flow--out"><path d="M450 40a24 24 0 1 0 18 40 20 20 0 1 1-18-40Z" fill="#8caaab"/></g>
+            <rect x="0" y="168" width="500" height="84" fill="#ffffff"/>
+            <path d="M0 182h500M0 238h500" stroke="#e4dbd0"/>
+            <g>
+              <circle class="ac__cap" cx="62" cy="210" r="15" stroke="#262729" stroke-width="1.5"/><circle class="ac__cap" cx="124" cy="210" r="15" stroke="#262729" stroke-width="1.5"/>
+              <circle class="ac__cap" cx="186" cy="210" r="15" stroke="#262729" stroke-width="1.5"/><circle class="ac__cap" cx="248" cy="210" r="15" stroke="#262729" stroke-width="1.5"/>
+              <circle class="ac__cap" cx="310" cy="210" r="15" stroke="#262729" stroke-width="1.5"/><circle class="ac__cap" cx="372" cy="210" r="15" stroke="#262729" stroke-width="1.5"/>
+              <circle class="ac__cap" cx="434" cy="210" r="15" stroke="#262729" stroke-width="1.5"/>
+            </g>
+            <text x="28" y="160" font-family="DM Sans" font-size="13" letter-spacing="1.2" fill="#262729">AEROCOOL FABRIC · PCM CAPSULES</text>
+            <rect x="0" y="252" width="500" height="148" fill="#f4e6dc"/>
+            <text x="28" y="380" font-family="DM Sans" font-size="13" letter-spacing="1.2" fill="#262729">THEIR SKIN</text>
+            <g class="ac__flow ac__flow--in" stroke="#c9a24a" stroke-width="3" fill="none" stroke-linecap="round">
+              <path d="M93 340V236"/><path d="M217 340V236"/><path d="M341 340V236"/>
+              <path d="m85 248 8-12 8 12M209 248l8-12 8 12M333 248l8-12 8 12" style="animation:none;stroke-dasharray:none"/>
+            </g>
+            <g class="ac__flow ac__flow--out" stroke="#c9a24a" stroke-width="3" fill="none" stroke-linecap="round">
+              <path d="M155 230v100"/><path d="M279 230v100"/><path d="M403 230v100"/>
+              <path d="m147 318 8 12 8-12M271 318l8 12 8-12M395 318l8 12 8-12" style="animation:none;stroke-dasharray:none"/>
+            </g>
+          </svg>
+        </div>
+        <div class="rv">
+          <span class="t-label muted">How AeroCool works</span>
+          <h2 class="t-h2" style="margin:10px 0 22px">Fabric that adjusts while they sleep</h2>
+          <div class="ac__toggle" role="tablist" aria-label="Temperature">
+            <button type="button" data-s="warm" role="tab"><i style="background:var(--mustard)"></i>When it’s warm</button>
+            <button type="button" data-s="cool" role="tab"><i style="background:var(--sage)"></i>When it cools</button>
+          </div>
+          <div class="ac__copy">
+            <div data-s="warm"><h3 class="t-h3">It absorbs extra warmth</h3><p class="muted" style="margin-top:8px;max-width:30em">Tiny capsules in the yarn soak up excess heat and store it, drawing it away from their skin.</p></div>
+            <div data-s="cool"><h3 class="t-h3">It gives that warmth back</h3><p class="muted" style="margin-top:8px;max-width:30em">As the room cools, the stored heat is released, so there’s no sudden chill.</p></div>
+          </div>
+          <div class="btns" style="margin-top:28px"><a class="btn" href="collection.html">Shop AeroCool</a><a class="btn btn--ghost" href="aerocool.html">The science</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="sec--s bg-white" data-build="native" data-build-label="Multi-column: 5 icon columns, centred" data-note="6">
+    <div class="wrap bens">
+      <div class="ben rv"><i data-icon="thermo"></i><b>Temperature-responsive</b><span>70% cotton, 30% PCM Lyocell</span></div>
+      <div class="ben rv"><i data-icon="feather"></i><b>Featherlight soft</b><span>Lightweight and breathable</span></div>
+      <div class="ben rv"><i data-icon="zip"></i><b>Two-way zip</b><span>Night changes without undressing</span></div>
+      <div class="ben rv"><i data-icon="cuff"></i><b>Fold-over cuffs</b><span>Covers little hands and feet</span></div>
+      <div class="ben rv"><i data-icon="tag"></i><b>No scratchy tags</b><span>Heat-stamped labels</span></div>
+    </div>
+  </section>
+
+  <!-- Bundles -->
+  <section class="sec" data-build="custom" data-build-label="Bundle cards section (custom), each links to the configurable bundle page" data-note="7">
+    <div class="wrap">
+      <div class="shead rv"><div><span class="t-label">Bundles</span><h2 class="t-h2">Build their bedtime, save 7%</h2></div><a class="tlink" href="bundles.html">How bundles work</a></div>
+      <div class="bdcs">
+        <a class="bdc rv" href="bundles.html?b=rotation">
+          <div class="bdc__img"><img src="assets/img/sleepsuit-atlas.webp" alt="" loading="lazy"></div>
+          <div class="bdc__b"><span class="bdc__save">Save 7%</span><h3 class="t-h3">Bedtime Rotation</h3><p class="muted">Any two sleepwear garments. One on, one in the wash.</p>
+            <div class="bdc__recipe"><i data-icon="suit"></i>+<i data-icon="suit"></i></div>
+            <p class="bdc__price">From <b>AED 649</b> <s>AED 698</s></p><span class="btn" style="margin-top:14px">Build this bundle</span></div>
+        </a>
+        <a class="bdc rv" href="bundles.html?b=beyond">
+          <div class="bdc__img"><img src="assets/img/grip-socks.webp" alt="" loading="lazy"></div>
+          <div class="bdc__b"><span class="bdc__save">Save 7%</span><h3 class="t-h3">Bedtime &amp; Beyond</h3><p class="muted">Two sleepwear garments, plus Cloud Hopper or Little Wild Trio grip socks.</p>
+            <div class="bdc__recipe"><i data-icon="suit"></i>+<i data-icon="suit"></i>+<i data-icon="sock"></i></div>
+            <p class="bdc__price">From <b>AED 713</b> <s>AED 767</s></p><span class="btn" style="margin-top:14px">Build this bundle</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Print stories -->
+  <section class="sec bg-white" data-build="native" data-build-label="Multi-column: 3 image columns linking to the print story pages" data-note="8">
+    <div class="wrap">
+      <div class="shead rv"><div><span class="t-label">Every print has a story</span><h2 class="t-h2">Read them at bedtime</h2></div><a class="tlink" href="prints.html">Meet Lumi</a></div>
+      <div class="covs">
+        <a class="cov rv" href="print-story.html?s=moon" data-print="moon"><div class="cov__art"><span class="cov__n">Story 1</span><i data-art="moon" style="display:contents"></i></div><h3 class="t-h3">Under One Moon</h3><p>A little elephant who wanted to play with the stars.</p></a>
+        <a class="cov rv" href="print-story.html?s=atlas" data-print="atlas"><div class="cov__art"><span class="cov__n">Story 2</span><i data-art="atlas" style="display:contents"></i></div><h3 class="t-h3">Dream Atlas</h3><p>Teddy flies to the moon, and a star finds the way home.</p></a>
+        <a class="cov rv" href="print-story.html?s=hush" data-print="hush"><div class="cov__art"><span class="cov__n">Story 3</span><i data-art="hush" style="display:contents"></i></div><h3 class="t-h3">Hush Hush</h3><p>A cloud and two stars sing Teddy to sleep.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder -->
+  <section class="sec founder" data-build="native" data-build-label="Image with text: image left, quote, link" data-note="9">
+    <div class="wrap ed">
+      <div class="ed__img rv"><img src="assets/img/mum-hug.webp" alt="A mother holding her sleeping child" loading="lazy"></div>
+      <div class="rv">
+        <span class="t-label muted">Our story</span>
+        <p class="quote" style="margin:16px 0 20px">“Parenting has enough guesswork. I wanted their nights to have a little less.”</p>
+        <p class="muted measure">Nurture &amp; Next started with a move to Dubai, a newborn son and a lot of questions. Sleepwear is the first answer.</p>
+        <a class="tlink" href="about.html" style="margin-top:22px">Read our story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journal -->
+  <section class="sec bg-white" data-build="native" data-build-label="Blog posts: 2 articles" data-note="10">
+    <div class="wrap">
+      <div class="shead rv"><div><span class="t-label">Journal</span><h2 class="t-h2">A little help for the journey</h2></div><a class="tlink" href="journal.html">All articles</a></div>
+      <div class="posts">
+        <a class="post rv" href="journal.html"><span class="post__img"><img src="assets/img/topdown-baby.webp" alt="" loading="lazy"></span><span class="t-label">Toddler behaviour</span><h3 class="t-h3">Why toddlers negotiate bedtime, and what actually helps</h3></a>
+        <a class="post rv" href="journal.html"><span class="post__img"><img src="assets/img/girl-bag.webp" alt="" loading="lazy"></span><span class="t-label">Travel</span><h3 class="t-h3">Packing the bedtime bag: sleep on the move</h3></a>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="assets/logos.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function () {
+  var ac = document.querySelector('.ac'), auto = true;
+  ac.addEventListener('click', function (e) { var b = e.target.closest('[data-s]'); if (!b || !b.matches('button')) return; auto = false; ac.setAttribute('data-state', b.getAttribute('data-s')); });
+  setInterval(function () { if (auto) ac.setAttribute('data-state', ac.getAttribute('data-state') === 'warm' ? 'cool' : 'warm'); }, 4500);
+})();
+window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || { ann: 1, header: 2, footer: 11 };
+</script>
+<script src="assets/proto.js"></script>
+</body>
+</html>

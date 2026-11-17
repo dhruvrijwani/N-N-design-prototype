@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bundles · Nurture &amp; Next</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon-32.png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+  .bhead { padding-block: clamp(32px, 4vw, 56px) clamp(24px, 3vw, 36px); }
+  .bb { display: grid; gap: 32px; padding-bottom: var(--sec); }
+  @media (min-width: 990px) { .bb { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 48px; align-items: start; } .bsum { position: sticky; top: calc(var(--header-h) + 20px); } }
+  .step { padding-bottom: 32px; margin-bottom: 32px; border-bottom: 1px solid var(--line); }
+  .step__hd { display: flex; align-items: baseline; gap: 12px; margin-bottom: 18px; }
+  .step__hd i { font: 500 var(--fs-label)/1 var(--sans); font-style: normal; letter-spacing: .08em; color: var(--ink-3); }
+  .bopts { display: grid; gap: 12px; }
+  @media (min-width: 750px) { .bopts { grid-template-columns: 1fr 1fr; } }
+  .bopt { position: relative; display: grid; gap: 6px; padding: 20px; background: var(--white); border: 1.5px solid var(--line); text-align: left; transition: border-color var(--t-fast) var(--ease); }
+  .bopt:hover { border-color: var(--line-2); }
+  .bopt.is-on { border-color: var(--charcoal); }
+  .bopt.is-on::after { content: "✓"; position: absolute; right: 16px; top: 16px; width: 24px; height: 24px; border-radius: 50%; background: var(--charcoal); color: var(--white); font-size: 12px; display: grid; place-items: center; }
+  .bopt .bdc__recipe { margin: 4px 0 0; }
+  .slots { display: grid; grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .slot { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: center; min-height: 76px; padding: 10px; border: 1.5px dashed var(--line-2); background: transparent; text-align: left; transition: border-color var(--t-fast) var(--ease), background var(--t-fast) var(--ease); }
+  .slot.is-active { border-style: solid; border-color: var(--charcoal); background: var(--white); }
+  .slot.is-full { border-style: solid; background: var(--white); }
+  .slot__img { width: 52px; height: 56px; display: grid; place-items: center; background: var(--cream); overflow: hidden; }
+  .slot__img img { width: 100%; height: 100%; object-fit: cover; }
+  .slot__img svg { width: 22px; height: 22px; color: var(--ink-3); }
+  .slot b { display: block; font-size: var(--fs-small); font-weight: 500; }
+  .slot span { display: block; font-size: var(--fs-small); color: var(--ink-3); line-height: 1.35; }
+  @media (max-width: 600px) { .slot { grid-template-columns: 1fr; } .slot__img { width: 100%; height: 64px; } }
+  .picker__tabs { display: flex; gap: 6px; margin-bottom: 14px; }
+  .opts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .opts--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .opt { display: flex; flex-direction: column; text-align: left; background: var(--p-bg, var(--white)); color: var(--p-fg, var(--ink)); outline: 1.5px solid transparent; outline-offset: 2px; transition: outline-color var(--t-fast) var(--ease); }
+  .opt:hover { outline-color: var(--line-2); }
+  .opt.is-on { outline-color: var(--charcoal); }
+  .opt__img { aspect-ratio: 1; overflow: hidden; }
+  .opt__img img { width: 100%; height: 100%; object-fit: cover; }
+  .opt__b { padding: 10px 12px 12px; }
+  .opt__b b { display: block; font: 400 var(--fs-name)/1.25 var(--serif); }
+  .opt__b span { font-size: var(--fs-small); opacity: .8; }
+  .pick-size { margin-top: 18px; padding: 16px; background: var(--white); }
+  .pick-size p { margin-bottom: 10px; font-size: var(--fs-small); }
+  .bsum { background: var(--white); padding: clamp(20px, 3vw, 28px); }
+  .bsum__l { display: grid; grid-template-columns: 52px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: var(--fs-small); }
+  .bsum__l img { width: 52px; aspect-ratio: 4/5; object-fit: cover; }
+  .bsum__l.is-empty { color: var(--ink-3); }
+  .bsum__l.is-empty i { width: 52px; aspect-ratio: 4/5; border: 1px dashed var(--line-2); }
+  .bsum__r { display: flex; justify-content: space-between; padding: 6px 0; font-size: var(--fs-small); }
+  .bsum__r.save { color: #3f6b55; font-weight: 500; }
+  .bsum__r.tot { padding-top: 12px; margin-top: 6px; border-top: 1px solid var(--line); font-size: var(--fs-body); font-weight: 500; }
+  .bbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; display: flex; align-items: center; gap: 12px; padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom)); background: var(--cream); border-top: 1px solid var(--line); }
+  .bbar div { flex: 1; font-size: var(--fs-small); line-height: 1.35; }
+  .bbar b { display: block; font-weight: 500; }
+  @media (min-width: 990px) { .bbar { display: none; } }
+  @media (max-width: 989px) { main { padding-bottom: 72px; } }
+  .how { display: grid; gap: 20px; counter-reset: h; }
+  @media (min-width: 750px) { .how { grid-template-columns: repeat(3, 1fr); gap: 32px; } }
+  .how li { counter-increment: h; padding-top: 16px; border-top: 1px solid var(--charcoal); }
+  .how li::before { content: counter(h); display: block; margin-bottom: 10px; font: 400 var(--fs-h2)/1 var(--serif); }
+</style>
+</head>
+<body data-page="bundles">
+<main>
+  <section class="wrap bhead" data-build="native" data-build-label="Page title + rich text" data-note="1">
+    <p class="crumbs"><a href="index.html">Home</a> / Bundles</p>
+    <h1 class="t-h1" style="margin-top:10px">Build their bedtime</h1>
+    <p class="t-lead" style="margin-top:10px;max-width:34em">Choose a bundle, pick the prints and sizes, and save 7% on every piece.</p>
+  </section>
+
+  <div class="wrap bb">
+    <div data-build="app" data-build-label="Mix-and-match bundle app (e.g. Fast Bundle, Kaching Bundles), styled to this layout" data-note="2">
+      <div class="step">
+        <div class="step__hd"><i>Step 1</i><h2 class="t-h3">Choose your bundle</h2></div>
+        <div class="bopts">
+          <button class="bopt" type="button" data-b="rotation"><span class="bdc__save" style="justify-self:start">Save 7%</span><b class="t-h3">Bedtime Rotation</b><span class="muted t-small">Any two sleepwear garments. One on, one in the wash.</span><span class="bdc__recipe"><i data-icon="suit"></i>+<i data-icon="suit"></i></span></button>
+          <button class="bopt" type="button" data-b="beyond"><span class="bdc__save" style="justify-self:start">Save 7%</span><b class="t-h3">Bedtime &amp; Beyond</b><span class="muted t-small">Two sleepwear garments, plus Cloud Hopper or Little Wild Trio grip socks.</span><span class="bdc__recipe"><i data-icon="suit"></i>+<i data-icon="suit"></i>+<i data-icon="sock"></i></span></button>
+        </div>
+      </div>
+      <div class="step" style="border:0;margin:0" data-note="3">
+        <div class="step__hd"><i>Step 2</i><h2 class="t-h3">Pick the pieces</h2></div>
+        <div class="slots" data-f="slots"></div>
+        <div data-f="picker"></div>
+      </div>
+    </div>
+
+    <aside class="bsum" data-build="app" data-build-label="Bundle summary: live price, 7% saving, add bundle to bag" data-note="4">
+      <h2 class="t-h3" data-f="sumtitle">Bedtime Rotation</h2>
+      <div data-f="sumlines" style="margin:12px 0 14px"></div>
+      <div class="bsum__r"><span>Pieces</span><span data-f="sub">AED 0</span></div>
+      <div class="bsum__r save"><span>Bundle saving (7%)</span><span data-f="save">− AED 0</span></div>
+      <div class="bsum__r tot"><span>Total</span><span data-f="tot">AED 0</span></div>
+      <button class="btn btn--block" type="button" style="margin-top:18px" data-f="addb" disabled>Add bundle to bag</button>
+      <p class="t-small muted" style="margin-top:10px" data-f="hint">Pick two pieces to continue.</p>
+    </aside>
+  </div>
+
+  <div class="bbar"><div><b data-f="btot">AED 0</b><span class="muted" data-f="bsave">Save 7%</span></div><button class="btn btn--sm" type="button" data-f="addb2" disabled>Add bundle</button></div>
+
+  <section class="sec bg-white" data-build="native" data-build-label="Multi-column (3 steps) + collapsible rows" data-note="5">
+    <div class="wrap">
+      <h2 class="t-h2" style="margin-bottom:28px">How bundles work</h2>
+      <ol class="how">
+        <li><b class="t-name">Mix anything</b><p class="muted t-small" style="margin-top:6px">Sleepsuits and PJ sets, any print, any size. Bundle a sleepsuit now and a PJ set for later.</p></li>
+        <li><b class="t-name">7% off every piece</b><p class="muted t-small" style="margin-top:6px">The saving shows on each piece in your bag, and stays if you add more.</p></li>
+        <li><b class="t-name">Exchange sizes as usual</b><p class="muted t-small" style="margin-top:6px">Each garment can be exchanged for another size within 7 days in the UAE.</p></li>
+      </ol>
+    </div>
+  </section>
+</main>
+<script src="assets/logos.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function () {
+  var f = function (k) { return document.querySelector('[data-f="' + k + '"]'); };
+  var q = new URLSearchParams(location.search);
+  var B = { rotation: { name: 'Bedtime Rotation', slots: ['wear', 'wear'] }, beyond: { name: 'Bedtime & Beyond', slots: ['wear', 'wear', 'socks'] } };
+  var st = { b: q.get('b') === 'beyond' ? 'beyond' : 'rotation', active: 0, g: 'sleepsuit', items: [] };
+  function reset() { st.items = B[st.b].slots.map(function () { return { id: null, size: null }; }); }
+  reset();
+  if (NN.P[q.get('add')]) { st.items[0].id = q.get('add'); st.g = NN.P[q.get('add')].g; }
+  if (q.get('socks') && NN.P[q.get('socks')]) { st.b = 'beyond'; reset(); st.items[2].id = q.get('socks'); }
+
+  function slotLabel(i) { return B[st.b].slots[i] === 'socks' ? 'Grip socks' : 'Sleepwear ' + (i + 1); }
+  function render() {
+    var bset = B[st.b];
+    document.querySelectorAll('[data-b]').forEach(function (b) { b.classList.toggle('is-on', b.getAttribute('data-b') === st.b); });
+    var slotsEl = f('slots'); slotsEl.style.setProperty('--n', bset.slots.length);
+    slotsEl.innerHTML = st.items.map(function (it, i) {
+      var p = it.id && NN.P[it.id];
+      return '<button type="button" class="slot' + (i === st.active ? ' is-active' : '') + (p && it.size ? ' is-full' : '') + '" data-slot="' + i + '"><span class="slot__img">' + (p ? '<img src="' + NN.img(p.imgs[0]) + '" alt="">' : NN.I[bset.slots[i] === 'socks' ? 'sock' : 'suit']) + '</span>' +
+        '<span><b>' + slotLabel(i) + '</b><span>' + (p ? (p.print ? p.printName + ' ' + p.title.replace('AeroCool ', '') : p.title) + (it.size ? ' · ' + it.size : ' · choose size') : 'Choose') + '</span></span></button>';
+    }).join('');
+    // picker for the active slot
+    var kind = bset.slots[st.active], cur = st.items[st.active], ids;
+    var html = '';
+    if (kind === 'wear') {
+      html += '<div class="picker__tabs tabs" style="margin-bottom:14px"><button type="button" class="' + (st.g === 'sleepsuit' ? 'is-on' : '') + '" data-g="sleepsuit">Sleepsuits <span>0–12M</span></button><button type="button" class="' + (st.g === 'pj' ? 'is-on' : '') + '" data-g="pj">PJ sets <span>12M–4Y</span></button></div>';
+      ids = NN.ORDER.filter(function (k) { return NN.P[k].g === st.g; });
+    } else { ids = ['cloud-hopper', 'little-wild-trio']; }
+    html += '<div class="opts' + (ids.length === 2 ? ' opts--2' : '') + '">' + ids.map(function (k) {
+      var p = NN.P[k];
+      return '<button type="button" class="opt' + (cur.id === k ? ' is-on' : '') + '" data-pick="' + k + '"' + (p.print ? ' data-print="' + p.print + '"' : '') + '><span class="opt__img"><img src="' + NN.img(p.imgs[0]) + '" alt=""></span><span class="opt__b"><b>' + (p.print ? p.printName : p.title) + '</b><span>' + NN.aed(p.price) + ' → ' + NN.aed(Math.round(p.price * (1 - NN.BUNDLE_SAVE))) + '</span></span></button>';
+    }).join('') + '</div>';
+    if (cur.id) {
+      var p = NN.P[cur.id];
+      html += '<div class="pick-size"><p><b style="font-weight:500">' + p.full + '</b> · choose a size</p><div class="chips">' + p.sizes.map(function (s) { var so = p.soldout.indexOf(s) > -1; return '<button type="button" class="' + (cur.size === s ? 'is-on' : '') + '" data-psz="' + s + '"' + (so ? ' disabled title="Sold out"' : '') + '>' + s + '</button>'; }).join('') + '</div></div>';
+    }
+    f('picker').innerHTML = html;
+    // summary
+    var sub = 0, done = 0;
+    f('sumtitle').textContent = bset.name;
+    f('sumlines').innerHTML = st.items.map(function (it, i) {
+      var p = it.id && NN.P[it.id];
+      if (!p) return '<div class="bsum__l is-empty"><i></i><span>' + slotLabel(i) + '</span><span></span></div>';
+      sub += p.price; if (it.size) done++;
+      return '<div class="bsum__l"><img src="' + NN.img(p.imgs[0]) + '" alt=""><span>' + p.full + '<br><span class="muted">' + (it.size || 'Size to choose') + '</span></span><span>' + NN.aed(p.price) + '</span></div>';
+    }).join('');
+    var save = Math.round(sub * NN.BUNDLE_SAVE);
+    f('sub').textContent = NN.aed(sub); f('save').textContent = '− ' + NN.aed(save); f('tot').textContent = NN.aed(sub - save);
+    var ready = done === st.items.length;
+    f('addb').disabled = !ready; f('addb2').disabled = !ready;
+    f('btot').textContent = NN.aed(sub - save) + (sub ? '' : '');
+    f('bsave').textContent = ready ? 'You save ' + NN.aed(save) : (st.items.length - done) + ' to pick · save 7%';
+    f('hint').textContent = ready ? 'Free UAE shipping on this bundle.' : 'Pick ' + (st.items.length - done) + ' more ' + (st.items.length - done === 1 ? 'piece' : 'pieces') + ', with sizes.';
+    if (window.PROTO) PROTO.refresh();
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-b], [data-slot], [data-g], [data-pick], [data-psz], [data-f="addb"], [data-f="addb2"]');
+    if (!t) return;
+    if (t.hasAttribute('data-b')) { var keep = st.items.slice(0, 2); st.b = t.getAttribute('data-b'); reset(); keep.forEach(function (it, i) { st.items[i] = it; }); st.active = 0; }
+    else if (t.hasAttribute('data-slot')) { st.active = +t.getAttribute('data-slot'); var id = st.items[st.active].id; if (id && NN.P[id].g !== 'socks') st.g = NN.P[id].g; }
+    else if (t.hasAttribute('data-g')) { st.g = t.getAttribute('data-g'); }
+    else if (t.hasAttribute('data-pick')) { var c = st.items[st.active]; if (c.id !== t.getAttribute('data-pick')) { c.id = t.getAttribute('data-pick'); c.size = null; } }
+    else if (t.hasAttribute('data-psz')) {
+      st.items[st.active].size = t.getAttribute('data-psz');
+      var next = st.items.findIndex(function (it) { return !it.id || !it.size; });
+      if (next > -1) st.active = next;
+    }
+    else { NN.addBundle(B[st.b].name, st.items); return; }
+    render();
+  });
+  render();
+})();
+window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};
+</script>
+<script src="assets/proto.js"></script>
+</body>
+</html>

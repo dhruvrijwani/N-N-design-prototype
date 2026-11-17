@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand · Nurture &amp; Next</title>
+<link rel="stylesheet" href="docs.css">
+<style>
+  .row-spec { display: grid; gap: 6px 24px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  @media (min-width: 800px) { .row-spec { grid-template-columns: 13rem 1fr; } }
+  .row-spec small { color: var(--ink-3); font-size: var(--fs-small); }
+  .pcards { display: grid; gap: 16px; margin-top: 28px; }
+  @media (min-width: 800px) { .pcards { grid-template-columns: repeat(3, 1fr); } }
+  .pcards > div { padding: 22px; }
+  .pcards svg { width: 90px; margin-bottom: 14px; }
+  .types { display: grid; gap: 16px; margin-top: 28px; }
+  @media (min-width: 800px) { .types { grid-template-columns: repeat(4, 1fr); } }
+  .types > div { padding: 20px; background: var(--white); }
+  .types b { display: block; font: 400 var(--fs-h3)/1.2 var(--serif); margin-bottom: 8px; }
+  .types p { font-size: var(--fs-small); color: var(--ink-2); }
+</style>
+</head>
+<body class="doc">
+<div class="doc-wrap">
+  <header class="doc-head">
+    <p class="t-label muted">Brand · v2</p>
+    <h1 class="t-display">Clean, product-led, and every print has a story.</h1>
+    <p class="t-lead">The same seven colours and two typefaces, used with more contrast and stricter rules. Shopping sections are product-first, the science is visual, and the editorial voice is kept for the founder and the stories.</p>
+    <nav class="doc-toc"><a href="#colour">Colour</a><a href="#prints">Print colours</a><a href="#type">Type</a><a href="#types">Section types</a><a href="#parts">Parts</a><a href="#where">In Stiletto</a></nav>
+  </header>
+
+  <section class="doc-sec" id="colour">
+    <h2 class="t-h1">Same palette, sharper roles.</h2>
+    <p class="t-lead">The site felt dull because mid-tones sat on mid-tones: olive headings and taupe text on cream. Now text is charcoal, products sit on white, and colour arrives through the prints.</p>
+    <div class="swatches">
+      <div><div class="sw__chip" style="background:#262729;color:#f8f2eb">Charcoal</div><p class="sw__meta">#262729<span>All text and headings, primary buttons, footer</span></p></div>
+      <div><div class="sw__chip" style="background:#f8f2eb">Cream</div><p class="sw__meta">#F8F2EB<span>The page</span></p></div>
+      <div><div class="sw__chip" style="background:#ffffff">White</div><p class="sw__meta">#FFFFFF<span>Product tiles, cards, panels: products stand out</span></p></div>
+      <div><div class="sw__chip" style="background:#e0c16e">Mustard</div><p class="sw__meta">#E0C16E<span>“Save 7%” tags, warmth in the AeroCool diagram</span></p></div>
+      <div><div class="sw__chip" style="background:#554b3b;color:#f8f2eb">Olive</div><p class="sw__meta">#554B3B<span>Under One Moon’s colour field</span></p></div>
+      <div><div class="sw__chip" style="background:#8caaab">Sage</div><p class="sw__meta">#8CAAAB<span>Dream Atlas’s colour field, coolness in the diagram</span></p></div>
+      <div><div class="sw__chip" style="background:#d8d7ce">Stone</div><p class="sw__meta">#D8D7CE<span>Hush Hush’s colour field</span></p></div>
+      <div><div class="sw__chip" style="background:#b59c92;color:#fff">Taupe</div><p class="sw__meta">#B59C92<span>Accents and soft secondary buttons</span></p></div>
+    </div>
+    <p class="body" style="margin-top:24px">Primary buttons are now charcoal. The brand’s taupe button stays for softer actions; white text on taupe is 2.6:1, too low for the button that takes payment.</p>
+  </section>
+
+  <section class="doc-sec" id="prints">
+    <h2 class="t-h1">Each print owns a colour.</h2>
+    <p class="t-lead">The prints are the product, so each gets a field that follows it everywhere: print cards, swatches, collection banners, story pages. The drawings are placeholders until the print artwork files arrive.</p>
+    <div class="pcards">
+      <div style="background:#554b3b;color:#f8f2eb;--p-accent:#e0c16e;--p-bg:#554b3b;--p-fg:#f8f2eb" data-art="moon"></div>
+      <div style="background:#8caaab;color:#262729;--p-accent:#f8f2eb;--p-bg:#8caaab;--p-fg:#262729" data-art="atlas"></div>
+      <div style="background:#d8d7ce;color:#262729;--p-accent:#b59c92;--p-bg:#d8d7ce;--p-fg:#262729" data-art="hush"></div>
+    </div>
+  </section>
+
+  <section class="doc-sec" id="type">
+    <h2 class="t-h1">Nine styles, nothing else.</h2>
+    <p class="t-lead">Newsreader for headings, product names and quotes. DM Sans for everything else. Sentence case everywhere; capitals only for small labels and buttons. Italic only in the print stories and in quotes.</p>
+    <div class="row-spec"><small>Display · Newsreader 400 · 60 / 38px</small><span class="t-display">Sleep without the guessing.</span></div>
+    <div class="row-spec"><small>H1 · 44 / 32px</small><span class="t-h1">Build their bedtime</span></div>
+    <div class="row-spec"><small>H2 · 34 / 26px</small><span class="t-h2">Three prints, each with its own story</span></div>
+    <div class="row-spec"><small>H3 · 22 / 20px</small><span class="t-h3">It absorbs extra warmth</span></div>
+    <div class="row-spec"><small>Product name · 18 / 16px</small><span class="t-name">AeroCool Sleepsuit</span></div>
+    <div class="row-spec"><small>Lead · DM Sans 18 / 16px</small><span class="t-lead">Choose a bundle, pick the prints and sizes, and save 7%.</span></div>
+    <div class="row-spec"><small>Body · 16 / 15px</small><span>Tiny capsules in the yarn soak up excess heat and store it.</span></div>
+    <div class="row-spec"><small>Small · 14 / 13px</small><span class="t-small">Free UAE shipping over AED 500</span></div>
+    <div class="row-spec"><small>Label · 12 / 11px, capitals</small><span class="t-label">Shop their bedtime</span></div>
+  </section>
+
+  <section class="doc-sec" id="types">
+    <h2 class="t-h1">Four kinds of section, each looking different.</h2>
+    <p class="t-lead">So the site has rhythm instead of the same two-column block on every section.</p>
+    <div class="types">
+      <div><b>Shop</b><p>Product-first. White tiles, print colours, price and buttons always visible. Home tabs, collection, product, bundles.</p></div>
+      <div><b>Science</b><p>A diagram in a tinted field, one line per state or stage, interactive. AeroCool on the home page and its own page.</p></div>
+      <div><b>Story</b><p>Editorial: large photo or illustration, conversational copy, the serif. Founder story, print stories, the wheel.</p></div>
+      <div><b>Service</b><p>Compact and scannable. Help, shipping, exchanges, size guide.</p></div>
+    </div>
+  </section>
+
+  <section class="doc-sec" id="parts">
+    <h2 class="t-h1">Parts.</h2>
+    <div class="btns" style="margin-top:24px"><a class="btn">Add to bag</a><a class="btn btn--ghost">View</a><a class="btn btn--taupe">Soft action</a><a class="tlink">Text link</a></div>
+    <dl class="kv">
+      <div><dt>Buttons</dt><dd>Square, 48px tall, DM Sans 12px capitals. Charcoal primary, outline secondary.</dd></div>
+      <div><dt>Product card</dt><dd>4:5 photo on white; second photo fades in on hover; at most one badge; “+” opens a size picker inside the card; name and price on one line; print dot and swatches below.</dd></div>
+      <div><dt>Print card</dt><dd>The print’s colour field, its motif, the photo, print name and price, Add to bag and View.</dd></div>
+      <div><dt>Size chips</dt><dd>White; selected is charcoal; sold out is crossed through and cannot be chosen.</dd></div>
+      <div><dt>Motion</dt><dd>Stiletto’s own: one easing curve, 300ms for hovers, 500ms for reveals. Sections fade up once as they enter. No bounce, no zoom-in on load.</dd></div>
+      <div><dt>Grid</dt><dd>1360px maximum width, 20 / 32 / 48px side margins, 16–24px gaps. Text, images and buttons share the same left edge.</dd></div>
+    </dl>
+  </section>
+
+  <section class="doc-sec" id="where">
+    <h2 class="t-h1">Where it lives in Stiletto.</h2>
+    <div class="tbl-scroll"><table class="tbl">
+      <thead><tr><th>Choice</th><th>Stiletto setting</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Page / text</td><td><code>color_background_body</code> / <code>color_text</code></td><td>#F8F2EB / #262729</td></tr>
+        <tr><td>Buttons</td><td><code>color_background_button</code> / <code>color_text_button</code></td><td>#262729 / #FFFFFF</td></tr>
+        <tr><td>Footer</td><td><code>color_background_footer</code></td><td>#262729</td></tr>
+        <tr><td>Headings</td><td><code>font_heading</code>, <code>capitalize_headings</code> off, letter spacing −15</td><td>Newsreader 400</td></tr>
+        <tr><td>Body</td><td><code>font_body</code></td><td>DM Sans 400</td></tr>
+        <tr><td>Buttons</td><td><code>capitalize_buttons</code> on, <code>buttons_letter_spacing</code> 100</td><td>On</td></tr>
+        <tr><td>Card titles</td><td><code>product_listing_title_uppercase</code> off</td><td>Sentence case</td></tr>
+        <tr><td>Siblings</td><td><code>enable_product_sibling_swatches</code>, option name “Print”</td><td>On</td></tr>
+        <tr><td>Quick add</td><td><code>enable_quick_add</code></td><td>On</td></tr>
+        <tr><td>Free shipping bar</td><td><code>enable_free_shipping_bar</code>, threshold 500</td><td>On</td></tr>
+        <tr><td>Print colours</td><td>Product metafield <code>custom.print_colour</code>, read by a small CSS snippet</td><td>Olive / sage / stone</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+</div>
+<script src="../site/assets/logos.js"></script>
+<script>document.querySelectorAll('[data-art]').forEach(function (el) { el.innerHTML = NN_ART[el.getAttribute('data-art')]; });</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your bag · Nurture &amp; Next</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon-32.png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+  .cart { display: grid; gap: 32px; padding-block: clamp(32px, 4vw, 56px) var(--sec); }
+  @media (min-width: 990px) { .cart { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 56px; align-items: start; } .panel { position: sticky; top: calc(var(--header-h) + 20px); } }
+  .cart .bl { grid-template-columns: 96px 1fr auto; }
+  .cart .bl img { width: 96px; }
+  .panel { background: var(--white); padding: clamp(20px, 3vw, 28px); }
+  .co { display: none; margin-top: 14px; padding: 14px; background: var(--cream); font-size: var(--fs-small); }
+  .co.is-on { display: block; }
+  .addon { display: grid; grid-template-columns: 56px 1fr auto; gap: 12px; align-items: center; margin-top: 12px; }
+  .addon img { width: 56px; aspect-ratio: 4/5; object-fit: cover; }
+</style>
+</head>
+<body data-page="cart">
+<main class="wrap">
+  <div class="cart">
+    <div data-build="native" data-build-label="Main cart: lines, bundle discount shown per line, free shipping bar" data-note="2">
+      <h1 class="t-h1" style="margin-bottom:6px">Your bag</h1>
+      <div data-f="lines"></div>
+      <a class="tlink" href="collection.html" style="margin-top:20px">Continue shopping</a>
+    </div>
+    <aside class="panel" data-f="panel" data-build="native" data-build-label="Cart summary: order note, cross-sell (cart settings)" data-note="3">
+      <div class="sum"><span>Subtotal</span><span data-f="sub"></span></div>
+      <p class="t-small muted" style="margin:4px 0 16px">Delivery AED 30 in the UAE, free over AED 500. International rates at checkout.</p>
+      <label class="field"><span>Gift note (optional)</span><textarea style="min-height:80px"></textarea></label>
+      <button class="btn btn--block" type="button" style="margin-top:16px" data-f="checkout">Checkout</button>
+      <div class="co" data-f="co"><b style="font-weight:500">Shopify Checkout opens here.</b> It is Shopify’s own page, branded with the logo, colours and fonts in the checkout settings, so it is not mocked up.</div>
+      <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--line)">
+        <p class="t-label muted">Add the finishing touch</p>
+        <div class="addon"><img src="assets/img/grip-socks.webp" alt=""><div><p class="t-name">Cloud Hopper</p><p class="t-small muted">Grip socks · AED 69</p></div><a class="btn btn--sm btn--ghost" href="product.html?p=cloud-hopper">View</a></div>
+      </div>
+    </aside>
+  </div>
+</main>
+<script src="assets/logos.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function () {
+  var f = function (k) { return document.querySelector('[data-f="' + k + '"]'); };
+  function render() {
+    var L = document.querySelector('[data-bag-lines]'); f('lines').innerHTML = L ? L.innerHTML : '';
+    var b = NN.bag(); f('sub').textContent = NN.aed(b.reduce(function (n, l) { return n + l.qty * l.price; }, 0));
+    f('panel').style.display = b.length ? '' : 'none';
+    if (window.PROTO) PROTO.refresh();
+  }
+  document.addEventListener('nn:bag', render);
+  var o = NN.open; NN.open = function (w) { if (w !== 'bag') o(w); };
+  f('checkout').addEventListener('click', function () { f('co').classList.add('is-on'); });
+  if (new URLSearchParams(location.search).get('checkout') === '1') f('co').classList.add('is-on');
+  render();
+})();
+window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || { bag: 1 };
+</script>
+<script src="assets/proto.js"></script>
+</body>
+</html>

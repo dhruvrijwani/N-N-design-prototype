@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AeroCool · Nurture &amp; Next</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon-32.png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+  .intro { display: grid; gap: 32px; align-items: end; padding-block: clamp(48px, 7vw, 104px) clamp(40px, 5vw, 72px); }
+  @media (min-width: 990px) { .intro { grid-template-columns: 1.3fr 1fr; gap: 72px; } }
+  .intro__img { aspect-ratio: 3/2; overflow: hidden; }
+  .intro__img img { width: 100%; height: 100%; object-fit: cover; }
+  .stepper { display: grid; gap: 24px; }
+  @media (min-width: 990px) { .stepper { grid-template-columns: 1fr 1.25fr; gap: 64px; align-items: center; } }
+  .steps li { position: relative; padding: 18px 0 18px 56px; border-bottom: 1px solid rgba(38, 39, 41, .18); cursor: pointer; transition: opacity var(--t-fast) var(--ease); }
+  .steps li:not(.is-on) { opacity: .55; }
+  .steps li:hover { opacity: 1; }
+  .steps li > i { position: absolute; left: 0; top: 16px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--charcoal); display: grid; place-items: center; font: 500 13px/1 var(--sans); font-style: normal; transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease); }
+  .steps li.is-on > i { background: var(--charcoal); color: var(--white); }
+  .steps b { display: block; font: 400 var(--fs-h3)/1.25 var(--serif); }
+  .steps p { margin-top: 6px; font-size: var(--fs-small); color: var(--ink-2); max-width: 32em; display: none; }
+  .steps li.is-on p { display: block; }
+  .stagevis { position: relative; aspect-ratio: 4/3; background: var(--white); overflow: hidden; }
+  .stagevis svg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform: scale(.98); transition: opacity var(--t-normal) var(--ease), transform var(--t-normal) var(--ease); }
+  .stagevis svg.is-on { opacity: 1; transform: none; }
+  .stagevis__n { position: absolute; left: 18px; top: 16px; z-index: 1; font: 500 var(--fs-label)/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; }
+  .stepnav { display: flex; gap: 8px; margin-top: 18px; }
+  .shopband { display: grid; gap: 28px; align-items: center; }
+  @media (min-width: 990px) { .shopband { grid-template-columns: 1fr 2fr; gap: 56px; } }
+  .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); }
+  @media (min-width: 750px) { .facts { grid-template-columns: repeat(4, 1fr); } }
+  .facts div { padding: 26px 22px; background: var(--cream); }
+  .facts b { display: block; font: 400 var(--fs-h2)/1.1 var(--serif); }
+  .facts span { display: block; margin-top: 6px; font-size: var(--fs-small); color: var(--ink-3); }
+</style>
+</head>
+<body data-page="aerocool">
+<main>
+  <section class="wrap intro" data-build="native" data-build-label="Image with text: short intro (problem + inspiration in 2 lines)" data-note="1">
+    <div class="rv">
+      <span class="t-label muted">AeroCool · our approach</span>
+      <h1 class="t-display" style="margin:12px 0 18px">Sleepwear that adjusts through the night</h1>
+      <p class="t-lead measure">Rooms warm up and cool down while children sleep, but their sleepwear stays the same. Inspired by temperature-management technology first explored for space, we built a fabric that responds.</p>
+    </div>
+    <div class="intro__img rv"><img src="assets/img/porthole.webp" alt="Earth seen through a spacecraft window"></div>
+  </section>
+
+  <section class="sec" style="background:#e4eded" data-build="custom" data-build-label="Custom section: 4-stage stepper with drawings (or multi-column with images, native, without the interaction)" data-note="2">
+    <div class="wrap">
+      <div class="shead"><div><span class="t-label">How AeroCool works</span><h2 class="t-h2">Four steps, from capsule to comfort</h2></div></div>
+      <div class="stepper">
+        <ol class="steps" data-f="steps">
+          <li class="is-on" data-st="0"><i>1</i><b>Microcapsules</b><p>Microscopic capsules hold a phase-change material that can absorb, store and release heat.</p></li>
+          <li data-st="1"><i>2</i><b>PCM Lyocell yarn</b><p>The capsules are built into the Lyocell yarn itself, not coated on top.</p></li>
+          <li data-st="2"><i>3</i><b>Our AeroCool fabric</b><p>That yarn is knitted with cotton into a soft, lightweight 70/30 blend.</p></li>
+          <li data-st="3"><i>4</i><b>Temperature response</b><p>As they warm, it absorbs heat. As the room cools, it gives it back, smoothing out the changes.</p></li>
+        </ol>
+        <div>
+          <div class="stagevis" data-f="vis">
+            <span class="stagevis__n" data-f="visn">Step 1 of 4</span>
+            <svg class="is-on" viewBox="0 0 400 300"><g fill="none" stroke="#262729" stroke-width="1.6"><circle cx="150" cy="150" r="46"/><circle cx="250" cy="120" r="34"/><circle cx="236" cy="200" r="26"/><circle cx="96" cy="86" r="16"/><circle cx="316" cy="208" r="14"/></g><g fill="#e0c16e"><circle cx="150" cy="150" r="22"/><circle cx="250" cy="120" r="16"/><circle cx="236" cy="200" r="12"/><circle cx="96" cy="86" r="7"/><circle cx="316" cy="208" r="6"/></g><text x="200" y="272" text-anchor="middle" font-family="DM Sans" font-size="12" letter-spacing="1.2" fill="#262729">PCM INSIDE EACH CAPSULE</text></svg>
+            <svg viewBox="0 0 400 300"><g fill="none" stroke="#262729" stroke-width="1.6"><path d="M40 120c40-30 80 30 120 0s80-30 120 0 80 30 120 0"/><path d="M40 150c40-30 80 30 120 0s80-30 120 0 80 30 120 0"/><path d="M40 180c40-30 80 30 120 0s80-30 120 0 80 30 120 0"/></g><g fill="#e0c16e"><circle cx="100" cy="134" r="5"/><circle cx="170" cy="150" r="5"/><circle cx="230" cy="166" r="5"/><circle cx="300" cy="150" r="5"/><circle cx="140" cy="176" r="5"/><circle cx="260" cy="120" r="5"/><circle cx="340" cy="178" r="5"/></g><text x="200" y="272" text-anchor="middle" font-family="DM Sans" font-size="12" letter-spacing="1.2" fill="#262729">CAPSULES BUILT INTO THE YARN</text></svg>
+            <svg viewBox="0 0 400 300"><g fill="none" stroke-width="7" stroke-linecap="round"><path d="M70 70v150M110 70v150M150 70v150M190 70v150M230 70v150M270 70v150M310 70v150" stroke="#d8d7ce"/><path d="M60 90h270M60 130h270M60 170h270M60 210h270" stroke="#8caaab" stroke-dasharray="26 14"/></g><text x="200" y="272" text-anchor="middle" font-family="DM Sans" font-size="12" letter-spacing="1.2" fill="#262729">70% COTTON · 30% PCM LYOCELL</text></svg>
+            <svg viewBox="0 0 400 300"><rect x="0" y="0" width="200" height="240" fill="#fbf1d6"/><rect x="200" y="0" width="200" height="240" fill="#e4eded"/><g fill="none" stroke="#262729" stroke-width="1.6"><path d="M92 60a8 8 0 0 1 16 0v80a16 16 0 1 1-16 0Z"/><path d="M292 60a8 8 0 0 1 16 0v80a16 16 0 1 1-16 0Z"/></g><circle cx="100" cy="155" r="9" fill="#e0c16e"/><circle cx="300" cy="155" r="9" fill="#8caaab"/><path d="M100 150V86" stroke="#e0c16e" stroke-width="4"/><path d="M300 150v-30" stroke="#8caaab" stroke-width="4"/><g stroke="#262729" stroke-width="1.6" fill="none" stroke-linecap="round"><path d="M140 110h30m-8-8 8 8-8 8"/><path d="M260 110h-30m8-8-8 8 8 8"/></g><text x="100" y="212" text-anchor="middle" font-family="DM Sans" font-size="12" letter-spacing="1.2" fill="#262729">ABSORBS HEAT</text><text x="300" y="212" text-anchor="middle" font-family="DM Sans" font-size="12" letter-spacing="1.2" fill="#262729">GIVES IT BACK</text><text x="200" y="272" text-anchor="middle" font-family="DM Sans" font-size="12" letter-spacing="1.2" fill="#262729">SMOOTHER, STEADIER NIGHTS</text></svg>
+          </div>
+          <div class="stepnav"><button class="btn btn--sm btn--ghost" type="button" data-move="-1">Previous</button><button class="btn btn--sm" type="button" data-move="1">Next step</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-white" data-build="native" data-build-label="Featured collection grid (2 products) with heading + button: Shop AeroCool" data-note="3">
+    <div class="wrap shopband">
+      <div class="rv"><span class="t-label muted">Shop AeroCool</span><h2 class="t-h2" style="margin:10px 0 16px">In three prints, from newborn to four</h2><p class="muted measure">The AeroCool sleepsuit for 0–12 months and PJ set for 12 months to 4 years.</p><a class="btn" href="collection.html" style="margin-top:24px">Shop AeroCool</a></div>
+      <div class="grid" data-cards="sleepsuit-moon, pj-atlas"></div>
+    </div>
+  </section>
+
+  <section class="wrap sec--s" data-build="native" data-build-label="Multi-column: 4 facts">
+    <div class="facts">
+      <div><b>70/30</b><span>Cotton and PCM Lyocell</span></div>
+      <div><b>In the yarn</b><span>Not a coating that washes out</span></div>
+      <div data-build="todo" data-build-label="TOG: publish once tested" data-build-pos="br"><b>0.5 TOG</b><span>To be confirmed by testing</span></div>
+      <div><b>30°C</b><span>Everyday machine wash</span></div>
+    </div>
+  </section>
+
+  <section class="sec" data-build="todo" data-build-label="Image with text: testing and certification, publish when results are in" data-note="4">
+    <div class="wrap ed">
+      <div class="ed__img" style="aspect-ratio:3/2"><img src="assets/img/machines.webp" alt="Knitting machines" loading="lazy"></div>
+      <div><span class="t-label muted">Testing &amp; quality</span><h2 class="t-h2" style="margin:10px 0 14px">What touches little skin matters</h2><p class="muted measure">Material selection, supplier checks and fabric performance testing are part of how each garment is developed. Test results and certificates will be listed here once confirmed.</p></div>
+    </div>
+  </section>
+</main>
+<script src="assets/logos.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function () {
+  var steps = document.querySelectorAll('[data-st]'), vis = document.querySelectorAll('[data-f="vis"] svg'), n = document.querySelector('[data-f="visn"]'), cur = 0;
+  function set(i) { cur = (i + 4) % 4; steps.forEach(function (s, k) { s.classList.toggle('is-on', k === cur); }); vis.forEach(function (v, k) { v.classList.toggle('is-on', k === cur); }); n.textContent = 'Step ' + (cur + 1) + ' of 4'; }
+  steps.forEach(function (s) { s.addEventListener('click', function () { set(+s.getAttribute('data-st')); }); });
+  document.querySelectorAll('[data-move]').forEach(function (b) { b.addEventListener('click', function () { set(cur + +b.getAttribute('data-move')); }); });
+})();
+window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};
+</script>
+<script src="assets/proto.js"></script>
+</body>
+</html>

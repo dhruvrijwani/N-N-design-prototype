@@ -1,0 +1,24 @@
+/* Self-hosted brand typefaces (from the brand guidelines): Newsreader (primary, display) and
+   DM Sans (secondary, text). Latin subset, variable weight. Both are open-source Google Fonts.
+   AED prices are written as the letters "AED", so no special currency glyph is needed. */
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("newsreader-latin-standard-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("newsreader-latin-standard-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url("dm-sans-latin-standard-normal.woff2") format("woff2");
+}

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build plan · Nurture &amp; Next</title>
+<link rel="stylesheet" href="docs.css">
+</head>
+<body class="doc">
+<div class="doc-wrap">
+  <header class="doc-head">
+    <p class="t-label muted">Build plan · v2</p>
+    <h1 class="t-display">Approve the prototype, then build it on Stiletto.</h1>
+    <p class="t-lead">Nothing is built on Shopify until the prototype is approved. Most of the site maps to Stiletto’s own sections. Four pieces of custom code, one bundle app and a reviews app close the gap.</p>
+    <nav class="doc-toc"><a href="#catalogue">Catalogue</a><a href="#map">Pages</a><a href="#custom">Custom code</a><a href="#apps">Apps</a><a href="#content">Content</a><a href="#seq">Sequence</a></nav>
+  </header>
+
+  <section class="doc-sec" id="catalogue">
+    <h2 class="t-h1">Eight products, linked as siblings.</h2>
+    <div class="tbl-scroll"><table class="tbl">
+      <thead><tr><th>Product</th><th>Variants</th><th>Siblings</th></tr></thead>
+      <tbody>
+        <tr><td>AeroCool Sleepsuit · Under One Moon / Dream Atlas / Hush Hush (3 products)</td><td>Size: 0–3M, 3–6M, 6–9M, 9–12M</td><td>Group “sleepsuit” by print; twin = PJ set in the same print</td></tr>
+        <tr><td>AeroCool PJ Set · Under One Moon / Dream Atlas / Hush Hush (3 products)</td><td>Size: 12–18M, 18–24M, 2–3Y, 3–4Y</td><td>Group “pj” by print; twin = sleepsuit in the same print</td></tr>
+        <tr><td>Cloud Hopper grip socks</td><td>Size</td><td>—</td></tr>
+        <tr><td>Little Wild Trio grip socks</td><td>Size</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+    <dl class="kv">
+      <div><dt>Metafields</dt><dd><code>custom.print</code> (moon, atlas, hush), <code>custom.print_colour</code>, <code>custom.siblings</code> (Stiletto sibling collection), <code>custom.twin</code> (other garment, same print), fabric, TOG once tested, care.</dd></div>
+      <div><dt>Collections</dt><dd>All; Sleepsuits; PJ sets; Grip socks; Under One Moon; Dream Atlas; Hush Hush. Filters by product type and print through Search &amp; Discovery.</dd></div>
+      <div><dt>Removed</dt><dd>Bedtime bag and the old fixed sets.</dd></div>
+    </dl>
+  </section>
+
+  <section class="doc-sec" id="map">
+    <h2 class="t-h1">Page by page.</h2>
+    <div class="tbl-scroll"><table class="tbl">
+      <thead><tr><th>Page</th><th>Template</th><th>Built from</th></tr></thead>
+      <tbody>
+        <tr><td>Home</td><td><code>index.json</code></td><td>Image hero · featured collection slider (3 tabs) with print-card CSS · <i>AeroCool diagram (custom)</i> · multi-column icons · <i>bundle cards (custom)</i> · multi-column covers · image with text · blog posts</td></tr>
+        <tr><td>Shop</td><td><code>collection.json</code></td><td>Collection banner (print collections show colour and story line) · product grid with filter bar · promo tiles</td></tr>
+        <tr><td>Product</td><td><code>product.json</code></td><td>Main product (grid gallery, sibling swatches, size chips, sticky add-to-bag, text block for the bundle CTA, 4 accordions, size guide drawer) · multi-column icons · shoppable-image hotspots · print story (metaobject) · recommended products</td></tr>
+        <tr><td>Bundles</td><td><code>page.bundles.json</code></td><td>Mix-and-match bundle app block, styled to the prototype · multi-column</td></tr>
+        <tr><td>Bag</td><td>Quick cart + <code>cart.json</code></td><td>Native, with free shipping bar and cart note</td></tr>
+        <tr><td>Prints</td><td><code>page.prints.json</code></td><td>Image with text · <i>spin wheel (custom)</i> · multi-column covers · multi-column steps</td></tr>
+        <tr><td>Story reader</td><td><code>page.story.json</code> ×3</td><td><i>Story reader section (custom)</i>, pages from a “print story” metaobject</td></tr>
+        <tr><td>AeroCool</td><td><code>page.aerocool.json</code></td><td>Image with text · <i>4-stage stepper (custom; multi-column fallback)</i> · featured collection · multi-column facts · image with text</td></tr>
+        <tr><td>Our story</td><td><code>page.about.json</code></td><td>Image with text ×3 · rich text · rich text CTA</td></tr>
+        <tr><td>Library</td><td><code>page.library.json</code></td><td>Rich text · collection grid ×2 (books as products with an Amazon link metafield)</td></tr>
+        <tr><td>Help</td><td><code>page.contact.json</code>, <code>page.json</code> ×3</td><td>Contact form · collapsible rows · <i>delivery table (custom, prepared)</i></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="doc-sec" id="custom">
+    <h2 class="t-h1">Custom code.</h2>
+    <dl class="kv">
+      <div><dt>Print colours</dt><dd>A small CSS snippet that reads the print metafield and colours print cards, swatches and banners.</dd></div>
+      <div><dt>AeroCool diagram</dt><dd>A section with the two-state SVG and toggle. Copy editable in the theme editor.</dd></div>
+      <div><dt>AeroCool stepper</dt><dd>A section with four blocks (drawing + line). Falls back to a native multi-column if needed.</dd></div>
+      <div><dt>Spin wheel and story reader</dt><dd>Two sections; wheel situations and story pages edited as metaobjects.</dd></div>
+      <div><dt>Bundle cards, delivery table</dt><dd>Already prepared in the theme folder.</dd></div>
+      <div><dt>Garment switch</dt><dd>A snippet in the product info that links to the twin product.</dd></div>
+    </dl>
+  </section>
+
+  <section class="doc-sec" id="apps">
+    <h2 class="t-h1">Apps.</h2>
+    <dl class="kv">
+      <div><dt>Bundles</dt><dd>A mix-and-match app (e.g. Fast Bundle, Kaching Bundles, Simple Bundles) for Bedtime Rotation and Bedtime &amp; Beyond at 7%.</dd></div>
+      <div><dt>Search &amp; Discovery</dt><dd>Free, by Shopify: filters.</dd></div>
+      <div><dt>Reviews</dt><dd>Judge.me or similar, turned on once there are real reviews.</dd></div>
+      <div><dt>Email</dt><dd>Shopify Email or Klaviyo for the newsletter.</dd></div>
+    </dl>
+  </section>
+
+  <section class="doc-sec" id="content">
+    <h2 class="t-h1">Content to prepare.</h2>
+    <ol class="steps-list">
+      <li><div>Print artwork files (vector) for Under One Moon, Dream Atlas and Hush Hush, and a Lumi illustration.</div></li>
+      <li><div>Product photography per product and print, clean, at least four each.</div></li>
+      <li><div>Garment measurements for every size.</div></li>
+      <li><div>The wheel’s situations, exactly as printed.</div></li>
+      <li><div>Prices, bundle discount, contact details, support hours.</div></li>
+    </ol>
+  </section>
+
+  <section class="doc-sec" id="seq">
+    <h2 class="t-h1">Sequence.</h2>
+    <ol class="steps-list">
+      <li><div>Client review of prototype v2, feedback round.</div></li>
+      <li><div>Store setup: AED market, shipping, policies, apps, metafields and collections.</div></li>
+      <li><div>Theme: settings, then the shopping path (home, shop, product, bundles, bag), then stories, AeroCool, our story, help.</div></li>
+      <li><div>Products and content, then testing on real phones and a test order.</div></li>
+    </ol>
+  </section>
+</div>
+</body>
+</html>

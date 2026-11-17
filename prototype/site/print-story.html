@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Under One Moon · Nurture &amp; Next</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon-32.png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+  body.reader .ann { display: none; }
+  .rd { position: relative; display: flex; flex-direction: column; min-height: calc(100vh - var(--header-h)); min-height: calc(100svh - var(--header-h)); background: var(--p-bg); color: var(--p-fg); transition: background var(--t-normal) var(--ease), color var(--t-normal) var(--ease); overflow: hidden; }
+  .rd.is-dim { background: #1d1e20; color: #e9e2d6; }
+  .rd__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px var(--gutter); font-size: var(--fs-small); }
+  .rd__bar a, .rd__bar button { display: inline-flex; align-items: center; gap: 8px; opacity: .85; }
+  .rd__bar a:hover, .rd__bar button:hover { opacity: 1; }
+  .rd__stage { flex: 1; display: grid; place-items: center; padding: 8px var(--gutter) 24px; touch-action: pan-y; cursor: pointer; }
+  .rd__page { display: grid; justify-items: center; gap: clamp(20px, 4vh, 36px); max-width: 40rem; text-align: center; transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease); }
+  .rd__page.is-out { opacity: 0; transform: translateX(var(--dx, 16px)); }
+  .rd__art { width: clamp(96px, 18vh, 150px); }
+  .rd__lines { font: 400 clamp(1.5rem, 1.1rem + 1.8vw, 2.4rem)/1.35 var(--serif); letter-spacing: -.01em; }
+  .rd__lines p + p { margin-top: .35em; }
+  .rd__lines.is-song { font-style: italic; }
+  .rd__ctl { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px var(--gutter) calc(18px + env(safe-area-inset-bottom)); }
+  .rd__ctl > button { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; border: 1px solid currentColor; opacity: .85; transition: opacity var(--t-fast) var(--ease), background var(--t-fast) var(--ease); }
+  .rd__ctl > button:hover { opacity: 1; }
+  .rd__ctl > button[disabled] { opacity: .25; pointer-events: none; }
+  .rd__ctl svg { width: 18px; height: 18px; }
+  .rd__dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; flex: 1; }
+  .rd__dots i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .3; transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease); }
+  .rd__dots i.is-on { opacity: 1; transform: scale(1.3); }
+  .rd__end { display: grid; justify-items: center; gap: 18px; text-align: center; max-width: 44rem; }
+  .rd__end .grid { width: 100%; margin-top: 8px; text-align: left; }
+  .rd__end .pc__body, .rd__end .pc__meta { color: inherit; }
+</style>
+</head>
+<body data-page="prints" class="reader">
+<main>
+  <section class="rd" data-f="rd" data-build="custom" data-build-label="Custom page template: story reader (pages from a metaobject per print). QR on the thank-you card lands here or on the prints page" data-note="5">
+    <div class="rd__bar"><a href="prints.html">← The prints</a><span data-f="title"></span><button type="button" data-f="dim" aria-pressed="false">Dim for bedtime</button></div>
+    <div class="rd__stage" data-f="stage"><div class="rd__page" data-f="page"></div></div>
+    <div class="rd__ctl"><button type="button" data-f="prev" aria-label="Previous page"></button><div class="rd__dots" data-f="dots"></div><button type="button" data-f="next" aria-label="Next page"></button></div>
+  </section>
+</main>
+<script src="assets/logos.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/stories.js"></script>
+<script>
+(function () {
+  var f = function (k) { return document.querySelector('[data-f="' + k + '"]'); };
+  var q = new URLSearchParams(location.search);
+  var key = STORIES[q.get('s')] ? q.get('s') : 'moon', S = STORIES[key], i = 0, N = S.pages.length + 1;
+  var rd = f('rd'); rd.setAttribute('data-print', key);
+  document.title = S.title + ' · Nurture & Next';
+  f('title').textContent = 'Story ' + NN.PRINTS[key].n + ' · ' + S.title;
+  f('prev').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12H5m6-6-6 6 6 6"/></svg>';
+  f('next').innerHTML = NN.I.arrow;
+  f('dots').innerHTML = Array.apply(null, Array(N)).map(function () { return '<i></i>'; }).join('');
+  function pageHTML(n) {
+    if (n === 0) return '<div class="rd__art">' + NN.ART[key] + '</div><span class="t-label" style="opacity:.7">Story ' + NN.PRINTS[key].n + ' of 3</span><h1 class="t-display">' + S.title + '</h1><p style="opacity:.75">Tap or swipe to turn the page</p>';
+    if (n === N) {
+      var nx = S.next;
+      return '<div class="rd__end"><span class="t-label" style="opacity:.7">The end</span><h2 class="t-h1">Sweet dreams</h2>' +
+        '<div class="btns" style="justify-content:center">' + (nx ? '<a class="btn ' + (key === 'moon' ? 'btn--light' : '') + '" href="print-story.html?s=' + nx + '">Next story: ' + STORIES[nx].title + '</a>' : '<a class="btn ' + (key === 'moon' ? 'btn--light' : '') + '" href="prints.html#wheel">Spin Lumi’s wheel</a>') +
+        '<button class="btn ' + (key === 'moon' ? 'btn--line-light' : 'btn--ghost') + '" type="button" data-restart>Read again</button></div>' +
+        '<p class="t-small" style="opacity:.75;margin-top:18px">The ' + S.title + ' print</p><div class="grid">' + NN.pc('sleepsuit-' + key) + NN.pc('pj-' + key) + '</div></div>';
+    }
+    var pg = S.pages[n - 1], lines = Array.isArray(pg) ? pg : pg.lines;
+    return '<div class="rd__lines' + (pg.song ? ' is-song' : '') + '">' + lines.map(function (l) { return '<p>' + l + '</p>'; }).join('') + '</div>';
+  }
+  function show(n, dir) {
+    var page = f('page');
+    page.style.setProperty('--dx', (dir || 1) * -16 + 'px'); page.classList.add('is-out');
+    setTimeout(function () {
+      i = n; page.innerHTML = pageHTML(i); page.style.setProperty('--dx', (dir || 1) * 16 + 'px');
+      requestAnimationFrame(function () { page.classList.remove('is-out'); });
+      f('prev').disabled = i === 0; f('next').disabled = i === N;
+      f('dots').querySelectorAll('i').forEach(function (d, k) { d.classList.toggle('is-on', k === Math.min(i, N - 1)); });
+      if (window.PROTO) PROTO.refresh();
+    }, dir ? 200 : 0);
+  }
+  function go(d) { var n = Math.max(0, Math.min(N, i + d)); if (n !== i) show(n, d); }
+  f('prev').addEventListener('click', function () { go(-1); });
+  f('next').addEventListener('click', function () { go(1); });
+  f('stage').addEventListener('click', function (e) {
+    if (e.target.closest('a, button, .pc')) { if (e.target.closest('[data-restart]')) show(0, -1); return; }
+    var r = this.getBoundingClientRect(); go(e.clientX < r.left + r.width / 3 ? -1 : 1);
+  });
+  var x0 = null;
+  f('stage').addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  f('stage').addEventListener('touchend', function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); x0 = null; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight') go(1); if (e.key === 'ArrowLeft') go(-1); });
+  f('dim').addEventListener('click', function () { var on = rd.classList.toggle('is-dim'); this.setAttribute('aria-pressed', on); this.textContent = on ? 'Normal light' : 'Dim for bedtime'; });
+  document.querySelector('.ftr').style.display = 'none';
+  show(+q.get('page') || 0);
+})();
+window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};
+</script>
+<script src="assets/proto.js"></script>
+</body>
+</html>

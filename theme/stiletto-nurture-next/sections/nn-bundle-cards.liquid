@@ -1,0 +1,116 @@
+{%- comment -%}
+  Nurture & Next: bundle cards ("Build their bedtime").
+  One block per bundle. "What's inside" comes from the product metafield custom.includes
+  (list of single line text); if empty, the block's own list is used.
+{%- endcomment -%}
+<div class="section section--divider-{{ section.settings.divider_style }} {{ section.settings.section_padding }} nn-bundles" style="--nn-bg: {{ section.settings.background_color }};">
+  <div class="section__inner">
+    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+      <div class="nn-bundles__head">
+        {%- if section.settings.heading != blank -%}<h2 class="ff-heading fs-heading-3-base">{{ section.settings.heading }}</h2>{%- endif -%}
+        {%- if section.settings.subheading != blank -%}<div class="fs-body-100">{{ section.settings.subheading }}</div>{%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="nn-bundles__grid">
+      {%- for block in section.blocks -%}
+        {%- assign p = block.settings.product -%}
+        <article class="nn-bundle{% if block.settings.featured %} nn-bundle--feat{% endif %}" {{ block.shopify_attributes }}>
+          <a class="nn-bundle__media" href="{{ p.url | default: block.settings.link }}">
+            {%- if block.settings.badge != blank -%}<span class="nn-bundle__badge">{{ block.settings.badge }}</span>{%- endif -%}
+            {%- assign img = block.settings.image | default: p.featured_media -%}
+            {%- if img -%}{{ img | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 33vw, 100vw' }}{%- else -%}{{ 'product-1' | placeholder_svg_tag }}{%- endif -%}
+          </a>
+          <div class="nn-bundle__body">
+            <h3 class="ff-heading">{{ block.settings.title | default: p.title }}</h3>
+            {%- if block.settings.tagline != blank -%}<p class="nn-bundle__tag">{{ block.settings.tagline }}</p>{%- endif -%}
+            <ul>
+              {%- if p.metafields.custom.includes.value != blank -%}
+                {%- for line in p.metafields.custom.includes.value -%}<li>{{ line }}</li>{%- endfor -%}
+              {%- else -%}
+                {%- assign lines = block.settings.includes | newline_to_br | split: '<br />' -%}
+                {%- for line in lines -%}{%- assign l = line | strip -%}{%- if l != blank -%}<li>{{ l }}</li>{%- endif -%}{%- endfor -%}
+              {%- endif -%}
+            </ul>
+            <div class="nn-bundle__price">
+              <span>
+                {%- if p -%}
+                  <b>{{ p.price | money }}</b>{%- if p.compare_at_price > p.price -%}<s>{{ p.compare_at_price | money }}</s>{%- endif -%}
+                {%- else -%}
+                  <b>{{ block.settings.price_text }}</b>
+                {%- endif -%}
+              </span>
+              {%- if p and p.compare_at_price > p.price -%}
+                <span class="nn-bundle__save">Save {{ p.compare_at_price | minus: p.price | money_without_trailing_zeros }}</span>
+              {%- elsif block.settings.save_text != blank -%}
+                <span class="nn-bundle__save">{{ block.settings.save_text }}</span>
+              {%- endif -%}
+            </div>
+            <a class="btn {% if block.settings.featured %}btn--primary{% else %}btn--secondary{% endif %} nn-bundle__btn" href="{{ p.url | default: block.settings.link }}">{{ block.settings.button_label }}</a>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{ section.id }} .nn-bundles { background: var(--nn-bg); }
+  #shopify-section-{{ section.id }} .nn-bundles__head { margin-bottom: 32px; }
+  #shopify-section-{{ section.id }} .nn-bundles__grid { display: grid; gap: 20px; }
+  @media (min-width: 990px) { #shopify-section-{{ section.id }} .nn-bundles__grid { grid-template-columns: repeat(3, 1fr); } }
+  #shopify-section-{{ section.id }} .nn-bundle { display: flex; flex-direction: column; background: #fff; border: 1px solid #e2d8cc; }
+  #shopify-section-{{ section.id }} .nn-bundle__media { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; }
+  #shopify-section-{{ section.id }} .nn-bundle__media img, #shopify-section-{{ section.id }} .nn-bundle__media svg { width: 100%; height: 100%; object-fit: cover; }
+  #shopify-section-{{ section.id }} .nn-bundle__badge { position: absolute; left: 10px; top: 10px; z-index: 1; padding: 5px 8px; background: #e0c16e; color: #262729; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  #shopify-section-{{ section.id }} .nn-bundle__body { display: flex; flex-direction: column; flex: 1; padding: 22px; }
+  #shopify-section-{{ section.id }} .nn-bundle__body h3 { font-size: 1.35rem; text-transform: none; margin: 0; }
+  #shopify-section-{{ section.id }} .nn-bundle__tag { opacity: .7; font-size: .875rem; margin: 4px 0 0; }
+  #shopify-section-{{ section.id }} .nn-bundle ul { list-style: none; padding: 0; margin: 14px 0 18px; font-size: .875rem; }
+  #shopify-section-{{ section.id }} .nn-bundle li::before { content: "– "; opacity: .6; }
+  #shopify-section-{{ section.id }} .nn-bundle__price { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding: 16px 0; border-top: 1px solid #e2d8cc; }
+  #shopify-section-{{ section.id }} .nn-bundle__price s { margin-left: 6px; opacity: .6; font-size: .875rem; }
+  #shopify-section-{{ section.id }} .nn-bundle__save { padding: 5px 8px; background: #262729; color: #e0c16e; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  #shopify-section-{{ section.id }} .nn-bundle__btn { width: 100%; }
+  #shopify-section-{{ section.id }} .nn-bundle--feat { background: #554b3b; border-color: #554b3b; color: #f8f2eb; }
+  #shopify-section-{{ section.id }} .nn-bundle--feat .nn-bundle__price { border-color: rgba(255,255,255,.18); }
+</style>
+
+{% schema %}
+{
+  "name": "Bundle cards",
+  "tag": "section",
+  "class": "nn-bundle-cards",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Build their bedtime." },
+    { "type": "richtext", "id": "subheading", "label": "Subheading", "default": "<p>Curated paths to better nights — or build your own, piece by piece.</p>" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#f8f2eb" },
+    { "type": "select", "id": "divider_style", "label": "Divider", "options": [ { "value": "none", "label": "None" }, { "value": "solid", "label": "Solid" } ], "default": "none" },
+    { "type": "select", "id": "section_padding", "label": "Padding", "options": [
+      { "value": "section--vertical-padding-none", "label": "None" },
+      { "value": "section--vertical-padding-top-bottom", "label": "Top and bottom" },
+      { "value": "section--vertical-padding-top-only", "label": "Top only" },
+      { "value": "section--vertical-padding-bottom-only", "label": "Bottom only" } ], "default": "section--vertical-padding-top-bottom" }
+  ],
+  "blocks": [
+    {
+      "type": "bundle",
+      "name": "Bundle",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Bundle product", "info": "Leave empty for the build-your-own card and use the link below." },
+        { "type": "text", "id": "title", "label": "Title override" },
+        { "type": "text", "id": "tagline", "label": "Tagline", "default": "Everything for one complete night." },
+        { "type": "textarea", "id": "includes", "label": "What's inside (one per line)", "info": "Used when the product has no custom.includes metafield." },
+        { "type": "image_picker", "id": "image", "label": "Image override" },
+        { "type": "text", "id": "badge", "label": "Badge", "info": "For example: Most chosen" },
+        { "type": "checkbox", "id": "featured", "label": "Featured (olive card)", "default": false },
+        { "type": "text", "id": "price_text", "label": "Price text without a product", "default": "Save 10%" },
+        { "type": "text", "id": "save_text", "label": "Saving label without a product", "default": "Built by you" },
+        { "type": "url", "id": "link", "label": "Link without a product" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the set" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [ { "name": "Bundle cards", "blocks": [ { "type": "bundle" }, { "type": "bundle", "settings": { "featured": true, "badge": "Most chosen" } }, { "type": "bundle", "settings": { "button_label": "Build your bedtime" } } ] } ]
+}
+{% endschema %}

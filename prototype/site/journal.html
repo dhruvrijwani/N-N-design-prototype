@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Journal · Nurture &amp; Next</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon-32.png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+  .feat { display: grid; gap: 24px; align-items: center; }
+  @media (min-width: 990px) { .feat { grid-template-columns: 1.3fr 1fr; gap: 56px; } }
+  .feat .post__img { aspect-ratio: 16/10; }
+  .tagnav { display: flex; gap: 6px; margin: 40px 0 28px; overflow-x: auto; scrollbar-width: none; }
+  .tagnav button { flex: none; height: 36px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: 36px; font-size: var(--fs-small); transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease); }
+  .tagnav button.is-on { background: var(--charcoal); border-color: var(--charcoal); color: var(--white); }
+  @media (min-width: 990px) { .posts--3 { grid-template-columns: repeat(3, 1fr); } }
+</style>
+</head>
+<body data-page="journal">
+<main class="wrap" style="padding-block:clamp(40px,6vw,88px) var(--sec)">
+  <span class="t-label muted">Journal</span>
+  <h1 class="t-h1" style="margin:10px 0 32px">A little help for the journey</h1>
+  <a class="post feat" href="#" data-fake="Prototype: the article opens here." data-build="native" data-build-label="Main blog: first article featured, tag navigation" data-note="1">
+    <span class="post__img"><img src="assets/img/mum-hug.webp" alt="" style="object-position:50% 30%"></span>
+    <span><span class="t-label">Sleep · 6 min read</span><span class="t-h2" style="display:block">What a good bedtime routine actually needs</span><span class="muted" style="display:block;margin-top:12px">Fewer steps than you think, in the same order every night.</span><span class="tlink" style="margin-top:18px">Read the article</span></span>
+  </a>
+  <div class="tagnav"><button class="is-on" type="button" data-tag="">All</button><button type="button" data-tag="sleep">Sleep</button><button type="button" data-tag="behaviour">Toddler behaviour</button><button type="button" data-tag="travel">Travel</button><button type="button" data-tag="feelings">Big feelings</button></div>
+  <div class="posts posts--3" data-build="todo" data-build-label="Articles: titles from the design, articles still to be written" data-note="2">
+    <a class="post" data-t="behaviour" href="#" data-fake="Prototype: the article opens here."><span class="post__img"><img src="assets/img/topdown-baby.webp" alt="" loading="lazy"></span><span class="t-label">Toddler behaviour</span><h3 class="t-h3">Why toddlers negotiate bedtime, and what actually helps</h3></a>
+    <a class="post" data-t="travel" href="#" data-fake="Prototype: the article opens here."><span class="post__img"><img src="assets/img/girl-bag.webp" alt="" loading="lazy"></span><span class="t-label">Travel</span><h3 class="t-h3">Packing the bedtime bag: sleep on the move</h3></a>
+    <a class="post" data-t="feelings" href="#" data-fake="Prototype: the article opens here."><span class="post__img"><img src="assets/img/girl-sleep-wide.webp" alt="" loading="lazy"></span><span class="t-label">Big feelings</span><h3 class="t-h3">Naming big feelings before bed</h3></a>
+  </div>
+</main>
+<script src="assets/logos.js"></script>
+<script src="assets/site.js"></script>
+<script>
+document.querySelector('.tagnav').addEventListener('click', function (e) {
+  var b = e.target.closest('[data-tag]'); if (!b) return; var t = b.getAttribute('data-tag');
+  this.querySelectorAll('button').forEach(function (x) { x.classList.toggle('is-on', x === b); });
+  document.querySelectorAll('[data-t]').forEach(function (p) { p.hidden = !!t && p.getAttribute('data-t') !== t; });
+});
+window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};
+</script>
+<script src="assets/proto.js"></script>
+</body>
+</html>

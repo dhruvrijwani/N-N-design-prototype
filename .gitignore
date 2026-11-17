@@ -1,0 +1,4 @@
+# Large source files: kept locally, not in the repository
+*.pdf
+*.fig
+stiletto-shopify-theme-*.zip

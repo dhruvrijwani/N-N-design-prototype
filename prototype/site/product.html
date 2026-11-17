@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AeroCool Sleepsuit · Nurture &amp; Next</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon-32.png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+  .pdp { display: grid; gap: 24px; padding-block: 16px var(--sec); }
+  @media (min-width: 990px) { .pdp { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 56px; padding-top: 24px; align-items: start; } .pdp__info { position: sticky; top: calc(var(--header-h) + 20px); } }
+  .gal { display: grid; gap: 8px; }
+  @media (min-width: 990px) { .gal { grid-template-columns: 1fr 1fr; } .gal figure:first-child { grid-column: 1 / -1; } }
+  .gal figure { aspect-ratio: 4/5; background: var(--white); overflow: hidden; }
+  .gal figure img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 989px) {
+    .gal { grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); gap: 0; }
+    .gal figure { scroll-snap-align: start; }
+  }
+  .gdots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+  .gdots i { width: 6px; height: 6px; border-radius: 50%; background: var(--line-2); transition: background var(--t-fast) var(--ease); }
+  .gdots i.is-on { background: var(--charcoal); }
+  @media (min-width: 990px) { .gdots { display: none; } }
+  .pdp__info h1 { margin: 8px 0 4px; }
+  .price { margin-top: 12px; font-size: var(--fs-lead); font-weight: 500; }
+  .row { margin-top: 26px; }
+  .row__hd { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; font-size: var(--fs-small); }
+  .row__hd b { font-weight: 500; }
+  .pswatch { display: flex; gap: 10px; }
+  .pswatch a { position: relative; width: 52px; height: 52px; border-radius: 50%; background: var(--p-bg); color: var(--p-fg); display: grid; place-items: center; transition: transform var(--t-fast) var(--ease); }
+  .pswatch a svg { width: 34px; height: 34px; }
+  .pswatch a:hover { transform: translateY(-2px); }
+  .pswatch a.is-on::after { content: ""; position: absolute; inset: -5px; border: 1.5px solid var(--charcoal); border-radius: 50%; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line-2); }
+  .seg a { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 54px; font-size: var(--fs-small); transition: background var(--t-fast) var(--ease); }
+  .seg a span { font-size: var(--fs-label); color: var(--ink-3); }
+  .seg a.is-on { background: var(--charcoal); color: var(--white); }
+  .seg a.is-on span { color: rgba(255, 255, 255, .7); }
+  .seg a:not(.is-on):hover { background: var(--white); }
+  .buy { display: grid; grid-template-columns: auto 1fr; gap: 10px; margin-top: 22px; }
+  .buy .qty { margin: 0; height: 52px; }
+  .buy .qty button { width: 40px; }
+  .buy .btn { min-height: 52px; }
+  .bcta { display: flex; align-items: center; gap: 14px; margin-top: 10px; padding: 14px 16px; background: var(--white); border: 1px solid var(--line); transition: border-color var(--t-fast) var(--ease); }
+  .bcta:hover { border-color: var(--charcoal); }
+  .bcta .bdc__save { flex: none; }
+  .bcta b { display: block; font-weight: 500; font-size: var(--fs-small); }
+  .bcta span.muted { font-size: var(--fs-small); }
+  .bcta svg { width: 18px; height: 18px; margin-left: auto; flex: none; }
+  .assure { display: grid; gap: 6px; margin: 16px 0 26px; font-size: var(--fs-small); color: var(--ink-2); }
+  .hsgrid { display: grid; gap: 32px; align-items: center; }
+  @media (min-width: 990px) { .hsgrid { grid-template-columns: 1fr 1fr; gap: 72px; } }
+  .hs { aspect-ratio: 4/5; overflow: hidden; background: var(--white); }
+  .hs img { height: 100%; object-fit: cover; }
+  .story { display: grid; gap: var(--gap); }
+  @media (min-width: 990px) { .story { grid-template-columns: 2fr 1fr; } }
+  .story__main { display: grid; gap: 24px; padding: clamp(24px, 4vw, 48px); align-items: center; }
+  @media (min-width: 750px) { .story__main { grid-template-columns: 200px 1fr; gap: 40px; } }
+  .story__main .lines { font: 400 var(--fs-h3)/1.5 var(--serif); }
+  .story__side { display: grid; gap: var(--gap); }
+  .story__side a { display: grid; grid-template-columns: 72px 1fr; gap: 16px; align-items: center; padding: 16px; background: var(--white); transition: background var(--t-fast) var(--ease); }
+  .story__side a:hover { background: var(--white); outline: 1px solid var(--charcoal); }
+  .story__side .cov__art { aspect-ratio: 1; }
+  .story__side .cov__art svg { width: 72%; }
+  .sheet table { width: 100%; }
+  .sticky-buy { position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; display: flex; align-items: center; gap: 12px; padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom)); background: var(--cream); border-top: 1px solid var(--line); transform: translateY(110%); transition: transform var(--t-fast) var(--ease); }
+  .sticky-buy.is-on { transform: none; }
+  .sticky-buy div { flex: 1; min-width: 0; font-size: var(--fs-small); line-height: 1.35; }
+  .sticky-buy b { display: block; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  @media (min-width: 990px) { .sticky-buy { display: none; } }
+</style>
+</head>
+<body data-page="product">
+<main>
+  <div class="wrap pdp">
+    <div data-build="native" data-build-label="Main product: gallery style 'grid', carousel on phones" data-note="1">
+      <p class="crumbs" style="margin-bottom:14px"><a href="index.html">Home</a> / <a href="collection.html" data-f="crumbg">Sleepsuits</a> / <span data-f="crumb"></span></p>
+      <div class="gal" data-f="gal"></div>
+      <div class="gdots" data-f="dots"></div>
+    </div>
+
+    <div class="pdp__info">
+      <div data-build="native" data-build-label="Product header: title, price, rating off until reviews exist">
+        <span class="t-label muted" data-f="eyebrow"></span>
+        <h1 class="t-h1" data-f="title"></h1>
+        <p class="price" data-f="price"></p>
+        <p class="muted" style="margin-top:10px" data-f="short"></p>
+      </div>
+
+      <div class="row" data-f="printrow" data-build="native" data-build-label="Sibling swatches: other prints of this garment (sibling metafield)" data-note="2">
+        <div class="row__hd"><span><b>Print:</b> <span data-f="printname"></span></span><a class="tlink" data-f="storylink" href="#story">Read its story</a></div>
+        <div class="pswatch" data-f="prints"></div>
+      </div>
+
+      <div class="row" data-f="garmentrow" data-build="custom" data-build-label="Sibling switch: same print, other garment (second sibling group, small snippet)" data-note="3">
+        <div class="row__hd"><b>Garment</b></div>
+        <div class="seg" data-f="seg"></div>
+      </div>
+
+      <div class="row" data-build="native" data-build-label="Variant picker: size chips, sold-out sizes crossed. Size guide = information popup / drawer" data-note="4">
+        <div class="row__hd"><span><b>Size:</b> <span data-f="sizename">Choose a size</span></span><button class="tlink" type="button" data-open="sheet">Size guide</button></div>
+        <div class="chips" data-f="sizes" role="radiogroup" aria-label="Size"></div>
+      </div>
+
+      <div data-build="native" data-build-label="Quantity + buy buttons, sticky add-to-bag bar on phones">
+        <div class="buy"><span class="qty"><button type="button" data-qd="-1" aria-label="One fewer">−</button><span data-f="qty">1</span><button type="button" data-qd="1" aria-label="One more">+</button></span><button class="btn" type="button" data-f="add">Choose a size</button></div>
+      </div>
+      <a class="bcta" data-f="bcta" href="bundles.html" data-build="custom" data-build-label="Contextual bundle CTA under Add to bag (text block + link, or small snippet)" data-note="5">
+        <span class="bdc__save">Save 7%</span><span><b>Build your bundle &amp; save 7%</b><span class="muted" data-f="bctasub">Pair it with a second sleepwear piece.</span></span><i data-icon="arrow" style="display:contents"></i>
+      </a>
+      <div class="assure"><span>Free UAE shipping over AED 500 · Dubai next business day</span><span>Easy 7-day size exchange in the UAE</span></div>
+
+      <div class="acc" data-build="native" data-build-label="Accordion blocks: 4 rows, each benefit in one place only" data-note="6">
+        <details open><summary>Details</summary><div class="acc__b" data-f="details"></div></details>
+        <details><summary>Fabric &amp; care</summary><div class="acc__b" data-f="care"></div></details>
+        <details><summary>Size &amp; fit</summary><div class="acc__b" data-f="fit"></div></details>
+        <details><summary>Delivery &amp; exchanges</summary><div class="acc__b"><p>Dubai: next business day for orders placed by 5 PM. Other emirates: 2–4 business days. AED 30, free over AED 500.</p><p>Size exchanges within 7 days of delivery in the UAE, unworn with tags. <a class="tlink" href="returns.html">Exchanges &amp; returns</a></p></div></details>
+      </div>
+    </div>
+  </div>
+
+  <!-- benefits + construction close-up -->
+  <section class="sec bg-white" data-aero data-build="native" data-build-label="Shoppable-style image with numbered hotspots (Stiletto shoppable image pattern) + icon row" data-note="7">
+    <div class="wrap">
+      <div class="bens rv" style="margin-bottom:clamp(48px,6vw,88px)">
+        <div class="ben"><i data-icon="thermo"></i><b>Temperature-responsive</b><span>Absorbs warmth, gives it back</span></div>
+        <div class="ben"><i data-icon="feather"></i><b>Featherlight soft</b><span>70% cotton, 30% PCM Lyocell</span></div>
+        <div class="ben"><i data-icon="zip"></i><b>Two-way zip</b><span>Night changes without undressing</span></div>
+        <div class="ben"><i data-icon="cuff"></i><b>Fold-over cuffs</b><span>Covers hands and feet</span></div>
+        <div class="ben"><i data-icon="tag"></i><b>No scratchy tags</b><span>Heat-stamped labels</span></div>
+      </div>
+      <div class="hsgrid">
+        <div class="hs rv" data-f="hsimg">
+          <img src="assets/img/sleepsuit-moon.webp" alt="AeroCool Sleepsuit laid flat">
+          <button class="hs__dot is-on" type="button" style="left:56%;top:24%" data-h="1">1</button>
+          <button class="hs__dot" type="button" style="left:47%;top:66%" data-h="2">2</button>
+          <button class="hs__dot" type="button" style="left:20%;top:62%" data-h="3">3</button>
+          <button class="hs__dot" type="button" style="left:44%;top:12%" data-h="4">4</button>
+        </div>
+        <div class="rv">
+          <span class="t-label muted">Up close</span>
+          <h2 class="t-h2" style="margin:10px 0 18px">Made for the middle of the night</h2>
+          <ul class="hslist">
+            <li class="is-on" data-h="1"><i>1</i><div><b>Zip guard</b><span>A soft fabric guard keeps the zip off their chin and neck.</span></div></li>
+            <li data-h="2"><i>2</i><div><b>Two-way zip</b><span>Unzip from the bottom for night changes, without fully undressing.</span></div></li>
+            <li data-h="3"><i>3</i><div><b>Fold-over cuffs</b><span>Mittens and booties built in, for little hands and feet.</span></div></li>
+            <li data-h="4"><i>4</i><div><b>Heat-stamped label</b><span>Nothing sewn in to scratch delicate skin.</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- print story -->
+  <section class="sec" id="story" data-aero data-build="native" data-build-label="Print story: selected print first (metafield), other two secondary" data-note="8">
+    <div class="wrap">
+      <div class="shead"><div><span class="t-label">The story behind the print</span><h2 class="t-h2">Read it at bedtime</h2></div></div>
+      <div class="story" data-f="story"></div>
+    </div>
+  </section>
+
+  <section class="sec bg-white" data-build="native" data-build-label="Recommended products: same print other garment, socks" data-note="9">
+    <div class="wrap">
+      <div class="shead"><h2 class="t-h2">Complete their bedtime</h2><a class="tlink" href="collection.html">Shop all</a></div>
+      <div class="grid grid--4" data-f="recs"></div>
+    </div>
+  </section>
+</main>
+
+<aside class="drawer drawer--r is-sheet" aria-label="Size guide">
+  <div class="drawer__hd"><h2 class="t-h3">Size guide</h2><button class="ibtn" type="button" data-close aria-label="Close"><i data-icon="close" style="display:contents"></i></button></div>
+  <div class="drawer__bd" data-f="sheet"></div>
+</aside>
+<div class="sticky-buy" data-f="sticky"><div><b data-f="stitle"></b><span data-f="smeta"></span></div><button class="btn btn--sm" type="button" data-f="sadd">Add to bag</button></div>
+
+<script src="assets/logos.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/stories.js"></script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var id = NN.P[q.get('p')] ? q.get('p') : 'sleepsuit-moon';
+  var p = NN.P[id], aero = !!p.print, size = null, qty = 1;
+  var f = function (k) { return document.querySelector('[data-f="' + k + '"]'); };
+  document.body.querySelectorAll('.drawer [data-icon]').forEach(function (el) { el.innerHTML = NN.I[el.getAttribute('data-icon')]; });
+
+  document.title = p.full + ' · Nurture & Next';
+  f('crumbg').textContent = NN.GARMENTS[p.g].label; f('crumbg').href = 'collection.html?g=' + p.g;
+  f('crumb').textContent = p.print ? p.printName : p.title;
+  f('eyebrow').textContent = aero ? 'AeroCool · ' + p.age : 'Grip socks · ' + p.age;
+  f('title').textContent = aero ? p.title.replace('AeroCool ', '') + ' · ' + p.printName : p.title;
+  f('price').textContent = NN.aed(p.price);
+  f('short').textContent = aero ? 'Soft, lightweight sleepwear that absorbs warmth as they heat up and gives it back as the room cools.' :
+    (id === 'cloud-hopper' ? 'One pair of soft grip socks with cloud-print soles, for first steps and bedtime wanderers.' : 'Three pairs of grip socks with little wild animals, for busy feet on slippery floors.');
+
+  f('gal').innerHTML = p.imgs.map(function (im, i) { return '<figure><img src="' + NN.img(im) + '" alt="' + p.full + (i ? ', view ' + (i + 1) : '') + '"' + (i > 1 ? ' loading="lazy"' : '') + '></figure>'; }).join('');
+  f('dots').innerHTML = p.imgs.map(function (x, i) { return '<i class="' + (i ? '' : 'is-on') + '"></i>'; }).join('');
+  f('gal').addEventListener('scroll', function () { var i = Math.round(this.scrollLeft / this.clientWidth); f('dots').querySelectorAll('i').forEach(function (d, k) { d.classList.toggle('is-on', k === i); }); }, { passive: true });
+
+  if (aero) {
+    f('printname').textContent = p.printName;
+    f('prints').innerHTML = NN.siblings(id).map(function (k) { var s = NN.P[k]; return '<a href="' + NN.url(k) + '" data-print="' + s.print + '" class="' + (k === id ? 'is-on' : '') + '" title="' + s.printName + '" aria-label="' + s.printName + '">' + NN.ART[s.print] + '</a>'; }).join('');
+    var tw = NN.twin(id), mine = p.g === 'sleepsuit';
+    f('seg').innerHTML = '<a href="' + NN.url(mine ? id : tw) + '" class="' + (mine ? 'is-on' : '') + '">Sleepsuit<span>0–12M · AED 349</span></a><a href="' + NN.url(mine ? tw : id) + '" class="' + (mine ? '' : 'is-on') + '">PJ set<span>12M–4Y · AED 379</span></a>';
+    f('bcta').href = 'bundles.html?b=rotation&add=' + id;
+  } else {
+    f('printrow').remove(); f('garmentrow').remove();
+    document.querySelectorAll('[data-aero]').forEach(function (el) { el.remove(); });
+    f('bctasub').textContent = 'Add them to two sleepwear pieces with Bedtime & Beyond.';
+    f('bcta').href = 'bundles.html?b=beyond&socks=' + id;
+  }
+
+  f('details').innerHTML = aero ?
+    '<table class="spec"><tr><th>Fabric</th><td>70% cotton, 30% PCM Lyocell (AeroCool)</td></tr><tr><th>Weight</th><td>Lightweight</td></tr><tr><th>TOG</th><td>0.5 <span class="ph">(to be confirmed by testing)</span></td></tr><tr><th>Ages</th><td>' + p.age + '</td></tr><tr><th>Made in</th><td>China</td></tr></table>' :
+    '<table class="spec"><tr><th>Pack</th><td>' + p.sub.split('· ')[1] + '</td></tr><tr><th>Soles</th><td>Non-slip grip dots</td></tr><tr><th>Ages</th><td>' + p.age + '</td></tr><tr><th>Exchanges</th><td>Not exchangeable, for hygiene reasons</td></tr></table>';
+  f('care').innerHTML = aero ? '<p>Mild machine wash at 30°C, inside out, with mild detergent. Line dry or tumble dry up to 60°C. Iron up to 120°C.</p><p><a class="tlink" href="aerocool.html">How the fabric works</a></p>' : '<p>Machine wash at 30°C. Do not tumble dry, to keep the grip soles soft.</p>';
+  f('fit').innerHTML = '<p>' + (p.g === 'sleepsuit' ? 'A relaxed one-piece fit with room to kick and stretch.' : p.g === 'pj' ? 'A relaxed two-piece fit with a soft waistband.' : 'Snug at the ankle so they stay on.') + '</p><p><button class="tlink" type="button" data-open="sheet">Open the size guide</button></p>';
+
+  // size guide drawer
+  var M = { sleepsuit: [['0–3M', '56–62', '3.5–6'], ['3–6M', '62–68', '6–8'], ['6–9M', '68–74', '8–9.5'], ['9–12M', '74–80', '9.5–11']], pj: [['12–18M', '80–86', '10–12'], ['18–24M', '86–92', '12–13.5'], ['2–3Y', '92–98', '13.5–15.5'], ['3–4Y', '98–104', '15.5–17.5']], socks: [['6–12M', 'Foot 10–11 cm', ''], ['1–2Y', 'Foot 11–13 cm', ''], ['2–4Y', 'Foot 13–15 cm', '']] };
+  f('sheet').innerHTML = '<p class="muted t-small" style="margin:14px 0 18px">' + p.title + '. Sample measurements, to be replaced with the approved garment measurements.</p>' +
+    '<table class="spec"><tr><th>Size</th><th>' + (p.g === 'socks' ? 'Fits' : 'Height (cm)') + '</th>' + (p.g === 'socks' ? '' : '<th>Weight (kg)</th>') + '</tr>' +
+    M[p.g].map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td>' + (p.g === 'socks' ? '' : '<td>' + r[2] + '</td>') + '</tr>'; }).join('') + '</table>' +
+    '<p class="t-small" style="margin-top:22px"><b style="font-weight:500">Between sizes?</b> Message us with their height and weight and we’ll suggest one.</p><a class="tlink" href="size-guide.html" style="margin-top:12px">Full size guide</a>';
+
+  function renderBuy() {
+    f('sizename').textContent = size || 'Choose a size';
+    f('sizes').innerHTML = p.sizes.map(function (s) { var so = p.soldout.indexOf(s) > -1; return '<button type="button" role="radio" aria-checked="' + (s === size) + '" class="' + (s === size ? 'is-on' : '') + '" data-sz="' + s + '"' + (so ? ' disabled title="Sold out" aria-label="' + s + ', sold out"' : '') + '>' + s + '</button>'; }).join('');
+    f('qty').textContent = qty;
+    f('add').textContent = size ? 'Add to bag · ' + NN.aed(p.price * qty) : 'Choose a size';
+    f('stitle').textContent = p.full; f('smeta').textContent = NN.aed(p.price) + (size ? ' · ' + size : '');
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-sz], [data-qd], [data-f="add"], [data-f="sadd"], [data-h]');
+    if (!t) return;
+    if (t.hasAttribute('data-sz')) { size = t.getAttribute('data-sz'); renderBuy(); }
+    else if (t.hasAttribute('data-qd')) { qty = Math.max(1, qty + +t.getAttribute('data-qd')); renderBuy(); }
+    else if (t.hasAttribute('data-h')) { var h = t.getAttribute('data-h'); document.querySelectorAll('[data-h]').forEach(function (x) { x.classList.toggle('is-on', x.getAttribute('data-h') === h); }); }
+    else { if (!size) { f('sizes').scrollIntoView({ behavior: 'smooth', block: 'center' }); NN.toast('Choose a size first'); return; } NN.add(id, size, qty); }
+  });
+  var addBtn = f('add'), sticky = f('sticky');
+  function syncSticky() { sticky.classList.toggle('is-on', addBtn.getBoundingClientRect().bottom < 0); }
+  window.addEventListener('scroll', syncSticky, { passive: true });
+
+  if (aero) {
+    var order = [p.print].concat(Object.keys(NN.PRINTS).filter(function (k) { return k !== p.print; }));
+    var S = window.STORIES[p.print];
+    f('story').innerHTML = '<div class="story__main pfield" data-print="' + p.print + '"><div class="cov__art" style="background:transparent">' + NN.ART[p.print] + '</div><div><span class="t-label" style="opacity:.75">Story ' + NN.PRINTS[p.print].n + ' · ' + p.printName + '</span><p class="lines" style="margin:14px 0 22px">' + S.pages[0].join('<br>') + '</p><a class="btn ' + (p.print === 'moon' ? 'btn--light' : '') + '" href="print-story.html?s=' + p.print + '">Read the story</a></div></div>' +
+      '<div class="story__side">' + order.slice(1).map(function (k) { return '<a href="print-story.html?s=' + k + '"><span class="cov__art" data-print="' + k + '">' + NN.ART[k] + '</span><span><span class="t-label muted">Story ' + NN.PRINTS[k].n + '</span><b class="t-name" style="display:block;margin-top:4px">' + NN.PRINTS[k].name + '</b><span class="t-small muted">' + NN.PRINTS[k].line + '</span></span></a>'; }).join('') + '</div>';
+  }
+  var recs = (aero ? [NN.twin(id), 'cloud-hopper', 'little-wild-trio'] : ['sleepsuit-moon', 'pj-moon', id === 'cloud-hopper' ? 'little-wild-trio' : 'cloud-hopper']);
+  recs = recs.concat(NN.ORDER.filter(function (k) { return k !== id && recs.indexOf(k) < 0; })).slice(0, 4);
+  f('recs').innerHTML = recs.map(NN.pc).join('');
+  renderBuy();
+})();
+window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};
+</script>
+<script src="assets/proto.js"></script>
+</body>
+</html>

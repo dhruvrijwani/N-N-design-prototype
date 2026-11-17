@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design review · Nurture &amp; Next</title>
+<link rel="stylesheet" href="docs.css">
+</head>
+<body class="doc">
+<div class="doc-wrap">
+
+  <header class="doc-head">
+    <p class="eyebrow">Design review</p>
+    <h1 class="display">The content is strong. The design was unfinished, and it showed.</h1>
+    <p class="lead">The previous Figma file has good copy, a clear product story and a full set of brand photographs. It stopped before the work that makes a store launchable: phone layouts, a collection page, a bag, one consistent price list, and finished facts. This prototype keeps the content and layout, fixes what was broken, and builds every page in Stiletto’s own sections.</p>
+    <nav class="doc-toc"><a href="#ten">The ten that matter</a><a href="#theme">What Stiletto does</a><a href="#pages">Page by page</a><a href="#how">How this was checked</a></nav>
+  </header>
+
+  <section class="doc-sec" id="ten">
+    <h2 class="h1">The ten that matter most.</h2>
+    <ol class="steps-list">
+      <li><div><b style="font-weight:500">No phone design.</b> All 30 frames are 1440px desktop. Most visitors will arrive on a phone, from Instagram. Every page in the prototype works at 390px.</div></li>
+      <li><div><b style="font-weight:500">Two currencies and two sets of names.</b> The home page sells the sleepsuit for $54 in “Moonlit Meadow” and “Starlit Sky”; the product page sells it for AED 349 in “Under One Moon”, “Dream Atlas” and “Hush Hush”. The prototype uses AED and the product page’s names everywhere.</div></li>
+      <li><div><b style="font-weight:500">Pages that buttons lead to were never designed.</b> Collection, bag and journal. All three are built here from Stiletto templates.</div></li>
+      <li><div><b style="font-weight:500">Reviews and videos for a store with no customers.</b> A quote marked “01 / 05” and five “customer video” tiles, before launch. Both are kept in layout but flagged until real ones exist.</div></li>
+      <li><div><b style="font-weight:500">Unfinished facts shown to customers.</b> “[To be added]”, “Approved measurements coming soon” (four times), “0.5 TOG — testing to be verified”, “Proposed launch policy”, and a testing line on the home page.</div></li>
+      <li><div><b style="font-weight:500">Photos with words and logos inside them.</b> Many images are social posts with captions baked in, which look like errors on a web page. All were cropped clean for the prototype; clean originals are needed.</div></li>
+      <li><div><b style="font-weight:500">A photo that contradicts the story.</b> “A little boy. A big life change.” sits beside a photo of a girl.</div></li>
+      <li><div><b style="font-weight:500">An empty image placeholder</b> on the story page, and the same hero photo on two pages.</div></li>
+      <li><div><b style="font-weight:500">Bundle maths that does not add up.</b> “Any three pieces from $75” is cheaper than two sleepsuits at $54. Bundle prices need setting in AED.</div></li>
+      <li><div><b style="font-weight:500">Amazon first.</b> The library section’s main button sends visitors to Amazon. The prototype swaps it to the brand’s own library.</div></li>
+    </ol>
+  </section>
+
+  <section class="doc-sec" id="theme">
+    <h2 class="h1">What Stiletto 5.2.2 does, checked against the theme’s own code.</h2>
+    <p class="lead">Every NATIVE label in the prototype was checked against the section schemas in the Stiletto 5.2.2 theme file supplied, not assumed from the demo.</p>
+    <div class="tbl-scroll"><table class="tbl">
+      <thead><tr><th>Need</th><th>How in Stiletto</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Hero with separate phone image</td><td>Image hero: <code>image_mobile</code>, <code>text_position_mobile</code></td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Rotating announcements</td><td>Announcement bar: up to 3 blocks, autoplay</td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Shop menu by age and product</td><td>Header: compact meganav block, promo image</td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Phone menu with picture tiles</td><td>Header: mobile menu images block</td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>0–12M / 12M–4Y / Shop all tabs</td><td>Featured collection slider: one collection block per tab</td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Fabric section with rows and a small inset photo</td><td>Image with text: <code>show_small_image</code></td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>One product per print, linked by swatches</td><td>Sibling swatches (theme setting + product metafield)</td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Size chips, quantity, sticky add-to-bag on phones</td><td>Main product: variant picker <code>chip_layout</code>, buy buttons <code>enable_sticky_atc_bar_mobile</code></td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Size guide pop-up</td><td>Main product: information popup block</td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Collapsible FAQ and policies</td><td>Collapsible row list, product accordion block</td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Free shipping progress</td><td>Cart settings: <code>enable_free_shipping_bar</code></td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Cart drawer, cross-sells, order note</td><td>Quick cart section; cart cross-sells; <code>show_cart_notes</code></td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Filters on collections</td><td>Collection product grid: filter bar, sticky. Filters come from Search &amp; Discovery (free Shopify app)</td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Testimonial with photo</td><td>Testimonials section</td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Journal cards</td><td>Blog posts section; main blog with tag navigation</td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Contact form with order number and subject</td><td>Contact form section: text, select, text area blocks</td><td><span class="tag tag--native">NATIVE</span></td></tr>
+        <tr><td>Bundle cards with “what’s inside”</td><td>New section reading a product list and an “includes” metafield</td><td><span class="tag tag--custom">CUSTOM</span></td></tr>
+        <tr><td>Delivery-by-region table</td><td>Custom liquid section (Stiletto has no table section)</td><td><span class="tag tag--custom">CUSTOM</span></td></tr>
+        <tr><td>Product card on the home hero</td><td>Small custom block in the Image hero</td><td><span class="tag tag--custom">CUSTOM</span></td></tr>
+        <tr><td>Product reviews and stars</td><td>App block (e.g. Judge.me)</td><td><span class="tag tag--app">APP</span></td></tr>
+        <tr><td>Build-your-own bundle</td><td>Bundle app (mix and match)</td><td><span class="tag tag--app">APP</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="doc-sec" id="pages">
+    <h2 class="h1">Page by page.</h2>
+    <dl class="kv">
+      <div><dt>Home</dt><dd>Five versions in the file; the latest (12 sections) was used. Kept in order. Fixed: currency, names, age labels, testing line, Amazon priority, footer country. Flagged: videos, review, bundle prices.</dd></div>
+      <div><dt>Product</dt><dd>Four versions; the longest (7,499px) was used. Strong content. Fixed: product name, print selection, all seven details laid out, internal policy labels. Flagged: TOG, size chart, testing.</dd></div>
+      <div><dt>Our story</dt><dd>Founder’s story, kept word for word. Fixed: empty placeholder, girl photo beside “a little boy”, repeated hero photo. Flagged: founder name and photo.</dd></div>
+      <div><dt>The fabric</dt><dd>Five chapters, kept. Fixed: page name, the four “how it works” icons. Flagged: testing chapter.</dd></div>
+      <div><dt>Library</dt><dd>Two versions; the series names and facts from the earlier one were restored. Book covers taken from the file at full sharpness. Flagged: home tiles name different books.</dd></div>
+      <div><dt>Help &amp; contact</dt><dd>Kept. Fixed: eleven FAQ answers written from the brand’s own policy text. Flagged: contact details, payment methods, first-order discount.</dd></div>
+      <div><dt>Shop, Bag, Journal</dt><dd>Not designed; built from Stiletto templates in the same style.</dd></div>
+    </dl>
+  </section>
+
+  <section class="doc-sec" id="how">
+    <h2 class="h1">How this was checked.</h2>
+    <dl class="kv">
+      <div><dt>Sources</dt><dd>“Nurture and Next.fig” (30 frames, 131 images), the frames exported as PDF, “Nurture &amp; Next Brand Guidelines”, the button-state and colour screenshots, and Stiletto 5.2.2 (theme zip).</dd></div>
+      <div><dt>Previous design view</dt><dd>Rendered from the PDF export at 1440px. No phone frames exist, so the Mobile view shows the desktop frame scaled down.</dd></div>
+      <div><dt>The prototype</dt><dd>Every page loaded at 390px and 1440px in Chrome, screenshotted, checked for script errors and sideways scrolling on phones.</dd></div>
+      <div><dt>Date</dt><dd>16 November 2026.</dd></div>
+    </dl>
+  </section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumi’s Library · Nurture &amp; Next</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon-32.png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+  .lhead { display: grid; gap: 24px; align-items: center; padding-block: clamp(40px, 6vw, 88px) clamp(24px, 3vw, 40px); }
+  @media (min-width: 990px) { .lhead { grid-template-columns: 1.4fr 1fr; gap: 64px; } }
+  .lhead__art { width: min(300px, 70%); margin-inline: auto; color: var(--charcoal); }
+  .series { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 32px; margin-bottom: 28px; }
+  .series__facts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .series__facts span { padding: 6px 12px; border: 1px solid var(--line-2); border-radius: 30px; font-size: var(--fs-small); }
+  .books { display: grid; gap: 28px var(--gap); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 990px) { .books { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .book img { width: 100%; aspect-ratio: 387/358; object-fit: cover; transition: transform var(--t-normal) var(--ease); }
+  .book__img { overflow: hidden; }
+  .book:hover img { transform: scale(1.02); }
+  .book h3 { margin-top: 14px; }
+  .book p { margin: 4px 0 14px; font-size: var(--fs-small); color: var(--ink-3); }
+  .soon { display: inline-block; padding: 6px 10px; background: var(--white); font: 500 var(--fs-label)/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+</style>
+</head>
+<body data-page="library">
+<main>
+  <section class="wrap lhead" data-build="native" data-build-label="Rich text + image" data-note="1">
+    <div class="rv"><span class="t-label muted">Lumi’s Library</span><h1 class="t-display" style="margin:12px 0 16px">Little stories, big worlds</h1><p class="t-lead measure">Picture books for curious little minds, and gentle stories that make growing up’s little challenges easier to talk about.</p></div>
+    <div class="lhead__art rv" data-art="lumi"></div>
+  </section>
+
+  <section class="sec bg-white" data-build="native" data-build-label="Collection grid: books as products. Button = external Amazon link (metafield) or 'Coming soon' tag" data-note="2">
+    <div class="wrap">
+      <div class="series"><div><span class="t-label muted">Series one</span><h2 class="t-h2" style="margin-top:8px">Lumi’s Wonder Trails</h2></div><div class="series__facts"><span>Ages 2–4</span><span>Illustrated paperback</span><span>AED 49</span></div></div>
+      <div class="books" data-books="a"></div>
+    </div>
+  </section>
+
+  <section class="sec" data-build="native" data-build-label="Collection grid: second series" data-note="3">
+    <div class="wrap">
+      <div class="series"><div><span class="t-label muted">Series two</span><h2 class="t-h2" style="margin-top:8px">Little Lessons for Growing Minds</h2></div><div class="series__facts"><span>Ages 2–5</span><span>Illustrated paperback</span><span>AED 49</span></div></div>
+      <div class="books" data-books="b"></div>
+    </div>
+  </section>
+</main>
+<script src="assets/logos.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function () {
+  // amazon: true marks books shown as available (illustrative until the client confirms which are live)
+  var BOOKS = {
+    a: [['All Aboard!', 'A snowy train ride with a confused penguin and surprises at every stop.', true], ['Who’s Hiding?', 'Someone is hiding at the animal clinic, and Lumi is on the case.', true],
+        ['The Living Sandcastle', 'A beach day turns magical when a sandcastle comes to life.'], ['The Sea of Surprises', 'Lumi sails a night sea to help a little friend find home.'],
+        ['Knock, Knock!', 'Three mysterious doors in the desert, and a surprise behind each.'], ['The Balloon Tree', 'A tree that grows balloons, and every one holds a surprise.']],
+    b: [['Mama Always Comes Back', 'A gentle story for goodbyes and time apart.'], ['The Pause Button', 'For the big feelings that arrive when screen time ends.'],
+        ['Bye-Bye Pacifier', 'Saying goodbye to a familiar comfort, one small step at a time.'], ['One Tiny Taste', 'Trying new food, made into a little adventure.'],
+        ['When Hands Feel Mad', 'Understanding anger, and gentler ways to show it.']]
+  };
+  var n = 0;
+  ['a', 'b'].forEach(function (k) {
+    document.querySelector('[data-books="' + k + '"]').innerHTML = BOOKS[k].map(function (b) {
+      n++;
+      return '<article class="book rv is-in"><div class="book__img"><img src="assets/img/books/book-' + (n < 10 ? '0' : '') + n + '.webp" alt="Cover of ' + b[0] + '" loading="lazy"></div><h3 class="t-h3">' + b[0] + '</h3><p>' + b[1] + '</p>' +
+        (b[2] ? '<a class="btn btn--sm" href="#" data-fake="Prototype: opens this book on Amazon." data-build="todo" data-build-label="Amazon link for this book" data-build-pos="br">Buy on Amazon</a>' : '<span class="soon">Coming soon</span>') + '</article>';
+    }).join('');
+  });
+})();
+window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};
+</script>
+<script src="assets/proto.js"></script>
+</body>
+</html>

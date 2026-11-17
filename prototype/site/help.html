@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact &amp; FAQ · Nurture &amp; Next</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon-32.png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/proto.css">
+<style>
+  .hgrid { display: grid; gap: 40px; padding-block: clamp(40px, 6vw, 88px) var(--sec); }
+  @media (min-width: 990px) { .hgrid { grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; } }
+  .ways { display: grid; gap: 10px; margin: 28px 0; }
+  .way { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: center; padding: 14px 16px; background: var(--white); transition: outline-color var(--t-fast) var(--ease); outline: 1px solid transparent; }
+  .way:hover { outline-color: var(--charcoal); }
+  .way i { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--cream); }
+  .way i svg { width: 20px; height: 20px; }
+  .way b { display: block; font-weight: 500; }
+  .way span { font-size: var(--fs-small); color: var(--ink-3); }
+  .form { display: grid; gap: 18px; }
+  @media (min-width: 600px) { .form--2 { grid-template-columns: 1fr 1fr; } .form .full { grid-column: 1 / -1; } }
+  .links { display: grid; gap: 1px; background: var(--line); margin-top: 28px; }
+  @media (min-width: 750px) { .links { grid-template-columns: repeat(3, 1fr); } }
+  .links a { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: var(--cream); transition: background var(--t-fast) var(--ease); }
+  .links a:hover { background: var(--white); }
+  .links svg { width: 18px; height: 18px; }
+</style>
+</head>
+<body data-page="help">
+<main>
+  <div class="wrap hgrid">
+    <div>
+      <span class="t-label muted">Help</span>
+      <h1 class="t-h1" style="margin:10px 0 12px">How can we help?</h1>
+      <p class="muted measure">Questions about sizing, an order or anything else? Message us on WhatsApp or by email, or use the form.</p>
+      <div class="ways" data-build="todo" data-build-label="Support email, WhatsApp number and hours: confirm" data-note="1">
+        <a class="way" href="https://wa.me/971000000000" data-fake="Prototype: opens WhatsApp chat."><i data-icon="wa"></i><span><b>WhatsApp</b><span>+971 number and support hours to be confirmed</span></span></a>
+        <a class="way" href="mailto:hello@nurtureandnext.com" data-fake="Prototype: opens your email app."><i data-icon="mail"></i><span><b>hello@nurtureandnext.com</b><span>(address to be confirmed)</span></span></a>
+      </div>
+      <form class="form form--2" data-form novalidate data-build="native" data-build-label="Contact form: required fields, inline errors, confirmation message" data-note="2">
+        <div class="form__fields form form--2 full" style="display:grid">
+          <label class="field"><span>Name</span><input required autocomplete="name"><span class="field__err">Please add your name.</span></label>
+          <label class="field"><span>Email</span><input type="email" required autocomplete="email"><span class="field__err">Please enter a valid email address.</span></label>
+          <label class="field full"><span>Order number (optional)</span><input placeholder="#NN1001"></label>
+          <label class="field full"><span>Message</span><textarea required></textarea><span class="field__err">Please write a short message.</span></label>
+          <div class="full"><button class="btn" type="submit">Send message</button></div>
+        </div>
+        <p class="ok full" role="status"><b style="font-weight:500">Thank you, your message is on its way.</b><br>We’ll reply to your email as soon as we can.</p>
+      </form>
+    </div>
+    <div>
+      <h2 class="t-h2" style="margin-bottom:18px">Common questions</h2>
+      <div class="acc" data-build="native" data-build-label="Collapsible row list: sizing, delivery, exchanges, tracking first" data-note="3">
+        <details open><summary>Which size should I choose?</summary><div class="acc__b"><p>Go by height and weight rather than age. Each product page has a size guide with the garment measurements. Between sizes? WhatsApp us their height and weight and we’ll suggest one.</p><p><a class="tlink" href="size-guide.html">Size guide</a></p></div></details>
+        <details><summary>How long does delivery take?</summary><div class="acc__b">Dubai: next business day for orders placed by 5 PM. Other emirates: 2–4 business days. GCC: about 3–7 business days.</div></details>
+        <details><summary>How much is delivery?</summary><div class="acc__b">AED 30 in the UAE, free on orders over AED 500. International rates are shown at checkout.</div></details>
+        <details><summary>Can I exchange for a different size?</summary><div class="acc__b">Yes, for AeroCool sleepwear in the UAE, within 7 days of delivery, unworn and with tags. Grip socks can’t be exchanged, for hygiene reasons. <a class="tlink" href="returns.html">How exchanges work</a></div></details>
+        <details><summary>How do I track my order?</summary><div class="acc__b">We email a tracking link as soon as your order is dispatched. You can also find it under your order in your account.</div></details>
+        <details><summary>How do I wash AeroCool sleepwear?</summary><div class="acc__b">Mild machine wash at 30°C, inside out. Line dry, or tumble dry up to 60°C.</div></details>
+      </div>
+    </div>
+  </div>
+  <section class="wrap" style="padding-bottom:var(--sec)" data-build="native" data-build-label="Links to policy pages" data-note="4">
+    <div class="links"><a href="shipping.html">Shipping &amp; delivery <i data-icon="arrow"></i></a><a href="returns.html">Exchanges &amp; returns <i data-icon="arrow"></i></a><a href="size-guide.html">Size guide <i data-icon="arrow"></i></a></div>
+  </section>
+</main>
+<script src="assets/logos.js"></script>
+<script src="assets/site.js"></script>
+<script>window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};</script>
+<script src="assets/proto.js"></script>
+</body>
+</html>
