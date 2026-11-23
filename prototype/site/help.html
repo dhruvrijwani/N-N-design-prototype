@@ -49,14 +49,14 @@
         <p class="ok full" role="status"><b style="font-weight:500">Thank you, your message is on its way.</b><br>We’ll reply to your email as soon as we can.</p>
       </form>
     </div>
-    <div>
+    <div id="faq" style="scroll-margin-top:calc(var(--header-h) + 24px)">
       <h2 class="t-h2" style="margin-bottom:18px">Common questions</h2>
       <div class="acc" data-build="native" data-build-label="Collapsible row list: sizing, delivery, exchanges, tracking first" data-note="3">
         <details open><summary>Which size should I choose?</summary><div class="acc__b"><p>Go by height and weight rather than age. Each product page has a size guide with the garment measurements. Between sizes? WhatsApp us their height and weight and we’ll suggest one.</p><p><a class="tlink" href="size-guide.html">Size guide</a></p></div></details>
         <details><summary>How long does delivery take?</summary><div class="acc__b">Dubai: next business day for orders placed by 5 PM. Other emirates: 2–4 business days. GCC: about 3–7 business days.</div></details>
         <details><summary>How much is delivery?</summary><div class="acc__b">AED 30 in the UAE, free on orders over AED 500. International rates are shown at checkout.</div></details>
         <details><summary>Can I exchange for a different size?</summary><div class="acc__b">Yes, for AeroCool sleepwear in the UAE, within 7 days of delivery, unworn and with tags. Grip socks can’t be exchanged, for hygiene reasons. <a class="tlink" href="returns.html">How exchanges work</a></div></details>
-        <details><summary>How do I track my order?</summary><div class="acc__b">We email a tracking link as soon as your order is dispatched. You can also find it under your order in your account.</div></details>
+        <details id="track" style="scroll-margin-top:calc(var(--header-h) + 24px)"><summary>How do I track my order?</summary><div class="acc__b">We email a tracking link as soon as your order is dispatched. You can also find it under your order in your account.</div></details>
         <details><summary>How do I wash AeroCool sleepwear?</summary><div class="acc__b">Mild machine wash at 30°C, inside out. Line dry, or tumble dry up to 60°C.</div></details>
       </div>
     </div>
@@ -68,6 +68,7 @@
 <script src="assets/logos.js"></script>
 <script src="assets/site.js"></script>
 <script>window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};</script>
+<script>(function () { var t = location.hash && document.getElementById(location.hash.slice(1)); if (t && t.tagName === 'DETAILS') { t.open = true; setTimeout(function () { t.scrollIntoView(); }, 50); } })();</script>
 <script src="assets/proto.js"></script>
 </body>
 </html>

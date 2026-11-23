@@ -1,10 +1,10 @@
-/* Nurture & Next: presentation data, prototype v2 (after the client's feedback of 16 November 2026).
+/* Nurture & Next: presentation data, prototype v3 (after the client's feedback of 16 and 22 November 2026).
    "Previous design" = the incomplete Figma design from the previous designer (desktop frames only). */
 var PREV = 'The previous designer’s Figma frame (desktop only). On Mobile, the desktop frame is shown scaled down.';
 var NEW_PAGE = function (what) { return what; };
 
 window.SHELL = {
-  client: { name: 'Nurture & Next', logo: 'site/assets/img/logo-secondary-light.svg', subtitle: 'Website prototype v2' },
+  client: { name: 'Nurture & Next', logo: 'site/assets/img/logo-secondary-light.svg', subtitle: 'Website prototype v3' },
   domain: 'nurtureandnext.com',
   kinds: { brand: 'Brand', sales: 'Sales', trust: 'Trust', fix: 'Fix' },
   labels: {
@@ -34,7 +34,7 @@ window.SHELL = {
           why: 'Parents browse by garment; the client wants the prints to be browsable too.' },
         { n: 3, k: 'brand', t: 'One promise, then shop',
           was: 'Headline in capitals, two buttons, and a product card in dollars.',
-          now: 'Sentence-case headline, one line on what it is, two buttons. Separate phone crop.',
+          now: 'The client’s headline “Parenting has enough guesswork. We’re starting with sleep.” in sentence case, their line on what Nurture & Next is building, two buttons. Separate phone crop.',
           why: 'Clean and direct; the shopping starts one scroll down.' },
         { n: 4, k: 'sales', t: 'Each print, shoppable on its own',
           was: 'One generic sleepsuit and PJ set, prices in dollars.',
@@ -48,23 +48,35 @@ window.SHELL = {
           was: 'Benefits repeated across three text sections.',
           now: 'Five icons with one short line each. Not repeated elsewhere on the page.',
           why: 'The client asked for visual highlights and no repetition.' },
-        { n: 7, k: 'sales', t: 'The two new bundles',
+        { n: 7, k: 'trust', t: 'Parents say it, not us',
+          was: 'One testimonial with a photo in the previous design.',
+          now: 'Under the client’s heading “Good nights, in their own words.”, Stiletto’s Testimonials section: three short quotes with a star rating, who said it, and a link to the piece they wear. The text is a sample until real reviews from tester families arrive.',
+          why: 'The client asked for testimonials. Placed right before the bundles, where a parent decides to buy more than one.' },
+        { n: 8, k: 'sales', t: 'The two new bundles',
           was: 'Three bundle concepts in dollars.',
-          now: 'Bedtime Rotation and Bedtime & Beyond, both 7% off, each linking to the configurable bundle page with that bundle selected.',
+          now: 'Bedtime Rotation (“One to wear. One to spare.”) and Bedtime & Beyond (“For sleepy nights & busy little days.”), both 7% off, each linking to the configurable bundle page with that bundle selected.',
           why: 'Bundles lift order value past the AED 500 free-shipping line.' },
-        { n: 8, k: 'brand', t: 'Every print has a story',
+        { n: 9, k: 'trust', t: 'Real bedtimes, everywhere',
+          was: 'Not there.',
+          now: 'Under the client’s heading “Real bedtimes, everywhere.”: a rail of vertical clips from parents. Each is tagged with what the child is wearing, and tapping one opens it with Shop this. Photos stand in for the clips.',
+          why: 'The client asked for UGC. Seeing the prints on real children sells them better than a product shot.' },
+        { n: 10, k: 'brand', t: 'Every print has a story',
           was: 'Library tiles with an Amazon button first.',
           now: 'Three story covers in reading order, linking to the story pages.',
           why: 'Connects the prints to the in-box game and the QR code.' },
-        { n: 9, k: 'brand', t: 'The founder, in one line',
+        { n: 11, k: 'brand', t: 'The founder, in one line',
           was: 'A long “parenting has enough guesswork” section and a testing note.',
           now: 'One photo, one quote, two sentences, a link.',
           why: 'Editorial where it works, short where it doesn’t need to be long.' },
-        { n: 10, k: 'fix', t: 'Two articles, not four',
+        { n: 12, k: 'fix', t: 'Two articles, not four',
           was: 'Four journal previews.',
           now: 'Two, as the client asked.',
           why: 'Shorter page; the journal has its own home.' },
-        { n: 11, k: 'fix', t: 'A UAE store',
+        { n: 13, k: 'sales', t: 'Better nights start here',
+          was: 'The page ended on the journal.',
+          now: 'The client’s closing call to action: “Better nights start here.”, “Find the sleepwear that fits their stage.”, Shop 0–12M (sleepsuits) and Shop 1Y–4Y (PJ sets). One quiet photo of a baby settling under a printed blanket, drifting very slowly. Nothing new introduced.',
+          why: 'The last easy way back into the shop before the footer.' },
+        { n: 14, k: 'fix', t: 'A UAE store',
           was: '“United States (USD $)” in the footer.',
           now: 'UAE · AED only. Four short link columns.',
           why: 'The client’s request: AED as the default, no USD placeholders.' }
@@ -91,9 +103,10 @@ window.SHELL = {
         { n: 4, k: 'trust', t: 'Sizes with clear states', was: 'Size chips and “Approved measurements coming soon”.', now: 'Selected state, sold-out sizes crossed out, and a size guide drawer with a measurements table (sample numbers until development).', why: 'The client’s request, and the main cause of exchanges.' },
         { n: 5, k: 'sales', t: 'Build your bundle & save 7%', was: 'Not there.', now: 'Directly under Add to bag; opens the bundle page with this piece already in it.', why: 'The client’s contextual CTA, at the moment of intent.' },
         { n: 6, k: 'fix', t: 'Each benefit in one place', was: 'Intro, fabric section and seven features repeated each other.', now: 'Four short accordions: details, fabric and care, size and fit, delivery and exchanges.', why: 'No repetition, as the client asked.' },
-        { n: 7, k: 'brand', t: 'Details as a close-up, not paragraphs', was: 'Seven text blocks in a dark band.', now: 'Five benefit icons, then a garment photo with numbered hotspots.', why: 'Visual feature highlights and close-ups, per the brief.' },
-        { n: 8, k: 'brand', t: 'The print’s story first', was: 'Three print photos, no stories.', now: 'The selected print’s story opens, with Read the story; the other two sit beside it.', why: 'The QR on the thank-you card leads here too.' },
-        { n: 9, k: 'sales', t: 'Complete their bedtime', was: 'Not there.', now: 'Same print in the other garment, and socks.', why: 'Natural second pieces, toward a bundle.' }
+        { n: 7, k: 'brand', t: 'Every feature explained once', was: 'Seven text blocks in a dark band. In v2, an icon row and “Made for the middle of the night” both repeated the responsiveness and the two-way zip.', now: 'One section, “Comfort in every little detail”: a garment photo with six numbered hotspots and the client’s copy. The short description no longer explains the fabric. PJ sets show only the details a PJ set has.', why: 'The client: each feature in one section only.' },
+        { n: 8, k: 'brand', t: 'One story: this print’s', was: 'Three print photos, no stories. In v2, the other two stories sat beside it.', now: 'Only the story of the print being viewed, with its opening lines and Read the story. The other two are a tap away in the story reader.', why: 'The client: one story per product, relevant to that product.' },
+        { n: 9, k: 'trust', t: 'Customer reviews', was: 'Not there.', now: 'Stars and the review count under the title (tap to jump down), then a reviews section before the recommendations: the average, how the ratings split, a fit scale from runs small to runs large, and reviews showing the size bought and how it fit. Through a reviews app styled to the theme. Sample reviews, written for each garment, until real ones arrive.', why: 'Parents trust other parents, and the fit line answers the sizing worry before it stops a purchase.' },
+        { n: 10, k: 'sales', t: 'Complete their bedtime', was: 'Not there.', now: 'Same print in the other garment, and socks.', why: 'Natural second pieces, toward a bundle.' }
       ]
     },
     {
@@ -118,15 +131,15 @@ window.SHELL = {
       ]
     },
     {
-      id: 'prints', label: 'Prints', src: 'site/prints.html',
-      views: [{ label: 'Prints & wheel', src: 'site/prints.html' }, { label: 'Story reader', src: 'site/print-story.html?s=moon' }],
+      id: 'prints', label: 'Lumi', src: 'site/prints.html',
+      views: [{ label: 'Lumi’s wheel', src: 'site/prints.html' }, { label: 'Story reader', src: 'site/print-story.html?s=moon' }],
       before: { kind: 'none', caption: NEW_PAGE('A new page: where the QR code in the box lands.') },
       notes: [
-        { n: 1, k: 'brand', t: 'Meet Lumi', was: 'Not designed.', now: 'Lumi and the idea of the box, in the Under One Moon colour. The drawing is a placeholder for the real illustration.', why: 'The QR landing should feel like opening the box again.' },
-        { n: 2, k: 'brand', t: 'The wheel, playable', was: 'Not designed.', now: 'A digital copy of the in-box spin wheel. Spin, land on a situation, and start the story. Situations are placeholders.', why: 'The website extends the game in the box.' },
-        { n: 3, k: 'sales', t: 'Three stories, in order', was: 'Not designed.', now: 'Under One Moon, Dream Atlas, Hush Hush, each with Read and Shop the print.', why: 'Every story is one tap from its print.' },
-        { n: 4, k: 'brand', t: 'A bedtime ritual', was: 'Not designed.', now: 'Spin, tell, tuck in. A link to Lumi’s Library.', why: 'Tells parents how to use the game.' },
-        { n: 5, k: 'brand', t: 'A storybook, not a web page', was: 'Not designed.', now: 'The client’s story text, a few lines per page, on the print’s colour. Tap or swipe to turn, a dim mode for bedtime, then Next story and Shop this print.', why: 'Read aloud in bed, on a phone, with the lights low.' }
+        { n: 1, k: 'brand', t: 'The page looks like the wheel card', was: 'Olive “Meet Lumi” section, cream page, like the rest of the site.', now: 'Midnight navy with a faint starfield and warm lamplight gold, taken from the wheel card in the box. The card’s heading line becomes the page heading, with a gold accent word and tiny spaced capitals, in the same fonts as the rest of the site (no italics). A moon and twinkling stars, soft hills and a cloud edge between sections, so it reads like a picture book. The wheel is the hero.', why: 'The client: Lumi’s page should feel like the wheel card. Opening it should feel like opening the box again.' },
+        { n: 2, k: 'brand', t: 'The same wheel as in the box', was: 'Eight made-up situations on a flat colour wheel.', now: 'The printed wheel itself. As on the card, the pictures stay still and Lumi’s centre spins; the arrow stops on one of the six adventures, which links to that book in the Library. A ring of little lamps lights up and chases while it spins; children can tap the wheel itself. The result shows the book’s cover with a burst of stars. Below, the six adventures as round pictures cut from the wheel: tap one and the wheel spins to it. The image is upscaled from a screenshot until the original file arrives.', why: 'The client: keep the wheel the same as the printed one, and connect it to the Library stories.' },
+        { n: 3, k: 'brand', t: 'A bedtime ritual', was: 'Ended with a print story.', now: 'Spin, tell, tuck in with Lumi’s book. Three soft cards with gold drawn icons (a wheel, a speech bubble, a sleepy moon), joined by the dashed line from the wheel card.', why: 'The ritual matches the box.' },
+        { n: 4, k: 'sales', t: 'One link to the Library', was: 'In v2, “Read them in order”: the three print stories.', now: 'On the card’s warm paper: three book covers fanned like books on a bed, Lumi peeking over them, one line and Visit the Library.', why: 'As the client asked. Print stories stay on each product page and the story reader.' },
+        { n: 5, k: 'brand', t: 'A storybook, not a web page', was: 'Not designed.', now: 'The client’s story text, a few lines per page, on the print’s colour. Tap or swipe to turn, a dim mode for bedtime, then Next story and Shop this print.', why: 'Where the thank-you card QR (“Discover their print story”) should land.' }
       ]
     },
     {
@@ -135,7 +148,7 @@ window.SHELL = {
       notes: [
         { n: 1, k: 'fix', t: 'Problem and inspiration in two lines', was: 'Two long sections repeating the temperature-change explanation.', now: 'One heading and two sentences, with the space porthole image.', why: 'The client asked to shorten them.' },
         { n: 2, k: 'brand', t: 'Four stages, one line each', was: 'Four boxes with generic icons and paragraphs.', now: 'A stepper: a drawing per stage, one line each, with next and previous.', why: 'A simple explanation of the innovation, visually different from the storytelling pages.' },
-        { n: 3, k: 'sales', t: 'Shop AeroCool, straight after', was: 'One “Shop now” at the end.', now: 'Shop AeroCool with two products immediately after the stages.', why: 'The client’s request.' },
+        { n: 3, k: 'sales', t: 'Shop, straight after', was: 'One “Shop now” at the end. In v2, “In three prints, from newborn to four” with a line of ages.', now: '“A collection for every little stage”, one line and Shop now, with two products, immediately after the stages. The client’s copy.', why: 'Shorter, and it speaks to the whole range rather than repeating ages.' },
         { n: 4, k: 'trust', t: 'Testing, when results are in', was: '“Results will be displayed here once confirmed.”', now: 'Kept short and marked NEEDS INPUT; no garment features repeated.', why: 'Publish the testing section with real results.' }
       ]
     },
@@ -143,19 +156,21 @@ window.SHELL = {
       id: 'about', label: 'Our story', src: 'site/about.html',
       before: { kind: 'shot', name: 'story', caption: PREV },
       notes: [
-        { n: 1, k: 'brand', t: 'About 40% less copy', was: 'Seven sections, several oversized statements.', now: 'A short opening, three chapters and one call to action.', why: 'The client asked for 35–40% less.' },
-        { n: 2, k: 'brand', t: 'A clear progression', was: 'The parenting-questions idea repeated across sections.', now: 'Her experience, then the recurring questions, then why Nurture & Next exists. In her voice.', why: 'The progression the client described.' },
-        { n: 3, k: 'fix', t: 'No internal brand statements', was: 'Purpose / Belief / Positioning cards.', now: 'Removed.', why: 'The client: internal, not customer-facing.' },
-        { n: 4, k: 'sales', t: 'One Shop CTA at the end', was: 'Three “Shop now” buttons.', now: 'One.', why: 'As requested.' }
+        { n: 1, k: 'brand', t: 'The previous designer’s look, through the whole page', was: 'Different styles from section to section.', now: 'The look of the previous designer’s frame carried through the page: warm brown, full-width photos with a warm tint, a first line in white capitals and a second line in soft taupe-pink on the photo sections, faint thin circle lines. Text kept modest so only one line per section reads as a heading. The opening keeps its italic line; elsewhere the second lines are upright. The client’s copy, with two repeated lines removed.', why: 'The client liked that frame; one consistent, personal look.' },
+        { n: 2, k: 'brand', t: 'The brand story, on soft sand', was: 'Two columns of text with pictures underneath.', now: 'On a soft sand background with faint circle lines: the question, a thin rule, the two paragraphs and Shop now together on the left; the sleepwear and grip socks photos on the right, slightly staggered.', why: 'A short, warm introduction that leads into her story.' },
+        { n: 3, k: 'brand', t: 'Her story, like a picture book', was: 'Four paragraphs in one block beside a photo.', now: '“The story behind Nurture & Next” as a small label above “A little boy. A big life change. And a whole lot of questions.”, then one paragraph at a time like the pages of a picture book, all on one screen. Arrows, small round photo dots or a swipe turn the page, and her photo changes with it. No long scroll.', why: 'The founder story is the heart of the page.' },
+        { n: 4, k: 'brand', t: 'The moment it clicked', was: 'Capitals on dark, with floating bubbles.', now: 'On black: “DIFFERENT FAMILIES. DIFFERENT CHILDREN. The same questions, again and again.” centred in soft pink, faint circle lines, then “That’s when something clicked.”', why: 'The turning point, a quiet pause between the photos.' },
+        { n: 5, k: 'brand', t: 'The idea, then childhood right now', was: 'Large statements with a text card over a photo.', now: 'The question with “so much guesswork?” in taupe-pink, a photo beside the answer. Then “BECAUSE CHILDHOOD IS HAPPENING RIGHT NOW.” on a full-width photo with its line and Shop now.', why: 'Her idea, in the order she tells it, ending on the feeling.' },
+        { n: 6, k: 'sales', t: 'Why Nurture & Next exists', was: 'Three columns with icons.', now: 'The heading and a calm nursery photo on the left, purpose, belief and positioning as three quiet lines on the right, then Shop now.', why: 'The client’s closing section, without reading like a list of pointers.' }
       ]
     },
     {
       id: 'library', label: 'Library', src: 'site/library.html',
       before: { kind: 'shot', name: 'library', caption: PREV },
       notes: [
-        { n: 1, k: 'brand', t: 'Lumi’s Library', was: '“Little stories. Big worlds.” over a photograph.', now: 'A short header with Lumi.', why: 'Ties the books to the prints and the wheel.' },
-        { n: 2, k: 'sales', t: 'Named series, one sentence each', was: '“Collection A” and paragraph descriptions.', now: 'Lumi’s Wonder Trails, one sentence per book, Buy on Amazon where available.', why: 'The client’s three library requests.' },
-        { n: 3, k: 'brand', t: 'The second series', was: '“Collection B”.', now: 'Little Lessons for Growing Minds.', why: 'As requested.' }
+        { n: 1, k: 'brand', t: 'The same world as Lumi’s wheel', was: 'Cream page like the shop.', now: 'Midnight navy with a faint starfield and lamplight gold, as on Lumi’s page and the wheel card, with Lumi glowing and a link back to the wheel.', why: 'The client asked for the Library to take the same theme.' },
+        { n: 2, k: 'sales', t: 'The wheel’s adventures, first', was: '“Collection A” and paragraph descriptions.', now: 'Lumi’s Wonder Trails on the night background, one sentence per book, Buy on Amazon in gold where available. Each book can be linked to from the wheel.', why: 'Every slice of the wheel leads here.' },
+        { n: 3, k: 'brand', t: 'The second series, on card paper', was: '“Collection B”.', now: 'Little Lessons for Growing Minds on the wheel card’s warm paper.', why: 'Keeps the two series distinct.' }
       ]
     },
     {

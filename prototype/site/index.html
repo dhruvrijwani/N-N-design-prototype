@@ -13,8 +13,9 @@
   .hero picture, .hero picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(25, 20, 15, .66), rgba(25, 20, 15, .1) 55%); }
   .hero__b { position: relative; z-index: 1; width: 100%; padding-block: 40px 48px; }
-  .hero__b .t-display { max-width: 11em; }
-  .hero__b p { max-width: 30em; margin: 16px 0 28px; color: rgba(255, 255, 255, .88); font-size: var(--fs-lead); }
+  .hero__b .t-display { max-width: 15em; }
+  @media (min-width: 990px) { .hero__b .t-display .ln { display: block; } }
+  .hero__b p { max-width: 34em; margin: 16px 0 28px; color: rgba(255, 255, 255, .88); font-size: var(--fs-lead); }
   @media (min-width: 990px) { .hero { align-items: center; } .hero::after { background: linear-gradient(90deg, rgba(25, 20, 15, .62), rgba(25, 20, 15, .1) 60%); } .hero__b { padding-block: 64px; } }
   .bdcs { display: grid; gap: var(--gap); }
   @media (min-width: 990px) { .bdcs { grid-template-columns: 1fr 1fr; } }
@@ -25,6 +26,57 @@
   @media (max-width: 749px) { .covs { grid-auto-flow: column; grid-auto-columns: 70%; grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); } .covs > * { scroll-snap-align: start; } }
   .founder .ed__img { aspect-ratio: 4/5; }
   @media (min-width: 990px) { .founder .ed__img { aspect-ratio: 5/6; } }
+  /* Testimonials (Stiletto Testimonials section) */
+  .tsts { display: grid; gap: var(--gap); }
+  @media (min-width: 990px) { .tsts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 989px) { .tsts { grid-auto-flow: column; grid-auto-columns: 84%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); } .tsts > * { scroll-snap-align: start; } }
+  @media (min-width: 750px) and (max-width: 989px) { .tsts { grid-auto-columns: 46%; } }
+  .tst { display: flex; flex-direction: column; gap: 18px; padding: clamp(24px, 3vw, 36px); background: var(--white); }
+  .tst__stars { display: flex; gap: 3px; color: var(--charcoal); }
+  .tst__stars svg { width: 14px; height: 14px; }
+  .tst__q { font: 400 var(--fs-h3)/1.4 var(--serif); letter-spacing: -.01em; }
+  .tst__by { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding-top: 18px; border-top: 1px solid var(--line); font-size: var(--fs-small); }
+  .tst__by b { font-weight: 500; }
+  .tst__by span { color: var(--ink-3); }
+  .tst__p { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; font-size: var(--fs-small); text-decoration: underline; text-underline-offset: 3px; }
+  /* UGC: vertical clips, each tagged with what the child is wearing */
+  .ugc { display: grid; grid-auto-flow: column; grid-auto-columns: 62%; gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+  .ugc::-webkit-scrollbar, .tsts::-webkit-scrollbar { display: none; }
+  .ugc > * { scroll-snap-align: start; }
+  @media (min-width: 750px) { .ugc { grid-auto-columns: 32%; } }
+  @media (min-width: 1100px) { .ugc { grid-auto-flow: row; grid-template-columns: repeat(5, minmax(0, 1fr)); overflow: visible; margin: 0; padding: 0; } }
+  .clip { position: relative; display: block; width: 100%; aspect-ratio: 9/16; overflow: hidden; background: var(--stone); color: var(--white); text-align: left; }
+  .clip img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--t-normal) var(--ease); }
+  @media (hover: hover) { .clip:hover img { transform: scale(1.03); } }
+  .clip::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(25, 20, 15, .55), rgba(25, 20, 15, 0) 45%); }
+  .clip__play { position: absolute; left: 50%; top: 50%; z-index: 1; display: grid; place-items: center; width: 52px; height: 52px; margin: -26px 0 0 -26px; border-radius: 50%; background: rgba(248, 242, 235, .9); color: var(--charcoal); }
+  .clip__play svg { width: 16px; height: 16px; margin-left: 3px; }
+  .clip__by { position: absolute; left: 14px; right: 14px; bottom: 14px; z-index: 1; font-size: var(--fs-small); line-height: 1.35; }
+  .clip__by b { display: block; font-weight: 500; }
+  .clip-tag { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: var(--fs-small); }
+  .clip-tag a { text-decoration: underline; text-underline-offset: 3px; }
+  .ugcd { width: min(420px, 92vw); max-height: 92vh; padding: 0; border: 0; background: var(--cream); color: var(--ink); }
+  .ugcd::backdrop { background: rgba(25, 20, 15, .72); }
+  .ugcd__v { position: relative; aspect-ratio: 9/16; max-height: 72vh; width: 100%; overflow: hidden; background: var(--charcoal); }
+  .ugcd__v img { width: 100%; height: 100%; object-fit: cover; animation: ugcz 9s var(--ease) infinite alternate; }
+  @keyframes ugcz { to { transform: scale(1.08); } }
+  .ugcd__note { position: absolute; left: 12px; top: 12px; padding: 6px 10px; background: rgba(248, 242, 235, .92); font-size: var(--fs-label); letter-spacing: .06em; text-transform: uppercase; }
+  .ugcd__x { position: absolute; right: 8px; top: 8px; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(248, 242, 235, .92); font-size: 22px; line-height: 1; }
+  .ugcd__b { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 18px; }
+  .ugcd__b .t-name { display: block; }
+  /* the last stop before the footer: one quiet photo, the fabric drifting very slowly */
+  .endcta { position: relative; overflow: hidden; background: var(--cream); }
+  .endcta__img { aspect-ratio: 16 / 10; overflow: hidden; }
+  .endcta__img img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; animation: endcta-drift 18s ease-in-out infinite alternate; }
+  @keyframes endcta-drift { from { transform: scale(1); } to { transform: scale(1.06) translateX(-1.2%); } }
+  .endcta__b { padding-block: 32px var(--sec); }
+  .endcta__b p { margin: 12px 0 26px; font-size: var(--fs-lead); color: var(--ink-2); }
+  @media (min-width: 990px) {
+    .endcta { display: flex; align-items: center; min-height: min(72vh, 640px); }
+    .endcta__img { position: absolute; inset: 0; aspect-ratio: auto; }
+    .endcta__img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(248, 242, 235, .9), rgba(248, 242, 235, .55) 34%, rgba(248, 242, 235, 0) 58%); }
+    .endcta__b { position: relative; z-index: 1; width: 100%; padding-block: var(--sec); }
+  }
 </style>
 </head>
 <body data-page="home">
@@ -33,8 +85,8 @@
   <section class="hero" data-build="native" data-build-label="Image hero: separate mobile image, heading, text, 2 buttons" data-build-pos="tr" data-note="3">
     <picture><source media="(max-width: 989px)" srcset="assets/img/hero-reading-m.webp"><img src="assets/img/hero-reading.webp" alt="A mother reading a bedtime story to her toddler" fetchpriority="high"></picture>
     <div class="wrap hero__b">
-      <h1 class="t-display">Sleep without the guessing.</h1>
-      <p>Temperature-responsive sleepwear for 0 months to 4 years, in three prints with a bedtime story behind each.</p>
+      <h1 class="t-display"><span class="ln">Parenting has enough guesswork.</span> <span class="ln">We’re starting with sleep.</span></h1>
+      <p>Nurture &amp; Next is being built to solve everyday parenting problems thoughtfully, through better products, practical education and considered design, with sleepwear simply being our first solution.</p>
       <div class="btns"><a class="btn btn--light" href="collection.html">Shop sleepwear</a><a class="btn btn--line-light" href="#aerocool">How AeroCool works</a></div>
     </div>
   </section>
@@ -116,20 +168,44 @@
     </div>
   </section>
 
+  <!-- Testimonials -->
+  <section class="sec bg-stone" data-build="native" data-build-label="Testimonials section: 3 quotes, star rating, linked product. Sample text until real tester reviews" data-note="7">
+    <div class="wrap">
+      <div class="shead rv"><div><h2 class="t-h2">Good nights, in their own words.</h2></div><span class="t-small muted" data-build="todo" data-build-label="Real reviews from testers, with permission" data-build-pos="br">Reviews from our tester families</span></div>
+      <div class="tsts">
+        <figure class="tst rv">
+          <div class="tst__stars" role="img" aria-label="5 out of 5 stars"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg></div>
+          <blockquote class="tst__q">“Our flat goes from AC-cold to warm by morning. She used to wake up sweaty; now she sleeps through in the same suit.”</blockquote>
+          <figcaption class="tst__by"><span><b>Parent of a 7-month-old · </b><span>Dubai</span></span><a class="tst__p" href="product.html?p=sleepsuit-atlas" data-print="atlas"><i class="pdot"></i>Sleepsuit · Dream Atlas</a></figcaption>
+        </figure>
+        <figure class="tst rv">
+          <div class="tst__stars" role="img" aria-label="5 out of 5 stars"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg></div>
+          <blockquote class="tst__q">“The two-way zip is the thing I didn’t know I needed. Nappy changes at 3am without waking him fully.”</blockquote>
+          <figcaption class="tst__by"><span><b>Parent of a 4-month-old · </b><span>Abu Dhabi</span></span><a class="tst__p" href="product.html?p=sleepsuit-moon" data-print="moon"><i class="pdot"></i>Sleepsuit · Under One Moon</a></figcaption>
+        </figure>
+        <figure class="tst rv">
+          <div class="tst__stars" role="img" aria-label="5 out of 5 stars"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg></div>
+          <blockquote class="tst__q">“He asks for “the cloud story” every night now, and points at the clouds on his pyjamas while we read it.”</blockquote>
+          <figcaption class="tst__by"><span><b>Parent of a 2-year-old · </b><span>Sharjah</span></span><a class="tst__p" href="product.html?p=pj-hush" data-print="hush"><i class="pdot"></i>PJ set · Hush Hush</a></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <!-- Bundles -->
-  <section class="sec" data-build="custom" data-build-label="Bundle cards section (custom), each links to the configurable bundle page" data-note="7">
+  <section class="sec" data-build="custom" data-build-label="Bundle cards section (custom), each links to the configurable bundle page" data-note="8">
     <div class="wrap">
       <div class="shead rv"><div><span class="t-label">Bundles</span><h2 class="t-h2">Build their bedtime, save 7%</h2></div><a class="tlink" href="bundles.html">How bundles work</a></div>
       <div class="bdcs">
         <a class="bdc rv" href="bundles.html?b=rotation">
           <div class="bdc__img"><img src="assets/img/sleepsuit-atlas.webp" alt="" loading="lazy"></div>
-          <div class="bdc__b"><span class="bdc__save">Save 7%</span><h3 class="t-h3">Bedtime Rotation</h3><p class="muted">Any two sleepwear garments. One on, one in the wash.</p>
+          <div class="bdc__b"><span class="bdc__save">Save 7%</span><h3 class="t-h3">Bedtime Rotation</h3><p class="muted">One to wear. One to spare.</p>
             <div class="bdc__recipe"><i data-icon="suit"></i>+<i data-icon="suit"></i></div>
             <p class="bdc__price">From <b>AED 649</b> <s>AED 698</s></p><span class="btn" style="margin-top:14px">Build this bundle</span></div>
         </a>
         <a class="bdc rv" href="bundles.html?b=beyond">
           <div class="bdc__img"><img src="assets/img/grip-socks.webp" alt="" loading="lazy"></div>
-          <div class="bdc__b"><span class="bdc__save">Save 7%</span><h3 class="t-h3">Bedtime &amp; Beyond</h3><p class="muted">Two sleepwear garments, plus Cloud Hopper or Little Wild Trio grip socks.</p>
+          <div class="bdc__b"><span class="bdc__save">Save 7%</span><h3 class="t-h3">Bedtime &amp; Beyond</h3><p class="muted">For sleepy nights &amp; busy little days.</p>
             <div class="bdc__recipe"><i data-icon="suit"></i>+<i data-icon="suit"></i>+<i data-icon="sock"></i></div>
             <p class="bdc__price">From <b>AED 713</b> <s>AED 767</s></p><span class="btn" style="margin-top:14px">Build this bundle</span></div>
         </a>
@@ -137,8 +213,41 @@
     </div>
   </section>
 
+  <!-- UGC: real bedtimes -->
+  <section class="sec" data-build="custom" data-build-label="Video rail (custom section, video blocks): 9:16 clips from parents, each tagged with its product. Or a UGC app if clips come from Instagram" data-note="9">
+    <div class="wrap">
+      <div class="shead rv"><div><h2 class="t-h2">Real bedtimes, everywhere.</h2></div><span class="t-small muted" data-build="todo" data-build-label="Clips from tester families, with permission to use them" data-build-pos="br">Share yours with #NurtureAndNext</span></div>
+      <div class="ugc">
+        <div class="rv">
+          <button class="clip" type="button" data-clip data-img="assets/img/smile-baby.webp" data-href="product.html?p=sleepsuit-moon" data-print="moon" data-name="Sleepsuit · Under One Moon"><img src="assets/img/smile-baby.webp" alt="" loading="lazy"><span class="clip__play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 1.5v13L14 8Z"/></svg></span><span class="clip__by"><b>@parent.handle</b>Morning smiles after a full night</span></button>
+          <p class="clip-tag" data-print="moon"><i class="pdot"></i><a href="product.html?p=sleepsuit-moon">Sleepsuit · Under One Moon</a></p>
+        </div>
+        <div class="rv">
+          <button class="clip" type="button" data-clip data-img="assets/img/girl-sleep-lamp.webp" data-href="product.html?p=pj-atlas" data-print="atlas" data-name="PJ set · Dream Atlas"><img src="assets/img/girl-sleep-lamp.webp" alt="" loading="lazy"><span class="clip__play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 1.5v13L14 8Z"/></svg></span><span class="clip__by"><b>@parent.handle</b>Lights down, story on</span></button>
+          <p class="clip-tag" data-print="atlas"><i class="pdot"></i><a href="product.html?p=pj-atlas">PJ set · Dream Atlas</a></p>
+        </div>
+        <div class="rv">
+          <button class="clip" type="button" data-clip data-img="assets/img/baby-elephant.webp" data-href="product.html?p=sleepsuit-atlas" data-print="atlas" data-name="Sleepsuit · Dream Atlas"><img src="assets/img/baby-elephant.webp" alt="" loading="lazy"><span class="clip__play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 1.5v13L14 8Z"/></svg></span><span class="clip__by"><b>@parent.handle</b>Out like a light</span></button>
+          <p class="clip-tag" data-print="atlas"><i class="pdot"></i><a href="product.html?p=sleepsuit-atlas">Sleepsuit · Dream Atlas</a></p>
+        </div>
+        <div class="rv">
+          <button class="clip" type="button" data-clip data-img="assets/img/tent.webp" data-href="product.html?p=pj-hush" data-print="hush" data-name="PJ set · Hush Hush"><img src="assets/img/tent.webp" alt="" loading="lazy"><span class="clip__play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 1.5v13L14 8Z"/></svg></span><span class="clip__by"><b>@parent.handle</b>Building the bedtime fort</span></button>
+          <p class="clip-tag" data-print="hush"><i class="pdot"></i><a href="product.html?p=pj-hush">PJ set · Hush Hush</a></p>
+        </div>
+        <div class="rv">
+          <button class="clip" type="button" data-clip data-img="assets/img/girl-bag-2.webp" data-href="product.html?p=little-wild-trio" data-name="Little Wild Trio"><img src="assets/img/girl-bag-2.webp" alt="" loading="lazy"><span class="clip__play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 1.5v13L14 8Z"/></svg></span><span class="clip__by"><b>@parent.handle</b>First steps in grip socks</span></button>
+          <p class="clip-tag"><a href="product.html?p=little-wild-trio">Little Wild Trio</a></p>
+        </div>
+      </div>
+    </div>
+    <dialog class="ugcd" aria-label="Video from a parent">
+      <div class="ugcd__v"><img alt=""><span class="ugcd__note">Video to come</span><button class="ugcd__x" type="button" aria-label="Close">×</button></div>
+      <div class="ugcd__b"><span><span class="t-label muted">Wearing</span><span class="t-name"></span></span><a class="btn btn--sm" href="#">Shop this</a></div>
+    </dialog>
+  </section>
+
   <!-- Print stories -->
-  <section class="sec bg-white" data-build="native" data-build-label="Multi-column: 3 image columns linking to the print story pages" data-note="8">
+  <section class="sec bg-white" data-build="native" data-build-label="Multi-column: 3 image columns linking to the print story pages" data-note="10">
     <div class="wrap">
       <div class="shead rv"><div><span class="t-label">Every print has a story</span><h2 class="t-h2">Read them at bedtime</h2></div><a class="tlink" href="prints.html">Meet Lumi</a></div>
       <div class="covs">
@@ -150,7 +259,7 @@
   </section>
 
   <!-- Founder -->
-  <section class="sec founder" data-build="native" data-build-label="Image with text: image left, quote, link" data-note="9">
+  <section class="sec founder" data-build="native" data-build-label="Image with text: image left, quote, link" data-note="11">
     <div class="wrap ed">
       <div class="ed__img rv"><img src="assets/img/mum-hug.webp" alt="A mother holding her sleeping child" loading="lazy"></div>
       <div class="rv">
@@ -163,13 +272,22 @@
   </section>
 
   <!-- Journal -->
-  <section class="sec bg-white" data-build="native" data-build-label="Blog posts: 2 articles" data-note="10">
+  <section class="sec bg-white" data-build="native" data-build-label="Blog posts: 2 articles" data-note="12">
     <div class="wrap">
       <div class="shead rv"><div><span class="t-label">Journal</span><h2 class="t-h2">A little help for the journey</h2></div><a class="tlink" href="journal.html">All articles</a></div>
       <div class="posts">
         <a class="post rv" href="journal.html"><span class="post__img"><img src="assets/img/topdown-baby.webp" alt="" loading="lazy"></span><span class="t-label">Toddler behaviour</span><h3 class="t-h3">Why toddlers negotiate bedtime, and what actually helps</h3></a>
         <a class="post rv" href="journal.html"><span class="post__img"><img src="assets/img/girl-bag.webp" alt="" loading="lazy"></span><span class="t-label">Travel</span><h3 class="t-h3">Packing the bedtime bag: sleep on the move</h3></a>
       </div>
+    </div>
+  </section>
+  <!-- Final call to action, before the footer -->
+  <section class="endcta" data-build="native" data-build-label="Stiletto Image hero: one photo, heading, one line, two buttons (to the collection, filtered by age). Dark text on the light side of the photo" data-note="13">
+    <div class="endcta__img"><img src="assets/img/baby-teddy-wide.webp" alt="A baby settling to sleep under a printed blanket" loading="lazy"></div>
+    <div class="wrap endcta__b rv">
+      <h2 class="t-h1">Better nights start here.</h2>
+      <p>Find the sleepwear that fits their stage.</p>
+      <div class="btns"><a class="btn" href="collection.html?g=sleepsuit">Shop 0–12M</a><a class="btn btn--ghost" href="collection.html?g=pj">Shop 1Y–4Y</a></div>
     </div>
   </section>
 </main>
@@ -181,7 +299,15 @@
   ac.addEventListener('click', function (e) { var b = e.target.closest('[data-s]'); if (!b || !b.matches('button')) return; auto = false; ac.setAttribute('data-state', b.getAttribute('data-s')); });
   setInterval(function () { if (auto) ac.setAttribute('data-state', ac.getAttribute('data-state') === 'warm' ? 'cool' : 'warm'); }, 4500);
 })();
-window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || { ann: 1, header: 2, footer: 11 };
+(function () {
+  var d = document.querySelector('.ugcd'); if (!d || !d.showModal) return;
+  document.addEventListener('click', function (e) {
+    var c = e.target.closest('[data-clip]');
+    if (c) { d.querySelector('img').src = c.getAttribute('data-img'); d.querySelector('.t-name').textContent = c.getAttribute('data-name'); d.querySelector('.btn').href = c.getAttribute('data-href'); d.showModal(); return; }
+    if (e.target === d || e.target.closest('.ugcd__x')) d.close();
+  });
+})();
+window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || { ann: 1, header: 2, footer: 14 };
 </script>
 <script src="assets/proto.js"></script>
 </body>

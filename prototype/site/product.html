@@ -25,6 +25,39 @@
   @media (min-width: 990px) { .gdots { display: none; } }
   .pdp__info h1 { margin: 8px 0 4px; }
   .price { margin-top: 12px; font-size: var(--fs-lead); font-weight: 500; }
+  /* reviews: stars under the title, then a reviews section near the end */
+  .stars { display: inline-flex; gap: 2px; color: var(--charcoal); }
+  .stars svg { width: 13px; height: 13px; }
+  .stars .off { opacity: .2; }
+  .prate { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-size: var(--fs-small); color: var(--ink-2); }
+  .prate span { text-decoration: underline; text-underline-offset: 3px; }
+  #reviews { scroll-margin-top: var(--header-h); }
+  .revs { display: grid; gap: 40px; }
+  @media (min-width: 990px) { .revs { grid-template-columns: 300px minmax(0, 1fr); gap: 80px; align-items: start; } .revs__sum { position: sticky; top: calc(var(--header-h) + 24px); } }
+  .revs__avg { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
+  .revs__avg b { font: 400 3.5rem/1 var(--serif); letter-spacing: -.02em; }
+  .revs__avg .stars svg { width: 16px; height: 16px; }
+  .revs__avg small { flex-basis: 100%; font-size: var(--fs-small); color: var(--ink-3); }
+  .revs__dist { display: grid; gap: 8px; margin-top: 24px; }
+  .revs__dist li { display: grid; grid-template-columns: 34px 1fr 28px; align-items: center; gap: 10px; font-size: var(--fs-small); color: var(--ink-2); }
+  .revs__dist i { display: block; height: 4px; background: var(--line); }
+  .revs__dist i b { display: block; height: 100%; background: var(--charcoal); }
+  .revs__dist li span:last-child { text-align: right; color: var(--ink-3); }
+  .revs__fit { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line-2); }
+  .revs__fit p { margin: 6px 0 14px; font-size: var(--fs-small); color: var(--ink-2); }
+  .revs__track { position: relative; height: 4px; background: var(--line); }
+  .revs__track i { position: absolute; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--charcoal); }
+  .revs__ends { display: flex; justify-content: space-between; margin-top: 10px; font-size: 11px; color: var(--ink-3); }
+  .rev { padding-block: 26px; border-top: 1px solid var(--line-2); }
+  .rev:first-child { padding-top: 0; border-top: 0; }
+  .rev__hd { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: var(--fs-small); color: var(--ink-3); }
+  .rev__t { margin: 12px 0 8px; font: 400 var(--fs-h3)/1.3 var(--serif); letter-spacing: -.01em; }
+  .rev > p { max-width: 40em; line-height: 1.65; color: var(--ink-2); }
+  .rev__by { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 14px; font-size: var(--fs-small); }
+  .rev__by b { font-weight: 500; }
+  .rev__v { padding: 3px 8px; background: var(--white); font: 500 10px/1.4 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+  .rev__meta { margin-top: 6px; font-size: var(--fs-small); color: var(--ink-3); }
+  .revs__more { margin-top: 8px; }
   .row { margin-top: 26px; }
   .row__hd { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; font-size: var(--fs-small); }
   .row__hd b { font-weight: 500; }
@@ -55,15 +88,9 @@
   .hs { aspect-ratio: 4/5; overflow: hidden; background: var(--white); }
   .hs img { height: 100%; object-fit: cover; }
   .story { display: grid; gap: var(--gap); }
-  @media (min-width: 990px) { .story { grid-template-columns: 2fr 1fr; } }
   .story__main { display: grid; gap: 24px; padding: clamp(24px, 4vw, 48px); align-items: center; }
-  @media (min-width: 750px) { .story__main { grid-template-columns: 200px 1fr; gap: 40px; } }
+  @media (min-width: 750px) { .story__main { grid-template-columns: 240px 1fr; gap: 56px; } }
   .story__main .lines { font: 400 var(--fs-h3)/1.5 var(--serif); }
-  .story__side { display: grid; gap: var(--gap); }
-  .story__side a { display: grid; grid-template-columns: 72px 1fr; gap: 16px; align-items: center; padding: 16px; background: var(--white); transition: background var(--t-fast) var(--ease); }
-  .story__side a:hover { background: var(--white); outline: 1px solid var(--charcoal); }
-  .story__side .cov__art { aspect-ratio: 1; }
-  .story__side .cov__art svg { width: 72%; }
   .sheet table { width: 100%; }
   .sticky-buy { position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; display: flex; align-items: center; gap: 12px; padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom)); background: var(--cream); border-top: 1px solid var(--line); transform: translateY(110%); transition: transform var(--t-fast) var(--ease); }
   .sticky-buy.is-on { transform: none; }
@@ -82,9 +109,10 @@
     </div>
 
     <div class="pdp__info">
-      <div data-build="native" data-build-label="Product header: title, price, rating off until reviews exist">
+      <div data-build="native" data-build-label="Product header: title, star rating from the reviews app (taps to the reviews), price">
         <span class="t-label muted" data-f="eyebrow"></span>
         <h1 class="t-h1" data-f="title"></h1>
+        <a class="prate" href="#reviews" data-f="rate"></a>
         <p class="price" data-f="price"></p>
         <p class="muted" style="margin-top:10px" data-f="short"></p>
       </div>
@@ -122,31 +150,28 @@
   </div>
 
   <!-- benefits + construction close-up -->
-  <section class="sec bg-white" data-aero data-build="native" data-build-label="Shoppable-style image with numbered hotspots (Stiletto shoppable image pattern) + icon row" data-note="7">
+  <section class="sec bg-white" data-aero data-build="native" data-build-label="Shoppable-style image with 6 numbered hotspots (Stiletto shoppable image pattern). The only place features are explained" data-note="7">
     <div class="wrap">
-      <div class="bens rv" style="margin-bottom:clamp(48px,6vw,88px)">
-        <div class="ben"><i data-icon="thermo"></i><b>Temperature-responsive</b><span>Absorbs warmth, gives it back</span></div>
-        <div class="ben"><i data-icon="feather"></i><b>Featherlight soft</b><span>70% cotton, 30% PCM Lyocell</span></div>
-        <div class="ben"><i data-icon="zip"></i><b>Two-way zip</b><span>Night changes without undressing</span></div>
-        <div class="ben"><i data-icon="cuff"></i><b>Fold-over cuffs</b><span>Covers hands and feet</span></div>
-        <div class="ben"><i data-icon="tag"></i><b>No scratchy tags</b><span>Heat-stamped labels</span></div>
-      </div>
       <div class="hsgrid">
         <div class="hs rv" data-f="hsimg">
           <img src="assets/img/sleepsuit-moon.webp" alt="AeroCool Sleepsuit laid flat">
-          <button class="hs__dot is-on" type="button" style="left:56%;top:24%" data-h="1">1</button>
-          <button class="hs__dot" type="button" style="left:47%;top:66%" data-h="2">2</button>
-          <button class="hs__dot" type="button" style="left:20%;top:62%" data-h="3">3</button>
-          <button class="hs__dot" type="button" style="left:44%;top:12%" data-h="4">4</button>
+          <button class="hs__dot is-on" type="button" style="left:45%;top:33%" data-h="1" aria-label="Detail 1">1</button>
+          <button class="hs__dot" type="button" style="left:86%;top:56%" data-h="2" aria-label="Detail 2">2</button>
+          <button class="hs__dot" type="button" style="left:76%;top:27%" data-h="3" data-only="sleepsuit" aria-label="Detail 3">3</button>
+          <button class="hs__dot" type="button" style="left:66%;top:63%" data-h="4" data-only="sleepsuit" aria-label="Detail 4">4</button>
+          <button class="hs__dot" type="button" style="left:18%;top:62%" data-h="5" data-only="sleepsuit" aria-label="Detail 5">5</button>
+          <button class="hs__dot" type="button" style="left:55%;top:6%" data-h="6" aria-label="Detail 6">6</button>
         </div>
         <div class="rv">
-          <span class="t-label muted">Up close</span>
-          <h2 class="t-h2" style="margin:10px 0 18px">Made for the middle of the night</h2>
+          <span class="t-label muted">The details</span>
+          <h2 class="t-h2" style="margin:10px 0 18px">Comfort in every little detail</h2>
           <ul class="hslist">
-            <li class="is-on" data-h="1"><i>1</i><div><b>Zip guard</b><span>A soft fabric guard keeps the zip off their chin and neck.</span></div></li>
-            <li data-h="2"><i>2</i><div><b>Two-way zip</b><span>Unzip from the bottom for night changes, without fully undressing.</span></div></li>
-            <li data-h="3"><i>3</i><div><b>Fold-over cuffs</b><span>Mittens and booties built in, for little hands and feet.</span></div></li>
-            <li data-h="4"><i>4</i><div><b>Heat-stamped label</b><span>Nothing sewn in to scratch delicate skin.</span></div></li>
+            <li class="is-on" data-h="1"><i>1</i><div><b>Temperature-responsive</b><span>Absorbs warmth and gives it back as needed.</span></div></li>
+            <li data-h="2"><i>2</i><div><b>Featherlight fabric</b><span>Made with 70% cotton and 30% PCM Lyocell.</span></div></li>
+            <li data-h="3" data-only="sleepsuit"><i>3</i><div><b>Zip guard</b><span>A soft fabric guard keeps the zip away from their chin and neck.</span></div></li>
+            <li data-h="4" data-only="sleepsuit"><i>4</i><div><b>Two-way zip</b><span>Makes night changes easier, without fully undressing.</span></div></li>
+            <li data-h="5" data-only="sleepsuit"><i>5</i><div><b>Fold-over cuffs</b><span>Built-in mittens and booties for little hands and feet.</span></div></li>
+            <li data-h="6"><i>6</i><div><b>No scratchy tags</b><span>Heat-stamped labels, with nothing sewn in to irritate delicate skin.</span></div></li>
           </ul>
         </div>
       </div>
@@ -154,14 +179,25 @@
   </section>
 
   <!-- print story -->
-  <section class="sec" id="story" data-aero data-build="native" data-build-label="Print story: selected print first (metafield), other two secondary" data-note="8">
+  <section class="sec" id="story" data-aero data-build="native" data-build-label="Print story: only this product’s print (metafield)" data-note="8">
     <div class="wrap">
       <div class="shead"><div><span class="t-label">The story behind the print</span><h2 class="t-h2">Read it at bedtime</h2></div></div>
       <div class="story" data-f="story"></div>
     </div>
   </section>
 
-  <section class="sec bg-white" data-build="native" data-build-label="Recommended products: same print other garment, socks" data-note="9">
+  <!-- customer reviews -->
+  <section class="sec bg-stone" id="reviews" data-build="app" data-build-label="Reviews app (e.g. Judge.me or Shopify Product Reviews), styled to the theme: summary, fit scale, reviews with size bought. Sample reviews until real ones arrive" data-note="9">
+    <div class="wrap">
+      <div class="shead"><div><span class="t-label">Reviews</span><h2 class="t-h2">What parents say</h2></div><button class="btn btn--sm btn--ghost" type="button" data-fake="Prototype: opens the review form from the reviews app.">Write a review</button></div>
+      <div class="revs">
+        <aside class="revs__sum" data-f="revsum"></aside>
+        <div><div data-f="revlist"></div><button class="btn btn--ghost revs__more" type="button" data-fake="Prototype: loads more reviews from the reviews app.">Show more reviews</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-white" data-build="native" data-build-label="Recommended products: same print other garment, socks" data-note="10">
     <div class="wrap">
       <div class="shead"><h2 class="t-h2">Complete their bedtime</h2><a class="tlink" href="collection.html">Shop all</a></div>
       <div class="grid grid--4" data-f="recs"></div>
@@ -192,7 +228,7 @@
   f('eyebrow').textContent = aero ? 'AeroCool · ' + p.age : 'Grip socks · ' + p.age;
   f('title').textContent = aero ? p.title.replace('AeroCool ', '') + ' · ' + p.printName : p.title;
   f('price').textContent = NN.aed(p.price);
-  f('short').textContent = aero ? 'Soft, lightweight sleepwear that absorbs warmth as they heat up and gives it back as the room cools.' :
+  f('short').textContent = aero ? (p.g === 'sleepsuit' ? 'A one-piece for babies, from first nights to first birthday' : 'A two-piece for toddlers, from cot to big-kid bed') + ', in the ' + p.printName + ' print and its bedtime story.' :
     (id === 'cloud-hopper' ? 'One pair of soft grip socks with cloud-print soles, for first steps and bedtime wanderers.' : 'Three pairs of grip socks with little wild animals, for busy feet on slippery floors.');
 
   f('gal').innerHTML = p.imgs.map(function (im, i) { return '<figure><img src="' + NN.img(im) + '" alt="' + p.full + (i ? ', view ' + (i + 1) : '') + '"' + (i > 1 ? ' loading="lazy"' : '') + '></figure>'; }).join('');
@@ -212,6 +248,16 @@
     f('bcta').href = 'bundles.html?b=beyond&socks=' + id;
   }
 
+  // the details: a PJ set has no zip or built-in mittens, so only the details that apply, on its own photo
+  if (aero && p.g === 'pj') {
+    document.querySelectorAll('[data-only="sleepsuit"]').forEach(function (el) { el.remove(); });
+    f('hsimg').querySelector('img').src = 'assets/img/pj-fold.webp';
+    f('hsimg').querySelector('img').alt = 'AeroCool PJ set folded';
+    f('hsimg').setAttribute('data-build', 'todo'); f('hsimg').setAttribute('data-build-label', 'PJ set details and close-up photo to confirm');
+    var pos = [[25, 74], [79, 74], [72, 56]];
+    document.querySelectorAll('.hs__dot').forEach(function (d, i) { d.style.left = pos[i][0] + '%'; d.style.top = pos[i][1] + '%'; d.textContent = i + 1; });
+    document.querySelectorAll('.hslist li i').forEach(function (d, i) { d.textContent = i + 1; });
+  }
   f('details').innerHTML = aero ?
     '<table class="spec"><tr><th>Fabric</th><td>70% cotton, 30% PCM Lyocell (AeroCool)</td></tr><tr><th>Weight</th><td>Lightweight</td></tr><tr><th>TOG</th><td>0.5 <span class="ph">(to be confirmed by testing)</span></td></tr><tr><th>Ages</th><td>' + p.age + '</td></tr><tr><th>Made in</th><td>China</td></tr></table>' :
     '<table class="spec"><tr><th>Pack</th><td>' + p.sub.split('· ')[1] + '</td></tr><tr><th>Soles</th><td>Non-slip grip dots</td></tr><tr><th>Ages</th><td>' + p.age + '</td></tr><tr><th>Exchanges</th><td>Not exchangeable, for hygiene reasons</td></tr></table>';
@@ -245,14 +291,43 @@
   window.addEventListener('scroll', syncSticky, { passive: true });
 
   if (aero) {
-    var order = [p.print].concat(Object.keys(NN.PRINTS).filter(function (k) { return k !== p.print; }));
     var S = window.STORIES[p.print];
-    f('story').innerHTML = '<div class="story__main pfield" data-print="' + p.print + '"><div class="cov__art" style="background:transparent">' + NN.ART[p.print] + '</div><div><span class="t-label" style="opacity:.75">Story ' + NN.PRINTS[p.print].n + ' · ' + p.printName + '</span><p class="lines" style="margin:14px 0 22px">' + S.pages[0].join('<br>') + '</p><a class="btn ' + (p.print === 'moon' ? 'btn--light' : '') + '" href="print-story.html?s=' + p.print + '">Read the story</a></div></div>' +
-      '<div class="story__side">' + order.slice(1).map(function (k) { return '<a href="print-story.html?s=' + k + '"><span class="cov__art" data-print="' + k + '">' + NN.ART[k] + '</span><span><span class="t-label muted">Story ' + NN.PRINTS[k].n + '</span><b class="t-name" style="display:block;margin-top:4px">' + NN.PRINTS[k].name + '</b><span class="t-small muted">' + NN.PRINTS[k].line + '</span></span></a>'; }).join('') + '</div>';
+    f('story').innerHTML = '<div class="story__main pfield" data-print="' + p.print + '"><div class="cov__art" style="background:transparent">' + NN.ART[p.print] + '</div><div><span class="t-label" style="opacity:.75">Story ' + NN.PRINTS[p.print].n + ' · ' + p.printName + '</span><p class="lines" style="margin:14px 0 22px">' + S.pages[0].join('<br>') + '</p><a class="btn ' + (p.print === 'moon' ? 'btn--light' : '') + '" href="print-story.html?s=' + p.print + '">Read the story</a></div></div>';
   }
   var recs = (aero ? [NN.twin(id), 'cloud-hopper', 'little-wild-trio'] : ['sleepsuit-moon', 'pj-moon', id === 'cloud-hopper' ? 'little-wild-trio' : 'cloud-hopper']);
   recs = recs.concat(NN.ORDER.filter(function (k) { return k !== id && recs.indexOf(k) < 0; })).slice(0, 4);
   f('recs').innerHTML = recs.map(NN.pc).join('');
+
+  // customer reviews. Sample text until the reviews app holds real ones; written per garment
+  var STAR = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg>';
+  function stars(n) { var h = ''; for (var i = 1; i <= 5; i++) h += i <= n ? STAR : STAR.replace('<svg', '<svg class="off"'); return '<span class="stars" role="img" aria-label="' + n + ' out of 5 stars">' + h + '</span>'; }
+  var REV = {
+    sleepsuit: { avg: 4.9, n: 42, dist: [38, 3, 1, 0, 0], fit: 47, fitline: 'Most parents say it fits true to size.', list: [
+      [5, 'Finally, no more sweaty wake-ups', 'Our nursery swings from AC-cold at midnight to warm by morning. Since switching, she sleeps through in the same suit and wakes up dry.', 'Mariam A.', 'Dubai', '6–9M', 'True to size', '12 Nov 2026'],
+      [5, 'The two-way zip is a lifesaver', 'Night changes without fully undressing him. The fabric is so soft, and it still looks new after a dozen washes.', 'Sana R.', 'Abu Dhabi', '3–6M', 'True to size', '4 Nov 2026'],
+      [5, 'The gift that got the most use', 'Bought it as a newborn gift and the parents asked where to get a second one. The print is even prettier in person.', 'Hannah L.', 'Dubai', '0–3M', 'True to size', '28 Oct 2026'],
+      [4, 'Lovely. Size up if they’re long', 'Beautiful and breathable. My son is long for his age, so I went up a size and it’s perfect with room to grow.', 'Priya M.', 'Sharjah', '9–12M', 'Runs slightly small', '19 Oct 2026']] },
+    pj: { avg: 4.8, n: 27, dist: [23, 3, 1, 0, 0], fit: 55, fitline: 'Most parents say it fits true to size, with a little room to grow.', list: [
+      [5, 'Bedtime without the battle', 'He picks his pyjamas every night now and asks for the story that goes with the print. No more kicking off the covers either.', 'Layla H.', 'Dubai', '2–3Y', 'True to size', '15 Nov 2026'],
+      [5, 'Our toddler runs hot. Not any more', 'She used to wake up damp at 2am. In these she sleeps through until seven, AC on or off.', 'Noor K.', 'Abu Dhabi', '18–24M', 'True to size', '6 Nov 2026'],
+      [5, 'Washes beautifully', 'The waistband stays soft and the print hasn’t faded after weeks of washing.', 'Emma T.', 'Dubai', '3–4Y', 'True to size', '30 Oct 2026'],
+      [4, 'A roomy fit', 'Comfortable and well made. It’s a little roomy on my slim daughter, which means it will last her longer.', 'Fatima S.', 'Ras Al Khaimah', '12–18M', 'Runs slightly large', '21 Oct 2026']] },
+    socks: { avg: 4.9, n: 18, dist: [16, 2, 0, 0, 0], fit: 44, fitline: 'Most parents say they fit true to size.', list: [
+      [5, 'No more slipping on our tiles', 'Our marble floors were a worry for his first steps. The grip dots really hold, and the socks stay on.', 'Reem B.', 'Dubai', '1–2Y', 'True to size', '10 Nov 2026'],
+      [5, 'They stay on all day', 'Finally, socks he can’t pull off in the car seat. And the little animals are adorable.', 'Aditi P.', 'Dubai', '6–12M', 'True to size', '2 Nov 2026'],
+      [4, 'Cute and practical', 'Great grip. A little snug over chunky ankles at first, but they soften after a wash.', 'Claire D.', 'Abu Dhabi', '2–4Y', 'Runs slightly small', '24 Oct 2026']] }
+  };
+  var R = REV[p.g];
+  f('rate').innerHTML = stars(5) + '<span>' + R.avg + ' · ' + R.n + ' reviews</span>';
+  f('revsum').innerHTML = '<div class="revs__avg"><b>' + R.avg + '</b>' + stars(5) + '<small>Based on ' + R.n + ' reviews</small></div>' +
+    '<ul class="revs__dist">' + R.dist.map(function (c, i) { return '<li><span>' + (5 - i) + ' ★</span><i><b style="width:' + Math.round(c / R.n * 100) + '%"></b></i><span>' + c + '</span></li>'; }).join('') + '</ul>' +
+    '<div class="revs__fit"><span class="t-label">Fit</span><p>' + R.fitline + '</p><div class="revs__track"><i style="left:' + R.fit + '%"></i></div><div class="revs__ends"><span>Runs small</span><span>True to size</span><span>Runs large</span></div></div>';
+  // three on the page: the two newest five-star reviews and the honest four-star one; the rest behind Show more
+  f('revlist').innerHTML = R.list.slice(0, 2).concat(R.list.slice(-1)).map(function (r) {
+    return '<article class="rev"><div class="rev__hd">' + stars(r[0]) + '<time>' + r[7] + '</time></div><h3 class="rev__t">' + r[1] + '</h3><p>' + r[2] + '</p>' +
+      '<p class="rev__by"><b>' + r[3] + '</b><span class="muted">' + r[4] + '</span><span class="rev__v">Verified buyer</span></p>' +
+      '<p class="rev__meta">Size bought: ' + r[5] + ' · Fit: ' + r[6] + (p.print ? ' · Print: ' + p.printName : '') + '</p></article>';
+  }).join('');
   renderBuy();
 })();
 window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};

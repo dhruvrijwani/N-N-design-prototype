@@ -116,7 +116,7 @@
   '</div></div>';
   var megaStories = '<div class="mega"><div class="wrap mega__in mega__in--stories">' +
     Object.keys(PRINTS).map(function (k) { return '<a class="mega__cover cov" href="print-story.html?s=' + k + '" data-print="' + k + '"><div class="cov__art">' + ART[k] + '</div><b>' + PRINTS[k].name + '</b></a>'; }).join('') +
-    '<div><h4 class="t-label">Stories</h4><ul><li><a href="prints.html">The prints &amp; Lumi’s wheel</a></li><li><a href="library.html">Lumi’s Library</a></li><li><a href="journal.html">Journal</a></li></ul></div>' +
+    '<div><h4 class="t-label">Stories</h4><ul><li><a href="prints.html">Lumi’s wheel</a></li><li><a href="library.html">Lumi’s Library</a></li><li><a href="journal.html">Journal</a></li></ul></div>' +
   '</div></div>';
 
   document.body.insertAdjacentHTML('afterbegin',
@@ -144,9 +144,9 @@
         '<div class="social"><a href="#" aria-label="Instagram">' + I.ig + '</a><a href="#" aria-label="WhatsApp">' + I.wa + '</a></div></div>' +
       '<div class="ftr__cols">' +
         '<div><h4 class="t-label">Shop</h4><a href="collection.html?g=sleepsuit">Sleepsuits</a><a href="collection.html?g=pj">PJ sets</a><a href="collection.html?g=socks">Grip socks</a><a href="bundles.html">Bundles</a></div>' +
-        '<div><h4 class="t-label">Stories</h4><a href="prints.html">The prints</a><a href="library.html">Lumi’s Library</a><a href="journal.html">Journal</a></div>' +
+        '<div><h4 class="t-label">Stories</h4><a href="prints.html">Lumi’s wheel</a><a href="library.html">Lumi’s Library</a><a href="journal.html">Journal</a></div>' +
         '<div><h4 class="t-label">About</h4><a href="about.html">Our story</a><a href="aerocool.html">AeroCool</a></div>' +
-        '<div><h4 class="t-label">Help</h4><a href="help.html">Contact &amp; FAQ</a><a href="shipping.html">Shipping</a><a href="returns.html">Exchanges &amp; returns</a><a href="size-guide.html">Size guide</a></div>' +
+        '<div><h4 class="t-label">Help</h4><a href="help.html">Contact us</a><a href="help.html#faq">FAQs</a><a href="shipping.html">Shipping &amp; delivery</a><a href="returns.html">Exchanges &amp; returns</a><a href="help.html#track">Track your order</a></div>' +
       '</div></div>' +
       '<div class="ftr__bot"><span>United Arab Emirates · AED</span><span>© 2026 Nurture &amp; Next · <a href="#">Privacy</a> · <a href="#">Terms</a></span><span class="pay"><i>VISA</i><i>MASTERCARD</i><i>APPLE PAY</i></span></div>' +
     '</div></footer>' +
@@ -157,7 +157,7 @@
         '<nav class="mnav"><details><summary>Shop <span>+</span></summary><div class="mnav__sub"><a href="collection.html">Shop all</a><a href="collection.html?g=socks">Grip socks</a>' +
           Object.keys(PRINTS).map(function (k) { return '<a href="collection.html?print=' + k + '"><i class="pdot" data-print="' + k + '"></i>' + PRINTS[k].name + '</a>'; }).join('') + '</div></details>' +
           '<a href="bundles.html">Bundles</a><a href="aerocool.html">AeroCool</a>' +
-          '<details><summary>Stories <span>+</span></summary><div class="mnav__sub"><a href="prints.html">The prints &amp; Lumi’s wheel</a><a href="library.html">Lumi’s Library</a><a href="journal.html">Journal</a></div></details>' +
+          '<details><summary>Stories <span>+</span></summary><div class="mnav__sub"><a href="prints.html">Lumi’s wheel</a><a href="library.html">Lumi’s Library</a><a href="journal.html">Journal</a></div></details>' +
           '<a href="about.html">Our story</a><a href="help.html">Help</a></nav></div>' +
     '</aside>' +
     '<aside class="drawer drawer--r is-bag" aria-label="Bag" data-build="native" data-build-label="Quick cart: free shipping bar at AED 500" data-note-key="bag">' +

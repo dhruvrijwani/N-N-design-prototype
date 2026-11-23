@@ -9,74 +9,294 @@
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/proto.css">
 <style>
-  .ahero { display: grid; gap: 28px; align-items: end; padding-block: clamp(40px, 6vw, 88px) 0; }
-  @media (min-width: 990px) { .ahero { grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; } }
-  .ahero__img { aspect-ratio: 4/5; overflow: hidden; }
-  .ahero__img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
-  .chap { display: grid; gap: 28px; align-items: center; }
-  @media (min-width: 990px) { .chap { grid-template-columns: 1fr 1fr; gap: 88px; } .chap--rev > :first-child { order: 2; } }
-  .chap__n { display: block; margin-bottom: 14px; font: 500 var(--fs-label)/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
-  .chap p.body { font-size: var(--fs-lead); line-height: 1.7; color: var(--ink-2); max-width: 32em; }
-  .chap p.body + p.body { margin-top: 14px; }
-  .chap__img { aspect-ratio: 4/3; overflow: hidden; }
-  .chap__img img { width: 100%; height: 100%; object-fit: cover; }
+  /* Our story, told by the founder. Quiet, in the spirit of Aesop: generous space, a calm
+     twelve-column grid, no icons or decoration. Her story is set in the heading serif so it
+     reads in her voice. Only the opening line is italic. The words are the client's, unchanged. */
+  body[data-page="about"] { --sec: clamp(56px, 6.5vw, 104px); }
+  .os-g { display: grid; gap: 32px; }
+  @media (min-width: 990px) { .os-g { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 0; } }
+  @media (max-width: 989px) { .os-g > * { grid-column: 1 / -1 !important; } .os-idea__ph { margin-top: 0; } .os-idea__txt { margin-top: 0; } .os-open__pics { margin-top: 0; } }
+  .os-ph { overflow: hidden; background: #ece4da; }
+  .os-ph img { width: 100%; height: 100%; object-fit: cover; scale: 1.04; transition: scale 1.8s cubic-bezier(.2, .7, .2, 1); }
+  .rv.is-in .os-ph img, .os-ph.rv.is-in img { scale: 1; }
+  .os-label { display: block; font: 500 11px/1.5 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--taupe-text); }
+  .nw { white-space: nowrap; }
+
+  /* 1. opening: a full-width photo with a warm tint, white capitals, then a large italic line */
+  .st-hero { position: relative; display: flex; align-items: flex-end; min-height: min(84vh, 640px); overflow: hidden; color: var(--white); background: #6f5546; }
+  .st-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 74% 50%; transform-origin: 60% 50%; animation: st-settle 2.6s cubic-bezier(.2, .7, .2, 1) both; }
+  .st-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(86, 60, 44, .82), rgba(86, 60, 44, .35) 55%, rgba(86, 60, 44, .1)); }
+  @media (min-width: 990px) { .st-hero { align-items: center; min-height: min(80vh, 760px); } .st-hero__bg { object-position: 85% 50%; } .st-hero::after { background: linear-gradient(90deg, rgba(86, 60, 44, .74), rgba(86, 60, 44, .55) 45%, rgba(86, 60, 44, .2) 66%, rgba(86, 60, 44, 0) 82%); } }
+  .st-hero__arcs { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; fill: none; stroke: rgba(255, 255, 255, .28); stroke-width: 1; pointer-events: none; }
+  .st-hero__b { position: relative; z-index: 2; padding-block: 48px; }
+  .st-hero h1 { max-width: 13em; font: 500 clamp(2.25rem, 1.2rem + 4vw, 5.25rem)/1 var(--serif); letter-spacing: -.015em; color: var(--white); text-shadow: 0 2px 24px rgba(40, 25, 15, .25); }
+  .st-hero h1 .l1 { text-transform: uppercase; }
+  .st-hero h1 em { margin-top: .12em; font: italic 400 clamp(2.125rem, 1.1rem + 3.6vw, 4.625rem)/1.04 var(--serif); letter-spacing: -.03em; color: #dcc3b8; }
+  .st-hero h1 .l1, .st-hero h1 em { display: block; animation: st-rise 1s cubic-bezier(.2, .7, .2, 1) both; }
+  .st-hero h1 em { animation-delay: .2s; }
+  @keyframes st-rise { from { opacity: 0; transform: translateY(30px); } }
+  @keyframes st-settle { from { transform: scale(1.18); } }
+
+  /* 2. the brand story: the question across the top, the photos left, the words right */
+  .os-open__lead { grid-column: 1 / 10; max-width: 21em; font: 400 clamp(1.3125rem, 1.1rem + .8vw, 1.75rem)/1.35 var(--serif); letter-spacing: -.01em; color: var(--olive); }
+  .os-open__lead em { font-style: normal; color: #9c8076; }
+  .os-open__pics { grid-column: 1 / 7; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: clamp(32px, 4vw, 56px); }
+  .os-open__pics .os-ph { aspect-ratio: 3 / 4; }
+  .os-open__txt { grid-column: 8 / 13; align-self: end; }
+  .os-open__body p { font-size: var(--fs-body); line-height: 1.8; color: var(--ink-2); }
+  .os-open__body p + p { margin-top: 14px; }
+  .os-open__body .os-pull { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line-2); font: 400 clamp(1.1875rem, 1.05rem + .45vw, 1.4375rem)/1.45 var(--serif); color: var(--olive); }
+  .os-open .btn { margin-top: 26px; }
+
+  /* 3. her story as a picture book on one screen: her photo, the headline, one paragraph at a time */
+  .os-story { background: #fffdf9; }
+  .os-book__ph { position: relative; grid-column: 1 / 6; aspect-ratio: 4 / 3; overflow: hidden; background: #ece4da; }
+  @media (min-width: 990px) { .os-book__ph { aspect-ratio: 4 / 5; max-height: calc(100vh - var(--header-h) - 2 * var(--sec)); width: 100%; } }
+  .os-book__ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; scale: 1.04; transition: opacity .8s ease, scale 2s cubic-bezier(.2, .7, .2, 1); }
+  .os-book__ph img.is-on { opacity: 1; scale: 1; }
+  .os-book__txt { grid-column: 7 / 13; align-self: center; }
+  .os-book__pages { display: grid; margin-top: clamp(26px, 3vw, 40px); }
+  .os-page { grid-area: 1 / 1; font: 400 clamp(1.0625rem, 1rem + .3vw, 1.25rem)/1.65 var(--serif); color: #45403a; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease, visibility 0s .5s; }
+  .os-page.is-on { opacity: 1; visibility: visible; transform: none; transition: opacity .6s ease .15s, transform .6s ease .15s; }
+  .os-book__nav { display: flex; align-items: center; gap: 18px; margin-top: clamp(28px, 3vw, 40px); }
+  .os-arrow { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line-2); border-radius: 50%; color: var(--olive); transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease); }
+  .os-arrow:hover { background: var(--olive); color: var(--cream); }
+  .os-arrow svg { width: 18px; height: 18px; }
+  .os-dots { display: flex; gap: 10px; }
+  .os-dot { width: 40px; height: 40px; padding: 0; overflow: hidden; border-radius: 50%; opacity: .4; scale: .85; transition: opacity .3s ease, scale .3s ease; }
+  .os-dot img { width: 100%; height: 100%; object-fit: cover; }
+  .os-dot.is-on, .os-dot:hover { opacity: 1; scale: 1; }
+
+  /* 4. the moment it clicked: a quiet dark pause */
+  .os-turn { padding-block: clamp(80px, 9vw, 136px); background: var(--charcoal); color: var(--cream); text-align: center; }
+  .os-turn__s { max-width: 20em; margin-inline: auto; font: 400 clamp(1.875rem, 1.2rem + 2.4vw, 3.375rem)/1.15 var(--serif); letter-spacing: -.02em; }
+  .os-turn__s em { display: block; font-style: normal; color: #dcc3b8; }
+  @media (min-width: 750px) { .os-turn__s .ln { display: block; } }
+  .os-turn__l { margin-top: 36px; font: 500 11px/1.5 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: rgba(248, 242, 235, .75); }
+  .os-turn__l::before { content: ""; display: block; width: 40px; height: 1px; margin: 0 auto 22px; background: rgba(220, 195, 184, .6); }
+
+  /* 5. the idea: the question, then a photo beside the answer */
+  .os-idea__q { grid-column: 1 / 11; max-width: 22em; font: 400 clamp(1.75rem, 1.2rem + 2vw, 3.125rem)/1.15 var(--serif); letter-spacing: -.02em; color: var(--olive); }
+  .os-idea__q em { font-style: normal; color: #9c8076; white-space: nowrap; }
+  .os-idea__ph { grid-column: 1 / 7; aspect-ratio: 3 / 2; margin-top: clamp(32px, 4vw, 56px); }
+  .os-idea__txt { grid-column: 8 / 13; align-self: center; margin-top: clamp(0px, 4vw, 56px); }
+  .os-idea__txt h3 { font: 400 clamp(1.125rem, 1.05rem + .35vw, 1.375rem)/1.4 var(--serif); letter-spacing: -.01em; color: var(--olive); }
+  .os-idea__txt p { margin-top: 18px; font-size: var(--fs-lead); line-height: 1.75; color: var(--ink-2); }
+  .os-idea__txt h3 + p { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line-2); }
+
+  /* 6. childhood, right now: three small photos, then the line and Shop now */
+  .os-now { background: #f1e9e0; text-align: center; }
+  .os-now__pics { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 1.4vw, 18px); max-width: 820px; margin: 0 auto clamp(36px, 4vw, 56px); }
+  .os-now__pics .os-ph { aspect-ratio: 4 / 5; }
+  .os-now__s { font: 400 clamp(1.75rem, 1.2rem + 1.8vw, 2.75rem)/1.15 var(--serif); letter-spacing: -.02em; color: var(--olive); }
+  .os-now__s em { font-style: normal; }
+  .os-now__l { max-width: 30em; margin: 14px auto 28px; font-size: var(--fs-lead); line-height: 1.6; color: var(--ink-2); }
+
+  /* 7. why we exist: a short closing note, heading left, three lines right */
+  .os-why { background: var(--white); }
+  .os-why__ph { grid-column: 1 / 5; aspect-ratio: 16 / 10; }
+  @media (min-width: 990px) { .os-why__h { grid-row: 1; } .os-why__ph { grid-row: 2; align-self: start; aspect-ratio: 1; margin-top: 32px; } .os-why__list { grid-row: 1 / 3; } }
+  .os-why__h { grid-column: 1 / 5; font: 400 clamp(1.875rem, 1.3rem + 1.8vw, 2.75rem)/1.12 var(--serif); letter-spacing: -.02em; color: var(--olive); }
+  .os-why__list { grid-column: 6 / 13; }
+  .os-why__row { display: grid; gap: 10px; padding-block: 24px; border-top: 1px solid var(--line); }
+  @media (min-width: 750px) { .os-why__row { grid-template-columns: 10rem 1fr; gap: 24px; } }
+  .os-why__row:first-child { padding-top: 0; border-top: 0; }
+  .os-why__row h3 { padding-top: .35em; font: 500 11px/1.5 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--taupe-text); }
+  .os-why__row p { font: 400 clamp(1.0625rem, 1rem + .25vw, 1.1875rem)/1.55 var(--serif); color: var(--olive); }
+  .os-why__end { padding-top: 28px; border-top: 1px solid var(--line); }
+  @media (min-width: 750px) { .os-why__end { padding-left: calc(10rem + 24px); } }
+  .os-why__end p { max-width: 32em; font-size: var(--fs-lead); line-height: 1.7; color: var(--ink-2); }
+  .os-why__end .btn { margin-top: 0; }
+
+  @media (prefers-reduced-motion: reduce) { .st-hero__bg, .st-hero h1 .l1, .st-hero h1 em { animation: none; } .os-ph img { scale: 1; } }
+  /* ---------- the look of the previous designer's frame: warm brown, full-width photos with a warm tint,
+     a first line in capitals and a larger second line in soft taupe-pink, faint thin circle lines ---------- */
+  .os-arcs { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1; opacity: .28; pointer-events: none; }
+  .os-open, .os-story, .os-idea, .os-why { position: relative; overflow: hidden; }
+  .os-open > .wrap, .os-why > .wrap { position: relative; z-index: 1; }
+  /* 2 on soft sand */
+  .os-sand { background: #efe6dc; }
+  .os-sand .os-arcs { color: #b59c92; opacity: .35; }
+  /* (warm brown kept for reference, not used) */
+  .os-warm { background: #6f5546; color: var(--cream); }
+  .os-warm .os-arcs { color: #f8f2eb; opacity: .22; }
+  .os-warm .os-open__lead { color: var(--cream); }
+  .os-warm .os-open__lead em { color: #dcc3b8; }
+  .os-warm .os-open__body p { color: rgba(248, 242, 235, .82); }
+  .os-warm .os-ph { background: #5d4538; }
+  /* 3: her headline, capitals then a larger taupe-pink line */
+  .os-story__h { font: 500 11px/1.5 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--taupe-text); }
+  .os-story__h em { display: block; margin-top: 14px; font: 400 clamp(1.5rem, 1.05rem + 1.4vw, 2.25rem)/1.15 var(--serif); font-style: normal; letter-spacing: -.02em; text-transform: none; color: #a88a7e; }
+  /* 4 and 6: full-width photos with a warm tint, text on the left */
+  .os-photo { position: relative; display: flex; align-items: flex-end; min-height: min(78vh, 620px); overflow: hidden; color: var(--white); background: #6f5546; padding: 0; text-align: left; }
+  .os-photo__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; }
+  .os-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(86, 60, 44, .86), rgba(86, 60, 44, .45) 60%, rgba(86, 60, 44, .2)); }
+  @media (min-width: 990px) { .os-photo { align-items: center; min-height: min(78vh, 700px); } .os-photo::after { background: linear-gradient(90deg, rgba(86, 60, 44, .82), rgba(86, 60, 44, .6) 42%, rgba(86, 60, 44, .18) 70%, rgba(86, 60, 44, 0) 88%); } }
+  .os-photo .os-arcs { z-index: 1; color: #fff; opacity: .3; }
+  .os-photo__b { position: relative; z-index: 2; padding-block: 56px; }
+  .os-turn__s { max-width: 15em; margin: 0; font: 500 clamp(1.625rem, 1rem + 2.2vw, 3.125rem)/1.04 var(--serif); letter-spacing: -.015em; text-transform: uppercase; color: var(--white); text-shadow: 0 2px 24px rgba(40, 25, 15, .25); }
+  .os-turn__s .ln { display: block; }
+  .os-turn__s em { display: block; margin-top: .16em; font: 400 clamp(1.5rem, .95rem + 2vw, 2.75rem)/1.1 var(--serif); font-style: normal; letter-spacing: -.025em; text-transform: none; color: #dcc3b8; }
+  .os-turn__l { margin-top: 32px; font: 500 11px/1.5 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: rgba(248, 242, 235, .85); }
+  .os-turn__l::before { margin: 0 0 20px; }
+  .os-now__s { max-width: 14em; font: 500 clamp(1.625rem, 1rem + 2.2vw, 3.125rem)/1.06 var(--serif); letter-spacing: -.015em; text-transform: uppercase; color: var(--white); text-shadow: 0 2px 24px rgba(40, 25, 15, .25); }
+  .os-now__s em { font-style: normal; }
+  .os-now__l { max-width: 30em; margin: 18px 0 28px; font-size: var(--fs-lead); color: rgba(248, 242, 235, .88); }
+  /* 5: the question, capitals then the taupe-pink words */
+  .os-idea__q { max-width: 20em; font: 400 clamp(1.4375rem, 1.05rem + 1.3vw, 2.25rem)/1.2 var(--serif); letter-spacing: -.015em; color: var(--olive); }
+  .os-idea__q em { color: #a88a7e; }
+  .os-idea .os-arcs, .os-story .os-arcs { color: #b59c92; }
+  /* 7: heading in capitals with a faint circle line */
+  .os-why .os-arcs { color: #b59c92; opacity: .35; }
+  .os-why__h { font-size: clamp(1.4375rem, 1.05rem + 1.3vw, 2.125rem); line-height: 1.15; }
+  /* 4 on black, the statement in pink */
+  .os-black { position: relative; overflow: hidden; padding-block: clamp(96px, 11vw, 160px); background: #151515; text-align: center; }
+  .os-black .os-arcs { color: #dcc3b8; opacity: .16; }
+  .os-black .os-turn__s { max-width: 16em; margin-inline: auto; color: #e2c3b9; text-shadow: none; }
+  .os-black .os-turn__s em { color: #e2c3b9; }
+  .os-black .os-turn__l { color: rgba(248, 242, 235, .7); }
+  .os-black .os-turn__l::before { margin: 0 auto 20px; background: rgba(226, 195, 185, .5); }
+  /* 2, refined: words together on the left, the two photos on the right, slightly staggered */
+  .os-open__col { grid-column: 1 / 6; align-self: center; }
+  .os-open__col .os-open__lead { max-width: 16em; font-size: clamp(1.375rem, 1.1rem + .9vw, 1.875rem); }
+  .os-open__col .os-open__body { max-width: 30em; margin-top: clamp(24px, 2.6vw, 34px); padding-top: clamp(22px, 2.4vw, 30px); border-top: 1px solid rgba(181, 156, 146, .45); }
+  .os-open__col .btn { margin-top: 26px; }
+  .os-open .os-open__pics { grid-column: 7 / 13; margin-top: 0; align-self: center; }
+  @media (min-width: 990px) { .os-open .os-open__pics .os-ph:nth-child(2) { translate: 0 56px; } .os-open .os-open__pics { margin-bottom: 56px; } }
+  /* 4, refined: a shorter pause with a soft pink glow behind the words */
+  .os-black { padding-block: clamp(44px, 5vw, 72px); }
+  .os-black .os-photo__b { padding-block: 0; }
+  .os-black .os-turn__l { margin-top: 22px; }
+  .os-black .os-turn__l::before { margin-bottom: 14px; }
+  .os-black::before { content: ""; position: absolute; left: 50%; top: 50%; width: min(900px, 120vw); aspect-ratio: 2 / 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(ellipse, rgba(226, 195, 185, .13), rgba(226, 195, 185, 0) 65%); pointer-events: none; }
+  .os-black .wrap { position: relative; z-index: 1; }
+  .os-black .os-turn__s { font-size: clamp(1.75rem, 1.05rem + 2.4vw, 3.375rem); }
 </style>
 </head>
 <body data-page="about">
 <main>
-  <section class="wrap ahero" data-build="native" data-build-label="Image with text: image right, heading, text" data-note="1">
-    <div class="rv">
-      <span class="t-label muted">Our story</span>
-      <h1 class="t-display" style="margin:12px 0 18px">Parenting has enough guesswork.</h1>
-      <p class="t-lead measure">Nurture &amp; Next makes the little things easier for parents, starting with how their children sleep.</p>
+  <!-- 1. Opening -->
+  <section class="st-hero" data-build="native" data-build-label="Stiletto Image hero: full-width photo, warm tint on the left, heading in two styles (capitals, then large italic). Thin circle lines: small CSS" data-note="1">
+    <img class="st-hero__bg" src="assets/img/topdown-wide.webp" alt="A parent holding their baby on their lap" fetchpriority="high">
+    <svg class="st-hero__arcs" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="40" cy="150" r="340"/><circle cx="1500" cy="980" r="420"/></svg>
+    <div class="wrap st-hero__b rv">
+      <h1><span class="l1">Parenting has enough guesswork.</span> <em>We’re here to rethink the little things.</em></h1>
     </div>
-    <div class="ahero__img rv"><img src="assets/img/mum-hug.webp" alt="A mother holding her sleeping child"></div>
   </section>
 
-  <section class="sec" data-build="native" data-build-label="Image with text: chapter 1" data-note="2">
-    <div class="wrap chap">
-      <div class="rv">
-        <span class="chap__n">01 · A new baby, a new country</span>
-        <h2 class="t-h2" style="margin-bottom:18px">Then came Taksh</h2>
-        <p class="body">Before motherhood, my world was my career as a consultant. Then came my son, Taksh, and almost at the same time, a move to Dubai.</p>
-        <p class="body">I loved being a mother, and I loved building something of my own. I didn’t want to give up either, or miss the little moments of his childhood.</p>
+  <!-- 2. The brand story -->
+  <section class="sec os-open os-sand" data-build="native" data-build-label="Stiletto Image with text: the question, two paragraphs and Shop now on the left; two images right" data-note="2">
+    <svg class="os-arcs" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="1380" cy="120" r="360"/><circle cx="-60" cy="900" r="420"/></svg>
+    <div class="wrap os-g">
+      <div class="os-open__col rv">
+        <p class="os-open__lead">Parenthood comes with a hundred little questions. What should they wear? Will they be comfortable? Is there an easier way? <em>We’ve asked them too.</em></p>
+        <div class="os-open__body">
+          <p>At Nurture &amp; Next, we believe everyday parenting challenges deserve more thoughtful solutions. Ones that bring together smart ideas, practical design and a little imagination.</p>
+          <p>That’s why we’re starting with temperature-responsive sleepwear for changing nights and thoughtfully designed grip socks for little feet on the move.</p>
+        </div>
+        <a class="btn" href="collection.html">Shop now</a>
       </div>
-      <div class="chap__img rv" data-build="todo" data-build-label="Founder or family photo, if she is happy to be shown" data-build-pos="br"><img src="assets/img/room-lamp.webp" alt="A quiet nursery with a lamp" loading="lazy"></div>
-    </div>
-  </section>
-
-  <section class="sec bg-white" data-build="native" data-build-label="Rich text: one quote, centred">
-    <div class="wrap wrap--sm center rv">
-      <span class="chap__n">02 · The same questions, every night</span>
-      <p class="t-lead" style="margin:6px auto 22px;max-width:30em">What should he wear to sleep? Is he too warm? Too cold? Every answer led to another question, and the parenting WhatsApp groups were full of them.</p>
-      <p class="quote">“Different families. Different children. The same questions.”</p>
-    </div>
-  </section>
-
-  <section class="sec" data-build="native" data-build-label="Image with text: chapter 3, image left" data-note="3">
-    <div class="wrap chap chap--rev">
-      <div class="rv">
-        <span class="chap__n">03 · So we started with sleep</span>
-        <h2 class="t-h2" style="margin-bottom:18px">Why Nurture &amp; Next exists</h2>
-        <p class="body">Nurture &amp; Next is my answer: thoughtful products for everyday parenting. We’re starting with temperature-responsive sleepwear for changing nights, and grip socks for little feet on the move.</p>
-        <p class="body">Not to tell parents how to parent. Just to take a few questions off the list, so there’s more room for the moments that matter.</p>
-        <p class="t-small muted" style="margin-top:22px" data-build="todo" data-build-label="Founder name and signature" data-build-pos="br">Founder, Nurture &amp; Next</p>
+      <div class="os-open__pics rv" aria-hidden="true">
+        <div class="os-ph"><img src="assets/img/fabric-moon.webp" alt="" loading="lazy"></div>
+        <div class="os-ph"><img src="assets/img/grip-socks.webp" alt="" loading="lazy"></div>
       </div>
-      <div class="chap__img rv"><img src="assets/img/fingers.webp" alt="A baby holding a parent’s finger" loading="lazy"></div>
     </div>
   </section>
 
-  <section class="sec bg-charcoal center" data-build="native" data-build-label="Rich text: heading + one button, dark scheme" data-note="4">
-    <div class="wrap wrap--sm rv">
-      <h2 class="t-h1">Start with their sleep</h2>
-      <p style="margin:14px auto 28px;max-width:28em;color:rgba(248,242,235,.8)">AeroCool sleepwear in three prints, from newborn to four.</p>
-      <a class="btn btn--light" href="collection.html">Shop sleepwear</a>
+  <!-- 3. The founder's story: a picture book on one screen, one paragraph at a time -->
+  <section class="sec os-story os-book" data-build="custom" data-build-label="Custom section (or a Stiletto slideshow with text): her photo and one paragraph at a time; arrows, photo dots and swipe turn the page" data-note="3">
+    <div class="wrap os-g">
+      <div class="os-book__ph rv" aria-hidden="true" data-build="todo" data-build-label="Family photos from the founder, if she is happy to share them (one per part)" data-build-pos="tr"><img class="is-on" src="assets/img/fingers.webp" alt="" style="object-position:50% 55%"><img src="assets/img/mum-hug.webp" alt="" loading="lazy" style="object-position:50% 45%"><img src="assets/img/room-moon.webp" alt="" loading="lazy" style="object-position:50% 60%"><img src="assets/img/baby-elephant.webp" alt="" loading="lazy" style="object-position:40% 50%"></div>
+      <div class="os-book__txt rv">
+        <h2 class="os-story__h">The story behind <span class="nw">Nurture &amp; Next</span> <em>A little boy. A big life change. And a whole lot of questions.</em></h2>
+        <div class="os-book__pages" aria-live="polite">
+          <p class="os-page is-on">Before motherhood, my world revolved around my career as a full-time consultant. Then came Taksh. And almost simultaneously, a move to Dubai. Life, as I knew it, turned upside down.</p>
+          <p class="os-page" aria-hidden="true">I loved being a mother. But I also loved being ambitious, having a career and building something of my own. I didn’t want to give up either. And more than anything, I didn’t want to miss the little moments that make up my son’s childhood.</p>
+          <p class="os-page" aria-hidden="true">Yet, somewhere between raising a little human and navigating a completely new life, I found myself doing what every parent does: figuring things out.</p>
+          <p class="os-page" aria-hidden="true">One question led to another. Sleep, routines, comfort, milestones, everyday struggles. The questions never really stopped. And the parenting WhatsApp groups? They were full of them.</p>
+        </div>
+        <div class="os-book__nav">
+          <button type="button" class="os-arrow" data-dir="-1" aria-label="Previous part"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <div class="os-dots"><button type="button" class="os-dot is-on" aria-label="Part 1 of her story" aria-current="true"><img src="assets/img/fingers.webp" alt=""></button><button type="button" class="os-dot" aria-label="Part 2 of her story"><img src="assets/img/mum-hug.webp" alt=""></button><button type="button" class="os-dot" aria-label="Part 3 of her story"><img src="assets/img/room-moon.webp" alt=""></button><button type="button" class="os-dot" aria-label="Part 4 of her story"><img src="assets/img/baby-elephant.webp" alt=""></button></div>
+          <button type="button" class="os-arrow" data-dir="1" aria-label="Next part"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. The moment it clicked -->
+  <section class="os-turn os-black" data-build="native" data-build-label="Rich text: centred statement in pink and one line, section colours black. Thin circle lines: small CSS" data-note="4">
+    <svg class="os-arcs" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="80" cy="180" r="380"/><circle cx="1460" cy="900" r="440"/></svg>
+    <div class="wrap os-photo__b rv">
+      <p class="os-turn__s"><span class="ln">Different families.</span> <span class="ln">Different children.</span> <em>The same questions, again and again.</em></p>
+      <p class="os-turn__l">That’s when something clicked.</p>
+    </div>
+  </section>
+
+  <!-- 5. The idea -->
+  <section class="sec os-idea" data-build="native" data-build-label="Rich text (the question), then Stiletto Image with text: photo left, text right" data-note="5">
+    <div class="wrap os-g">
+      <p class="os-idea__q rv">What if everyday parenting didn’t have to involve <em>so much guesswork?</em></p>
+      <div class="os-ph os-idea__ph rv"><img src="assets/img/baby-teddy.webp" alt="A baby asleep with a teddy under a printed blanket" loading="lazy" style="object-position:50% 40%"></div>
+      <div class="os-idea__txt rv">
+        <h3>What if we could take the challenges parents face every day and turn them into thoughtful, practical solutions?</h3>
+        <p>That idea became Nurture &amp; Next. A brand born from real parenting experiences, built to bring together innovation, practical design and imagination.</p>
+        <p>Not to tell parents how to parent. Not to add another thing to their already-full plates. But to make the little things easier, more meaningful and a little more magical.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Childhood, right now -->
+  <section class="os-photo os-now" data-build="native" data-build-label="Stiletto Image hero: full-width photo, warm tint on the left, heading, one line and Shop now">
+    <img class="os-photo__bg" src="assets/img/girl-sleep-wide.webp" alt="" loading="lazy">
+    <svg class="os-arcs" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="1380" cy="120" r="360"/><circle cx="-60" cy="900" r="420"/></svg>
+    <div class="wrap os-photo__b rv">
+      <p class="os-now__s"><em>Because childhood is happening right now.</em></p>
+      <p class="os-now__l">And we want parents to have more room to enjoy it.</p>
+      <a class="btn btn--light" href="collection.html">Shop now</a>
+    </div>
+  </section>
+
+  <!-- 7. Why Nurture & Next exists -->
+  <section class="sec os-why" data-build="native" data-build-label="Image with text: heading and a photo left; three rows (small label and line) right, then the collection line and Shop now. Rows: small CSS" data-note="6">
+    <svg class="os-arcs" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="1300" cy="-40" r="300"/></svg>
+    <div class="wrap os-g">
+      <h2 class="os-why__h rv">Why Nurture &amp; Next exists</h2>
+      <div class="os-ph os-why__ph rv" aria-hidden="true"><img src="assets/img/room-lamp.webp" alt="" loading="lazy"></div>
+      <div class="os-why__list rv">
+        <div class="os-why__row"><h3>Core purpose</h3><p>To rethink everyday parenting challenges through thoughtful solutions that combine innovation, practical design and imagination.</p></div>
+        <div class="os-why__row"><h3>Core belief</h3><p>Less time figuring it all out. More time enjoying the little moments.</p></div>
+        <div class="os-why__row"><h3>Brand positioning</h3><p>Nurture &amp; Next is a modern parenting brand creating thoughtfully designed products and experiences around real parenting needs.</p></div>
+        <div class="os-why__end">
+          <a class="btn" href="collection.html">Shop now</a>
+        </div>
+      </div>
     </div>
   </section>
 </main>
 <script src="assets/logos.js"></script>
 <script src="assets/site.js"></script>
-<script>window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};</script>
+<script>
+// her story as a picture book: arrows, photo dots and a swipe turn the page; the photo changes with it
+(function () {
+  var book = document.querySelector('.os-book'); if (!book) return;
+  var pages = [].slice.call(book.querySelectorAll('.os-page')), imgs = [].slice.call(book.querySelectorAll('.os-book__ph img')), dots = [].slice.call(book.querySelectorAll('.os-dot')), n = pages.length, i = 0;
+  function go(k) {
+    i = (k + n) % n;
+    pages.forEach(function (p, j) { p.classList.toggle('is-on', j === i); if (j === i) p.removeAttribute('aria-hidden'); else p.setAttribute('aria-hidden', 'true'); });
+    imgs.forEach(function (m, j) { m.classList.toggle('is-on', j === i); });
+    dots.forEach(function (d, j) { d.classList.toggle('is-on', j === i); if (j === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+  }
+  book.addEventListener('click', function (e) {
+    var a = e.target.closest('.os-arrow'), d = e.target.closest('.os-dot');
+    if (a) go(i + +a.getAttribute('data-dir')); else if (d) go(dots.indexOf(d));
+  });
+  var x0 = null;
+  book.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  book.addEventListener('touchend', function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1)); x0 = null; });
+})();
+window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};
+</script>
 <script src="assets/proto.js"></script>
 </body>
 </html>
