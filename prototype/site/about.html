@@ -58,14 +58,10 @@
   .os-book__pages { display: grid; margin-top: clamp(26px, 3vw, 40px); }
   .os-page { grid-area: 1 / 1; font: 400 clamp(1.0625rem, 1rem + .3vw, 1.25rem)/1.65 var(--serif); color: #45403a; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease, visibility 0s .5s; }
   .os-page.is-on { opacity: 1; visibility: visible; transform: none; transition: opacity .6s ease .15s, transform .6s ease .15s; }
-  .os-book__nav { display: flex; align-items: center; gap: 18px; margin-top: clamp(28px, 3vw, 40px); }
+  .os-book__nav { display: flex; align-items: center; gap: 12px; margin-top: clamp(28px, 3vw, 40px); }
   .os-arrow { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line-2); border-radius: 50%; color: var(--olive); transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease); }
   .os-arrow:hover { background: var(--olive); color: var(--cream); }
   .os-arrow svg { width: 18px; height: 18px; }
-  .os-dots { display: flex; gap: 10px; }
-  .os-dot { width: 40px; height: 40px; padding: 0; overflow: hidden; border-radius: 50%; opacity: .4; scale: .85; transition: opacity .3s ease, scale .3s ease; }
-  .os-dot img { width: 100%; height: 100%; object-fit: cover; }
-  .os-dot.is-on, .os-dot:hover { opacity: 1; scale: 1; }
 
   /* 4. the moment it clicked: a quiet dark pause */
   .os-turn { padding-block: clamp(80px, 9vw, 136px); background: var(--charcoal); color: var(--cream); text-align: center; }
@@ -204,7 +200,7 @@
   </section>
 
   <!-- 3. The founder's story: a picture book on one screen, one paragraph at a time -->
-  <section class="sec os-story os-book" data-build="custom" data-build-label="Custom section (or a Stiletto slideshow with text): her photo and one paragraph at a time; arrows, photo dots and swipe turn the page" data-note="3">
+  <section class="sec os-story os-book" data-build="custom" data-build-label="Custom section (or a Stiletto slideshow with text and autoplay): her photo and one paragraph at a time; turns on its own every 5 seconds, arrows and swipe still turn the page" data-note="3">
     <div class="wrap os-g">
       <div class="os-book__ph rv" aria-hidden="true" data-build="todo" data-build-label="Family photos from the founder, if she is happy to share them (one per part)" data-build-pos="tr"><img class="is-on" src="assets/img/fingers.webp" alt="" style="object-position:50% 55%"><img src="assets/img/mum-hug.webp" alt="" loading="lazy" style="object-position:50% 45%"><img src="assets/img/room-moon.webp" alt="" loading="lazy" style="object-position:50% 60%"><img src="assets/img/baby-elephant.webp" alt="" loading="lazy" style="object-position:40% 50%"></div>
       <div class="os-book__txt rv">
@@ -217,7 +213,6 @@
         </div>
         <div class="os-book__nav">
           <button type="button" class="os-arrow" data-dir="-1" aria-label="Previous part"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-          <div class="os-dots"><button type="button" class="os-dot is-on" aria-label="Part 1 of her story" aria-current="true"><img src="assets/img/fingers.webp" alt=""></button><button type="button" class="os-dot" aria-label="Part 2 of her story"><img src="assets/img/mum-hug.webp" alt=""></button><button type="button" class="os-dot" aria-label="Part 3 of her story"><img src="assets/img/room-moon.webp" alt=""></button><button type="button" class="os-dot" aria-label="Part 4 of her story"><img src="assets/img/baby-elephant.webp" alt=""></button></div>
           <button type="button" class="os-arrow" data-dir="1" aria-label="Next part"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
         </div>
       </div>
@@ -277,23 +272,27 @@
 <script src="assets/logos.js"></script>
 <script src="assets/site.js"></script>
 <script>
-// her story as a picture book: arrows, photo dots and a swipe turn the page; the photo changes with it
+// her story as a picture book: turns on its own every 5 seconds while on screen;
+// arrows and a swipe still turn the page (and restart the timer).
 (function () {
   var book = document.querySelector('.os-book'); if (!book) return;
-  var pages = [].slice.call(book.querySelectorAll('.os-page')), imgs = [].slice.call(book.querySelectorAll('.os-book__ph img')), dots = [].slice.call(book.querySelectorAll('.os-dot')), n = pages.length, i = 0;
+  var pages = [].slice.call(book.querySelectorAll('.os-page')), imgs = [].slice.call(book.querySelectorAll('.os-book__ph img')), n = pages.length, i = 0;
+  var DELAY = 5000, timer = null, seen = false;
   function go(k) {
     i = (k + n) % n;
     pages.forEach(function (p, j) { p.classList.toggle('is-on', j === i); if (j === i) p.removeAttribute('aria-hidden'); else p.setAttribute('aria-hidden', 'true'); });
     imgs.forEach(function (m, j) { m.classList.toggle('is-on', j === i); });
-    dots.forEach(function (d, j) { d.classList.toggle('is-on', j === i); if (j === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
   }
+  function stop() { clearTimeout(timer); timer = null; }
+  function play() { stop(); if (seen) timer = setTimeout(function () { go(i + 1); play(); }, DELAY); }
   book.addEventListener('click', function (e) {
-    var a = e.target.closest('.os-arrow'), d = e.target.closest('.os-dot');
-    if (a) go(i + +a.getAttribute('data-dir')); else if (d) go(dots.indexOf(d));
+    var a = e.target.closest('.os-arrow');
+    if (a) { go(i + +a.getAttribute('data-dir')); play(); }
   });
   var x0 = null;
   book.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
-  book.addEventListener('touchend', function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1)); x0 = null; });
+  book.addEventListener('touchend', function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) { go(i + (dx < 0 ? 1 : -1)); play(); } x0 = null; });
+  new IntersectionObserver(function (es) { seen = es[0].isIntersecting; if (seen) play(); else stop(); }, { threshold: .3 }).observe(book);
 })();
 window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};
 </script>

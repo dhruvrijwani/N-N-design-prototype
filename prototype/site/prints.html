@@ -44,7 +44,9 @@
   .wheel { position: relative; display: block; width: 84%; aspect-ratio: 1; margin: 8% auto; padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer; }
   .wheel:focus-visible { outline: 2px solid var(--glow-2); outline-offset: 14px; }
   .wheel__base, .wheel__hub, .wheel__spinner { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .wheel__base { border-radius: 50%; box-shadow: 0 0 0 5px #0b1222, 0 24px 60px rgba(0, 0, 0, .5); }
+  .wheel { box-shadow: 0 0 0 5px #0b1222, 0 24px 60px rgba(0, 0, 0, .5); }
+  /* the picture wheel turns one way, Lumi's centre the other, and the arrow lands on a slice */
+  .wheel__base { border-radius: 50%; transform: rotate(0deg); transition: transform 4s cubic-bezier(.12, .7, .1, 1); }
   .wheel__hub { animation: nudge 5s ease-in-out 1.5s infinite; }
   .has-spun .wheel__hub { animation: none; }
   @keyframes nudge { 0%, 76%, 100% { transform: rotate(0); } 82% { transform: rotate(-7deg); } 88% { transform: rotate(5deg); } 94% { transform: rotate(-2deg); } }
@@ -141,7 +143,7 @@
         <h1 class="t-display">Where will Lumi venture <em>tonight?</em></h1>
         <p>Inside every box is Lumi’s spin wheel. Each slice is one of his adventures from the Library. Spin it, start the story together, then find the book.</p>
       </div>
-      <div class="lw__wheel rv" data-f="stage" data-build="todo" data-build-label="The printed wheel, upscaled from a phone screenshot: needs the original artwork file (wheel and spinner separately). Custom section: tap the wheel or the button, the centre spins, the lamps chase, slices link to the Library" data-build-pos="br" data-note="2">
+      <div class="lw__wheel rv" data-f="stage" data-build="todo" data-build-label="The printed wheel, upscaled from a phone screenshot: needs the original artwork file (wheel and spinner separately). Custom section: tap the wheel or the button, the whole wheel turns one way and the centre the other, the lamps chase, slices link to the Library" data-build-pos="br" data-note="2">
         <svg class="wheel__spin" viewBox="0 0 100 100" aria-hidden="true">
           <path d="M71 7.5 A46 46 0 0 1 96 46" fill="none" stroke="rgba(243,211,154,.7)" stroke-width=".45" stroke-dasharray="1.2 1.4"/>
           <path d="M96 46 A46 46 0 0 1 82 82" fill="none" stroke="rgba(243,211,154,.7)" stroke-width=".45" stroke-dasharray="1.2 1.4"/>
@@ -150,7 +152,7 @@
         </svg>
         <svg class="bulbs" viewBox="0 0 100 100" aria-hidden="true" data-f="bulbs"></svg>
         <button class="wheel" type="button" data-f="wheelbtn" aria-label="Spin Lumi’s wheel">
-          <img class="wheel__base" src="assets/img/lumi-wheel-base.webp" alt="Lumi’s wheel: six adventures from Lumi’s Library">
+          <img class="wheel__base" data-f="base" src="assets/img/lumi-wheel-base.webp" alt="Lumi’s wheel: six adventures from Lumi’s Library">
           <span class="wheel__hub"><img class="wheel__spinner" src="assets/img/lumi-wheel-hub.webp" alt="" data-f="spinner"></span>
         </button>
         <span class="lw__hint" aria-hidden="true">Tap the wheel</span>
@@ -209,7 +211,7 @@
     ['The Balloon Tree', 'A tree that grows balloons full of surprises.', 'balloon-tree', 6], ['All Aboard!', 'A snowy train ride with a confused penguin.', 'all-aboard', 1],
     ['The Sea of Surprises', 'Lumi sails a night sea to help a friend home.', 'sea-of-surprises', 4], ['Knock, Knock!', 'Three mysterious doors in the desert.', 'knock-knock', 5]];
   var n = S.length, seg = 360 / n;
-  var rot = 0, busy = false, stage = f('stage'), result = f('result');
+  var rot = 0, base = 0, busy = false, stage = f('stage'), result = f('result');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // a ring of 24 lamps just outside the wheel's rim
@@ -242,9 +244,14 @@
     if (pick == null) pick = Math.floor(Math.random() * n);
     stage.classList.add('is-spinning', 'has-spun');
     document.querySelectorAll('.pick').forEach(function (p) { p.classList.remove('is-on'); });
-    // the arrow starts at 3 o'clock (90°); slice k is centred at k × 60° from the top
+    // the arrow starts at 3 o'clock (90°); slice k is centred at k × 60° from the top of the
+    // picture wheel. The picture wheel turns backwards, the centre forwards; what counts is
+    // where the arrow ends up relative to the pictures: (centre − wheel) = target.
     var target = ((pick * seg - 90 + (Math.random() * 30 - 15)) % 360 + 360) % 360;
-    rot = rot - (rot % 360) + 360 * 5 + target;
+    base -= 360 * 2 + Math.round(Math.random() * 180);
+    var want = ((base + target) % 360 + 360) % 360;
+    rot = rot - (((rot % 360) + 360) % 360) + 360 * 4 + want;
+    f('base').style.transform = 'rotate(' + base + 'deg)';
     f('spinner').style.transform = 'rotate(' + rot + 'deg)';
     result.style.opacity = .4;
     setTimeout(function () {
