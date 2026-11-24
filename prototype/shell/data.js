@@ -34,7 +34,7 @@ window.SHELL = {
           why: 'Parents browse by garment; the client wants the prints to be browsable too.' },
         { n: 3, k: 'brand', t: 'One promise, then shop',
           was: 'Headline in capitals, two buttons, and a product card in dollars.',
-          now: 'The client’s headline “Parenting has enough guesswork. We’re starting with sleep.” in sentence case, their line on what Nurture & Next is building, two buttons. Separate phone crop.',
+          now: 'As in the earlier design: headline in capitals, its line, Shop sleepwear and See how the fabric works, and a small product card. Separate phone crop.',
           why: 'Clean and direct; the shopping starts one scroll down.' },
         { n: 4, k: 'sales', t: 'Each print, shoppable on its own',
           was: 'One generic sleepsuit and PJ set, prices in dollars.',

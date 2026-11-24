@@ -14,7 +14,22 @@
   .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(25, 20, 15, .66), rgba(25, 20, 15, .1) 55%); }
   .hero__b { position: relative; z-index: 1; width: 100%; padding-block: 40px 48px; }
   .hero__b .t-display { max-width: 15em; }
-  @media (min-width: 990px) { .hero__b .t-display .ln { display: block; } }
+  /* as in the earlier design: capitals heading, taupe button, a small product card bottom right */
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(40, 28, 20, .22); pointer-events: none; }
+  .hero::after { z-index: 1; }
+  .hero__b { z-index: 2; }
+  .hero__b .t-display { text-transform: uppercase; font-size: clamp(2.5rem, 1.3rem + 4.4vw, 5.25rem); line-height: .96; letter-spacing: -.02em; }
+  .hero__b .t-display .ln { display: block; }
+  .hero__b .btn--taupe { border-color: rgba(255, 255, 255, .75); }
+  .hero .hero__b p { max-width: 27em; font-size: 1rem; }
+  @media (max-width: 989px) { .hero .hero__card { width: 250px; padding: 10px; } .hero .hero__card img { width: 60px; } .hero .hero__card b { font-size: .9375rem; } .hero .hero__card span, .hero .hero__card u { margin-top: 4px; } }
+  .hero__card { position: relative; z-index: 2; display: flex; gap: 12px; align-items: flex-start; width: min(300px, 100%); margin-top: 24px; padding: 12px; background: #f7f2ec; color: var(--charcoal); }
+  .hero__card img { width: 84px; aspect-ratio: 5 / 6; object-fit: cover; flex: none; }
+  .hero__card b { display: block; font: 400 1rem/1.3 var(--serif); }
+  .hero__card span { display: block; margin-top: 8px; font-size: 13px; font-weight: 600; }
+  .hero__card u { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 500; text-underline-offset: 3px; }
+  @media (min-width: 990px) { .hero__card { position: absolute; right: var(--gutter); bottom: 64px; margin: 0; } }
+  @media (min-width: 1440px) { .hero__card { right: calc((100vw - var(--wrap)) / 2 + var(--gutter)); } }
   .hero__b p { max-width: 34em; margin: 16px 0 28px; color: rgba(255, 255, 255, .88); font-size: var(--fs-lead); }
   @media (min-width: 990px) { .hero { align-items: center; } .hero::after { background: linear-gradient(90deg, rgba(25, 20, 15, .62), rgba(25, 20, 15, .1) 60%); } .hero__b { padding-block: 64px; } }
   .bdcs { display: grid; gap: var(--gap); }
@@ -82,12 +97,13 @@
 <body data-page="home">
 <main>
   <!-- Hero -->
-  <section class="hero" data-build="native" data-build-label="Image hero: separate mobile image, heading, text, 2 buttons" data-build-pos="tr" data-note="3">
+  <section class="hero" data-build="native" data-build-label="Image hero: separate mobile image, heading in capitals, text, 2 buttons, and a small product card (Stiletto shoppable image hero)" data-build-pos="tr" data-note="3">
     <picture><source media="(max-width: 989px)" srcset="assets/img/hero-reading-m.webp"><img src="assets/img/hero-reading.webp" alt="A mother reading a bedtime story to her toddler" fetchpriority="high"></picture>
     <div class="wrap hero__b">
-      <h1 class="t-display"><span class="ln">Parenting has enough guesswork.</span> <span class="ln">We’re starting with sleep.</span></h1>
-      <p>Nurture &amp; Next is being built to solve everyday parenting problems thoughtfully, through better products, practical education and considered design, with sleepwear simply being our first solution.</p>
-      <div class="btns"><a class="btn btn--light" href="collection.html">Shop sleepwear</a><a class="btn btn--line-light" href="#aerocool">How AeroCool works</a></div>
+      <h1 class="t-display"><span class="ln">Sleep without</span> <span class="ln">the guessing.</span></h1>
+      <p>Temperature-regulating sleepwear designed for more comfortable nights — and bigger little dreams.</p>
+      <div class="btns"><a class="btn btn--taupe" href="collection.html">Shop sleepwear</a><a class="btn btn--line-light" href="#aerocool">See how the fabric works</a></div>
+      <a class="hero__card" href="product.html?p=sleepsuit-moon"><img src="assets/img/sleepsuit-moon.webp" alt=""><div><b>AeroCool Zip Sleepsuit Moonlit Meadow</b><span>$54</span><u>Shop now</u></div></a>
     </div>
   </section>
 
@@ -171,7 +187,7 @@
   <!-- Testimonials -->
   <section class="sec bg-stone" data-build="native" data-build-label="Testimonials section: 3 quotes, star rating, linked product. Sample text until real tester reviews" data-note="7">
     <div class="wrap">
-      <div class="shead rv"><div><h2 class="t-h2">Good nights, in their own words.</h2></div><span class="t-small muted" data-build="todo" data-build-label="Real reviews from testers, with permission" data-build-pos="br">Reviews from our tester families</span></div>
+      <div class="shead rv"><div data-build="todo" data-build-label="Real reviews from testers, with permission" data-build-pos="br"><h2 class="t-h2">Good nights, in their own words.</h2></div></div>
       <div class="tsts">
         <figure class="tst rv">
           <div class="tst__stars" role="img" aria-label="5 out of 5 stars"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m10 1.5 2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7Z"/></svg></div>
@@ -216,7 +232,7 @@
   <!-- UGC: real bedtimes -->
   <section class="sec" data-build="custom" data-build-label="Video rail (custom section, video blocks): 9:16 clips from parents, each tagged with its product. Or a UGC app if clips come from Instagram" data-note="9">
     <div class="wrap">
-      <div class="shead rv"><div><h2 class="t-h2">Real bedtimes, everywhere.</h2></div><span class="t-small muted" data-build="todo" data-build-label="Clips from tester families, with permission to use them" data-build-pos="br">Share yours with #NurtureAndNext</span></div>
+      <div class="shead rv"><div data-build="todo" data-build-label="Clips from tester families, with permission to use them" data-build-pos="br"><h2 class="t-h2">Real bedtimes, everywhere.</h2></div></div>
       <div class="ugc">
         <div class="rv">
           <button class="clip" type="button" data-clip data-img="assets/img/smile-baby.webp" data-href="product.html?p=sleepsuit-moon" data-print="moon" data-name="Sleepsuit · Under One Moon"><img src="assets/img/smile-baby.webp" alt="" loading="lazy"><span class="clip__play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 1.5v13L14 8Z"/></svg></span><span class="clip__by"><b>@parent.handle</b>Morning smiles after a full night</span></button>
