@@ -2,6 +2,7 @@
 
 ## Version 3 (22 November 2026), after the second round of feedback
 
+- **Print stories** (all three): each is now its own picture book on one continuous scroll, no arrows, dots or swipe. Under One Moon (night, the sky filling with stars), Dream Atlas (a journey drawn like a map) and Hush Hush (darker and calmer page by page) each have their own palette and page layouts, with drawings standing in for the print artwork. The story text is unchanged.
 - **Home**: two new sections. *From other parents*: three testimonials with a rating and the piece each child wears, before the bundles. *Real bedtimes*: a rail of vertical parent videos, each tagged with its product and opening with Shop this. Both use sample content and are marked NEEDS INPUT (Questions 18 and 19).
 - **Our story**: exactly the client’s copy, in their three sections (brand story, founder story, why Nurture & Next exists), designed as one story with the two highlighted statements. Nothing added.
 - **Lumi’s Library**: same theme as Lumi’s page (midnight navy, lamplight gold, card paper).

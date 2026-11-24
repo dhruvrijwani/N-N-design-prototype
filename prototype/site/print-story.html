@@ -9,91 +9,248 @@
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/proto.css">
 <style>
+  /* The print stories as picture books: one continuous scroll, each section a page or a
+     double-page spread. Each story has its own palette and layouts (see story-art.js). */
   body.reader .ann { display: none; }
-  .rd { position: relative; display: flex; flex-direction: column; min-height: calc(100vh - var(--header-h)); min-height: calc(100svh - var(--header-h)); background: var(--p-bg); color: var(--p-fg); transition: background var(--t-normal) var(--ease), color var(--t-normal) var(--ease); overflow: hidden; }
-  .rd.is-dim { background: #1d1e20; color: #e9e2d6; }
-  .rd__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px var(--gutter); font-size: var(--fs-small); }
-  .rd__bar a, .rd__bar button { display: inline-flex; align-items: center; gap: 8px; opacity: .85; }
-  .rd__bar a:hover, .rd__bar button:hover { opacity: 1; }
-  .rd__stage { flex: 1; display: grid; place-items: center; padding: 8px var(--gutter) 24px; touch-action: pan-y; cursor: pointer; }
-  .rd__page { display: grid; justify-items: center; gap: clamp(20px, 4vh, 36px); max-width: 40rem; text-align: center; transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease); }
-  .rd__page.is-out { opacity: 0; transform: translateX(var(--dx, 16px)); }
-  .rd__art { width: clamp(96px, 18vh, 150px); }
-  .rd__lines { font: 400 clamp(1.5rem, 1.1rem + 1.8vw, 2.4rem)/1.35 var(--serif); letter-spacing: -.01em; }
-  .rd__lines p + p { margin-top: .35em; }
-  .rd__lines.is-song { font-style: italic; }
-  .rd__ctl { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px var(--gutter) calc(18px + env(safe-area-inset-bottom)); }
-  .rd__ctl > button { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; border: 1px solid currentColor; opacity: .85; transition: opacity var(--t-fast) var(--ease), background var(--t-fast) var(--ease); }
-  .rd__ctl > button:hover { opacity: 1; }
-  .rd__ctl > button[disabled] { opacity: .25; pointer-events: none; }
-  .rd__ctl svg { width: 18px; height: 18px; }
-  .rd__dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; flex: 1; }
-  .rd__dots i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .3; transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease); }
-  .rd__dots i.is-on { opacity: 1; transform: scale(1.3); }
-  .rd__end { display: grid; justify-items: center; gap: 18px; text-align: center; max-width: 44rem; }
-  .rd__end .grid { width: 100%; margin-top: 8px; text-align: left; }
-  .rd__end .pc__body, .rd__end .pc__meta { color: inherit; }
+  .st { --sbh: 46px; }
+
+  /* the reading bar: back to the prints, the story, dim for bedtime, and how far you have read */
+  .sb { position: sticky; top: var(--header-h); z-index: 20; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; height: var(--sbh); padding: 0 var(--gutter); background: var(--sb-bg); color: var(--sb-fg); font-size: var(--fs-small); transition: background .6s ease, color .6s ease; }
+  .sb a, .sb button { display: inline-flex; align-items: center; gap: 8px; opacity: .85; }
+  .sb a:hover, .sb button:hover { opacity: 1; }
+  .sb__t { font-family: var(--serif); font-size: 1rem; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sb button { justify-self: end; }
+  .sb__p { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: currentColor; opacity: .55; transform-origin: left; transform: scaleX(var(--p, 0)); }
+  @media (max-width: 600px) { .sb { grid-template-columns: 1fr auto; } .sb__t { display: none; } }
+
+  /* a page */
+  .sp { position: relative; display: grid; min-height: calc(100svh - var(--header-h) - var(--sbh)); overflow: hidden; background: var(--bg); color: var(--fg); }
+  .sp__art svg { display: block; width: 100%; height: 100%; }
+  .sp__txt { position: relative; z-index: 1; box-sizing: content-box; max-width: 30rem; }
+  .ln { font: 400 clamp(1.25rem, 1rem + .95vw, 1.875rem)/1.45 var(--serif); letter-spacing: -.005em; text-wrap: pretty; }
+  .ln + .ln { margin-top: .55em; }
+  .ln--big { margin-block: .3em; font-size: clamp(2.5rem, 1.2rem + 5vw, 6rem); font-weight: 500; line-height: 1; letter-spacing: -.02em; }
+  .ln--mid { font-size: clamp(1.75rem, 1.1rem + 2.2vw, 3rem); font-weight: 500; line-height: 1.12; letter-spacing: -.015em; }
+  .is-night .ln { text-shadow: 0 1px 18px rgba(0, 0, 0, .35); }
+  /* the words arrive a line at a time, as if read aloud */
+  .sp .ln, .sp .sp__art { opacity: 0; transition: opacity .9s ease, transform .9s cubic-bezier(.2, .7, .2, 1); }
+  .sp .ln { transform: translateY(14px); transition-delay: calc(.25s + var(--i, 0) * .32s); }
+  .sp.is-in .ln, .sp.is-in .sp__art { opacity: 1; transform: none; }
+
+  /* full-bleed picture, words in the open sky */
+  .sp--full .sp__art { position: absolute; inset: 0; }
+  .sp--full .sp__txt { padding: clamp(40px, 7vw, 104px) var(--gutter); }
+  .sp[data-pos="tl"] .sp__txt { align-self: start; justify-self: start; }
+  .sp[data-pos="tr"] .sp__txt { align-self: start; justify-self: end; }
+  .sp[data-pos="bl"] .sp__txt { align-self: end; justify-self: start; }
+  .sp[data-pos="l"] .sp__txt { align-self: center; justify-self: start; }
+  .sp[data-pos="r"] .sp__txt { align-self: center; justify-self: end; }
+  .sp[data-pos="t"] .sp__txt { align-self: start; justify-self: center; text-align: center; max-width: 40rem; }
+  .sp[data-pos="c"] .sp__txt { align-self: center; justify-self: center; text-align: center; }
+  @media (min-width: 1100px) { .sp--full .sp__txt { padding-inline: clamp(48px, 7vw, 120px); } }
+
+  /* a double page: picture on one side, words on the other, a soft fold between */
+  .sp--split { grid-template-columns: 1fr 1fr; }
+  .sp--split .sp__art { position: relative; }
+  .sp--split .sp__art svg { position: absolute; inset: 0; }
+  .sp--split .sp__txt { align-self: center; justify-self: center; padding: clamp(40px, 6vw, 96px); }
+  .sp--split.is-flip .sp__art { order: 2; }
+  .sp--split::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 80px; translate: -50% 0; background: linear-gradient(90deg, transparent, rgba(0, 0, 0, .14) 50%, transparent); pointer-events: none; }
+
+  /* a round picture, like a vignette in a picture book */
+  .sp--circle { place-content: center; justify-items: center; gap: clamp(24px, 4vh, 40px); padding: clamp(40px, 6vh, 72px) var(--gutter); text-align: center; }
+  .sp--circle .sp__art { width: min(380px, 40vh, 78vw); aspect-ratio: 1; border-radius: 50%; overflow: hidden; box-shadow: 0 24px 60px rgba(0, 0, 0, .22); transform: scale(.94); }
+  .sp--circle .sp__txt { max-width: 34rem; }
+
+  /* words as the picture: big sounds and small moments */
+  .sp--type { place-content: center; justify-items: center; gap: clamp(16px, 3vh, 32px); padding: clamp(40px, 6vh, 72px) var(--gutter); text-align: center; }
+  .sp--type .sp__art { width: min(640px, 86vw); transform: translateY(16px); }
+  .sp--type .sp__txt { max-width: 46rem; }
+  .sp--type .ln--big { font-size: clamp(3rem, 1rem + 6vw, 7rem); }
+
+  /* three small pictures in a row */
+  .sp--tri { place-content: center; justify-items: center; gap: clamp(28px, 4vh, 44px); padding: clamp(40px, 6vh, 72px) var(--gutter); text-align: center; }
+  .sp--tri .sp__art { display: flex; justify-content: center; gap: clamp(12px, 3vw, 40px); }
+  .sp--tri .sp__art > div { width: clamp(96px, 22vw, 260px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; box-shadow: 0 18px 44px rgba(0, 0, 0, .25); }
+  .sp--tri .sp__art > div:nth-child(2) { translate: 0 -18px; }
+
+  /* the lullaby: verse with room to breathe */
+  .sp--verse { place-content: center; justify-items: center; padding: clamp(56px, 8vh, 96px) var(--gutter); text-align: center; }
+  .sp--verse .sp__art { position: absolute; left: 0; right: 0; bottom: 0; height: 26%; }
+  .sp--verse .sp__txt { max-width: 40rem; }
+  .sp--verse .ln { font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem); line-height: 1.5; }
+  .sp--verse .ln + .ln { margin-top: .35em; }
+  .sp--verse .ln:nth-child(2) { margin-bottom: .9em; }
+
+  /* to and fro: the lines sway */
+  .sp--sway .ln:nth-child(2) { translate: -1.6em 0; }
+  .sp--sway .ln:nth-child(3) { translate: 1.6em 0; }
+
+  /* two pages either side of one big picture */
+  .sp--spread .sp__art { position: absolute; inset: 0; }
+  .sp--spread { grid-template-columns: 1fr 1fr; align-items: center; }
+  .sp--spread .sp__txt { padding: clamp(40px, 6vw, 96px); max-width: 24rem; }
+  .sp--spread .sp__txt:last-child { justify-self: end; text-align: right; }
+
+  /* the last line of Hush Hush, alone in the dark */
+  .sp--quiet .sp__art { position: absolute; inset: 0; }
+  .sp--quiet .sp__txt { align-self: center; justify-self: center; max-width: 36rem; padding: 0 var(--gutter); text-align: center; translate: 0 12vh; }
+  .sp--quiet .ln { font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem); }
+
+  /* the cover */
+  .sp--open .sp__art { position: absolute; inset: 0; opacity: 1; }
+  .sp--open .sp__txt { align-self: start; justify-self: center; max-width: 44rem; padding: clamp(48px, 10vh, 120px) var(--gutter) 0; text-align: center; }
+  .sp--open h1 { margin-top: 14px; }
+  .sp--open .t-label { opacity: .8; }
+  .sp__down { position: absolute; z-index: 1; left: 50%; bottom: 28px; display: grid; place-items: center; width: 48px; height: 48px; translate: -50% 0; border: 1px solid currentColor; border-radius: 50%; color: var(--fg); animation: nudge 2.4s ease-in-out infinite; }
+  .sp__down svg { width: 18px; height: 18px; }
+  @keyframes nudge { 50% { transform: translateY(6px); } }
+
+  /* the end */
+  .sp--fin { place-content: center; justify-items: center; gap: 18px; padding: clamp(56px, 8vh, 96px) var(--gutter); text-align: center; }
+  .sp--fin .t-label { opacity: .75; }
+  .sp--fin .btns { justify-content: center; }
+
+  /* little movements in the pictures */
+  .tw { animation: tw 3.6s ease-in-out infinite; }
+  @keyframes tw { 50% { opacity: .35; } }
+  .tw2 { transform-box: fill-box; transform-origin: center; animation: tw2 2.8s ease-in-out infinite; }
+  @keyframes tw2 { 50% { transform: scale(1.14); } }
+  .prop { transform-box: fill-box; transform-origin: center; animation: prop .3s linear infinite; }
+  @keyframes prop { 50% { transform: scaleY(.15); } }
+  .bob { animation: bob 4.5s ease-in-out infinite; }
+  @keyframes bob { 50% { transform: translateY(-14px); } }
+  .spin { transform-box: fill-box; transform-origin: center; animation: spin 60s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .twirl { transform-box: fill-box; transform-origin: center bottom; animation: twirl 3.2s ease-in-out infinite; }
+  @keyframes twirl { 50% { transform: rotate(8deg); } }
+  .sway { transform-box: fill-box; transform-origin: center bottom; animation: sway 6s ease-in-out infinite; }
+  @keyframes sway { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+  .grow { transform-box: fill-box; transform-origin: center bottom; transform: scale(.6); opacity: .3; transition: transform 1s cubic-bezier(.3, 1.5, .5, 1), opacity .8s ease; }
+  .is-in .grow { transform: none; opacity: 1; }
+  .is-in .g2 { transition-delay: .7s; } .is-in .g3 { transition-delay: 1.4s; }
+
+  /* dim for bedtime */
+  body.is-dim .st .sp { filter: brightness(.6) saturate(.85); }
+
+  /* phones: pictures above, words below */
+  @media (max-width: 749px) {
+    .sp { min-height: 0; }
+    .sp--full, .sp--spread { display: block; }
+    .sp--full .sp__art, .sp--spread .sp__art { position: relative; aspect-ratio: 16 / 11; }
+    .sp--full .sp__txt, .sp--spread .sp__txt { padding: 32px var(--gutter) 48px; max-width: none; text-align: left; }
+    .sp--spread .sp__txt:last-child { padding-top: 0; text-align: left; }
+    .sp[data-pos="t"] .sp__txt, .sp[data-pos="c"] .sp__txt { text-align: center; }
+    .ln--mid { font-size: clamp(1.75rem, 1.1rem + 2.2vw, 3rem); font-weight: 500; line-height: 1.12; letter-spacing: -.015em; }
+  .is-night .ln { text-shadow: none; }
+    .sp--split { grid-template-columns: 1fr; }
+    .sp--split .sp__art { aspect-ratio: 1; order: 0 !important; }
+    .sp--split::after { display: none; }
+    .sp--split .sp__txt { padding: 32px var(--gutter) 48px; justify-self: start; }
+    .sp--open { min-height: calc(100svh - var(--header-h) - var(--sbh)); }
+    .sp--quiet { min-height: 70svh; }
+    .sp--sway .ln:nth-child(2), .sp--sway .ln:nth-child(3) { translate: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .sp .ln, .sp .sp__art { opacity: 1; transform: none; } .grow { transform: none; opacity: 1; } }
 </style>
 </head>
 <body data-page="prints" class="reader">
 <main>
-  <section class="rd" data-f="rd" data-build="custom" data-build-label="Custom page template: story reader (pages from a metaobject per print). QR on the thank-you card lands here or on the prints page" data-note="5">
-    <div class="rd__bar"><a href="prints.html">← The prints</a><span data-f="title"></span><button type="button" data-f="dim" aria-pressed="false">Dim for bedtime</button></div>
-    <div class="rd__stage" data-f="stage"><div class="rd__page" data-f="page"></div></div>
-    <div class="rd__ctl"><button type="button" data-f="prev" aria-label="Previous page"></button><div class="rd__dots" data-f="dots"></div><button type="button" data-f="next" aria-label="Next page"></button></div>
-  </section>
+  <article class="st" data-f="st" data-build="custom" data-build-label="Custom page template: the story as a picture book on one long scroll (pages from a metaobject per print, a layout chosen per page). QR on the thank-you card lands here or on the prints page" data-note="5">
+    <div class="sb" data-f="sb"><a href="prints.html">← The prints</a><span class="sb__t" data-f="title"></span><button type="button" data-f="dim" aria-pressed="false">Dim for bedtime</button><i class="sb__p" aria-hidden="true"></i></div>
+    <div data-f="book"></div>
+  </article>
 </main>
 <script src="assets/logos.js"></script>
 <script src="assets/site.js"></script>
 <script src="assets/stories.js"></script>
+<script src="assets/story-art.js"></script>
 <script>
+// the picture book: builds every page of the chosen story from stories.js (text, unchanged)
+// and story-art.js (pictures and layouts), then reveals each page as it scrolls into view
 (function () {
   var f = function (k) { return document.querySelector('[data-f="' + k + '"]'); };
   var q = new URLSearchParams(location.search);
-  var key = STORIES[q.get('s')] ? q.get('s') : 'moon', S = STORIES[key], i = 0, N = S.pages.length + 1;
-  var rd = f('rd'); rd.setAttribute('data-print', key);
+  var key = STORIES[q.get('s')] ? q.get('s') : 'moon', S = STORIES[key], ART = STORY_ART[key], SC = ART.scenes;
+  var num = NN.PRINTS[key].n;
   document.title = S.title + ' · Nurture & Next';
-  f('title').textContent = 'Story ' + NN.PRINTS[key].n + ' · ' + S.title;
-  f('prev').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12H5m6-6-6 6 6 6"/></svg>';
-  f('next').innerHTML = NN.I.arrow;
-  f('dots').innerHTML = Array.apply(null, Array(N)).map(function () { return '<i></i>'; }).join('');
-  function pageHTML(n) {
-    if (n === 0) return '<div class="rd__art">' + NN.ART[key] + '</div><span class="t-label" style="opacity:.7">Story ' + NN.PRINTS[key].n + ' of 3</span><h1 class="t-display">' + S.title + '</h1><p style="opacity:.75">Tap or swipe to turn the page</p>';
-    if (n === N) {
-      var nx = S.next;
-      return '<div class="rd__end"><span class="t-label" style="opacity:.7">The end</span><h2 class="t-h1">Sweet dreams</h2>' +
-        '<div class="btns" style="justify-content:center">' + (nx ? '<a class="btn ' + (key === 'moon' ? 'btn--light' : '') + '" href="print-story.html?s=' + nx + '">Next story: ' + STORIES[nx].title + '</a>' : '<a class="btn ' + (key === 'moon' ? 'btn--light' : '') + '" href="prints.html#wheel">Spin Lumi’s wheel</a>') +
-        '<button class="btn ' + (key === 'moon' ? 'btn--line-light' : 'btn--ghost') + '" type="button" data-restart>Read again</button></div>' +
-        '<p class="t-small" style="opacity:.75;margin-top:18px">The ' + S.title + ' print</p><div class="grid">' + NN.pc('sleepsuit-' + key) + NN.pc('pj-' + key) + '</div></div>';
+  f('title').textContent = 'Story ' + num + ' · ' + S.title;
+  f('st').setAttribute('data-print', key);
+
+  // colours per page: Under One Moon stays at night, Dream Atlas in the sage sky,
+  // Hush Hush grows darker page by page
+  var PAL = {
+    moon: function () { return { bg: 'linear-gradient(#26241c, #4d4434)', solid: '#2f2b22', fg: '#f8f2eb', night: true }; },
+    atlas: function () { return { bg: 'linear-gradient(#7e9e9f, #a7c0bf)', solid: '#8caaab', fg: '#262729' }; },
+    hush: function (k) { var H = ART.shades, c = H[Math.min(k, H.length - 1)]; return { bg: 'linear-gradient(' + H[Math.max(0, Math.min(k, H.length) - 1)] + ', ' + c + ')', solid: c, fg: k >= 6 ? '#f3efe8' : '#2f2b24', night: k >= 6 }; }
+  };
+  function pal(k) { return PAL[key](k); }
+  function style(p) { return ' style="--bg:' + p.bg + ';--fg:' + p.fg + ';--bg-solid:' + p.solid + '"'; }
+  function lines(arr, sc, from) {
+    return arr.map(function (l, j) { var i = j + (from || 0); return '<p class="ln' + ((sc.big || []).indexOf(i) > -1 ? ' ln--big' : (sc.mid || []).indexOf(i) > -1 ? ' ln--mid' : '') + '" style="--i:' + i + '">' + l + '</p>'; }).join('');
+  }
+
+  var out = '';
+  // the cover
+  var p0 = pal(0);
+  out += '<section class="sp sp--open' + (p0.night ? ' is-night' : '') + '"' + style(p0) + ' data-build="todo" data-build-label="Illustrations drawn for the prototype from the print motifs; the client’s print artwork replaces them" data-build-pos="br"><div class="sp__art">' + SC.open() + '</div><div class="sp__txt"><span class="t-label">Story ' + num + ' of 3</span><h1 class="t-display">' + S.title + '</h1></div><button class="sp__down" type="button" data-f="begin" aria-label="Begin the story"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button></section>';
+
+  S.pages.forEach(function (pg, k) {
+    var sc = SC.pages[k] || { l: 'type', art: function () { return ''; } };
+    var t = Array.isArray(pg) ? pg : pg.lines, p = pal(k + 1);
+    var l = pg.song ? 'verse' : sc.l, art = sc.art(), cls = 'sp', attrs = '', body;
+    if (l === 'fog') { cls += ' sp--full'; attrs = ' data-pos="c"'; }
+    else if (l === 'sway') { cls += ' sp--full sp--sway'; attrs = ' data-pos="t"'; }
+    else if (l === 'end') cls += ' sp--quiet';
+    else cls += ' sp--' + l;
+    if (sc.flip) cls += ' is-flip';
+    if (sc.pos) attrs = ' data-pos="' + sc.pos + '"';
+    if (p.night) cls += ' is-night';
+    if (l === 'tri') art = art.map(function (a) { return '<div>' + a + '</div>'; }).join('');
+    if (l === 'spread') {
+      var h = Math.ceil(t.length / 2);
+      body = '<div class="sp__art">' + art + '</div><div class="sp__txt">' + lines(t.slice(0, h), sc) + '</div><div class="sp__txt">' + lines(t.slice(h), sc, h) + '</div>';
+    } else if (l === 'verse') {
+      body = '<div class="sp__txt">' + lines(t, sc) + '</div><div class="sp__art">' + art + '</div>';
+    } else {
+      body = '<div class="sp__art">' + art + '</div><div class="sp__txt">' + lines(t, sc) + '</div>';
     }
-    var pg = S.pages[n - 1], lines = Array.isArray(pg) ? pg : pg.lines;
-    return '<div class="rd__lines' + (pg.song ? ' is-song' : '') + '">' + lines.map(function (l) { return '<p>' + l + '</p>'; }).join('') + '</div>';
-  }
-  function show(n, dir) {
-    var page = f('page');
-    page.style.setProperty('--dx', (dir || 1) * -16 + 'px'); page.classList.add('is-out');
-    setTimeout(function () {
-      i = n; page.innerHTML = pageHTML(i); page.style.setProperty('--dx', (dir || 1) * 16 + 'px');
-      requestAnimationFrame(function () { page.classList.remove('is-out'); });
-      f('prev').disabled = i === 0; f('next').disabled = i === N;
-      f('dots').querySelectorAll('i').forEach(function (d, k) { d.classList.toggle('is-on', k === Math.min(i, N - 1)); });
-      if (window.PROTO) PROTO.refresh();
-    }, dir ? 200 : 0);
-  }
-  function go(d) { var n = Math.max(0, Math.min(N, i + d)); if (n !== i) show(n, d); }
-  f('prev').addEventListener('click', function () { go(-1); });
-  f('next').addEventListener('click', function () { go(1); });
-  f('stage').addEventListener('click', function (e) {
-    if (e.target.closest('a, button, .pc')) { if (e.target.closest('[data-restart]')) show(0, -1); return; }
-    var r = this.getBoundingClientRect(); go(e.clientX < r.left + r.width / 3 ? -1 : 1);
+    out += '<section class="' + cls + '"' + attrs + style(p) + '>' + body + '</section>';
   });
-  var x0 = null;
-  f('stage').addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
-  f('stage').addEventListener('touchend', function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); x0 = null; });
-  document.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight') go(1); if (e.key === 'ArrowLeft') go(-1); });
-  f('dim').addEventListener('click', function () { var on = rd.classList.toggle('is-dim'); this.setAttribute('aria-pressed', on); this.textContent = on ? 'Normal light' : 'Dim for bedtime'; });
+
+  // the end: read again
+  var pe = pal(S.pages.length + 1), b1 = key !== 'atlas' ? 'btn btn--light' : 'btn';
+  out += '<section class="sp sp--fin' + (pe.night ? ' is-night' : '') + '"' + style(pe) + '>' +
+    '<span class="t-label">The end</span><h2 class="t-h1">Sweet dreams</h2>' +
+    '<div class="btns"><button class="' + b1 + '" type="button" data-f="again">Read again</button></div></section>';
+
+  f('book').innerHTML = out;
+
+  // the reading bar takes the colour of the page you are on, and fills as you read
+  var sb = f('sb'), pages = [].slice.call(document.querySelectorAll('.sp'));
+  function bar() {
+    var book = f('book'), r = book.getBoundingClientRect(), h = r.height - window.innerHeight;
+    sb.style.setProperty('--p', Math.max(0, Math.min(1, -r.top / Math.max(1, h))));
+    var mid = window.innerHeight * .35, cur = pages[0];
+    pages.forEach(function (s) { if (s.getBoundingClientRect().top < mid) cur = s; });
+    sb.style.setProperty('--sb-bg', cur.style.getPropertyValue('--bg-solid'));
+    sb.style.setProperty('--sb-fg', cur.style.getPropertyValue('--fg'));
+  }
+  var raf = 0;
+  window.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(function () { raf = 0; bar(); }); }, { passive: true });
+  window.addEventListener('resize', bar);
+  bar();
+
+  // each page comes alive as it scrolls into view
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('is-in'); io.unobserve(x.target); } }); }, { threshold: .2 });
+    pages.forEach(function (s) { io.observe(s); });
+  } else pages.forEach(function (s) { s.classList.add('is-in'); });
+
+  f('begin').addEventListener('click', function () { pages[1].scrollIntoView({ behavior: 'smooth' }); });
+  f('again').addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  f('dim').addEventListener('click', function () { var on = document.body.classList.toggle('is-dim'); this.setAttribute('aria-pressed', on); this.textContent = on ? 'Normal light' : 'Dim for bedtime'; });
   document.querySelector('.ftr').style.display = 'none';
-  show(+q.get('page') || 0);
 })();
 window.PROTO_NOTES = window.PROTO_NOTES_OVERRIDE || {};
 </script>
